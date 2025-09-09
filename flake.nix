@@ -185,6 +185,9 @@
 
           # used for rust caching in CI to speed it up
           sccache
+
+          gnused
+          ripgrep
         ]
         # liburing is Linux-exclusive
         ++ lib.optional stdenv.hostPlatform.isLinux liburing
