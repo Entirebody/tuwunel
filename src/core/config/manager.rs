@@ -33,7 +33,7 @@ type Handles = [Handle; HISTORY];
 const HISTORY: usize = 8;
 
 impl Manager {
-	pub(crate) fn new(config: Config) -> Self {
+	pub fn new(config: Config) -> Self {
 		let config = Arc::new(config);
 		Self {
 			active: AtomicPtr::new(Arc::into_raw(config).cast_mut()),

@@ -16,7 +16,7 @@ use crate::Ruma;
 /// - Forgets to-device events
 /// - Triggers device list updates
 #[tracing::instrument(skip_all, fields(%client), name = "logout")]
-pub(crate) async fn logout_route(
+pub async fn logout_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<logout::v3::Request>,
@@ -43,7 +43,7 @@ pub(crate) async fn logout_route(
 /// /_matrix/client/r0/logout`](fn.logout_route.html) from each device of this
 /// user.
 #[tracing::instrument(skip_all, fields(%client), name = "logout")]
-pub(crate) async fn logout_all_route(
+pub async fn logout_all_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<logout_all::v3::Request>,

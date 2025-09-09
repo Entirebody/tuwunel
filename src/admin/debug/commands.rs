@@ -36,13 +36,13 @@ use tuwunel_service::rooms::{
 use crate::admin_command;
 
 #[admin_command]
-pub(super) async fn echo(&self, message: Vec<String>) -> Result {
+pub async fn echo(&self, message: Vec<String>) -> Result {
 	let message = message.join(" ");
 	self.write_str(&message).await
 }
 
 #[admin_command]
-pub(super) async fn get_auth_chain(&self, event_id: OwnedEventId) -> Result {
+pub async fn get_auth_chain(&self, event_id: OwnedEventId) -> Result {
 	let Ok(event) = self
 		.services
 		.timeline
@@ -76,7 +76,7 @@ pub(super) async fn get_auth_chain(&self, event_id: OwnedEventId) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn parse_pdu(&self) -> Result {
+pub async fn parse_pdu(&self) -> Result {
 	if self.body.len() < 2
 		|| !self.body[0].trim().starts_with("```")
 		|| self.body.last().unwrap_or(&EMPTY).trim() != "```"
@@ -105,7 +105,7 @@ pub(super) async fn parse_pdu(&self) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn get_pdu(&self, event_id: OwnedEventId) -> Result {
+pub async fn get_pdu(&self, event_id: OwnedEventId) -> Result {
 	let mut outlier = false;
 	let mut pdu_json = self
 		.services
@@ -138,7 +138,7 @@ pub(super) async fn get_pdu(&self, event_id: OwnedEventId) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn get_short_pdu(
+pub async fn get_short_pdu(
 	&self,
 	shortroomid: ShortRoomId,
 	shorteventid: ShortEventId,
@@ -166,7 +166,7 @@ pub(super) async fn get_short_pdu(
 }
 
 #[admin_command]
-pub(super) async fn get_remote_pdu_list(&self, server: OwnedServerName, force: bool) -> Result {
+pub async fn get_remote_pdu_list(&self, server: OwnedServerName, force: bool) -> Result {
 	if !self.services.server.config.allow_federation {
 		return Err!("Federation is disabled on this homeserver.",);
 	}
@@ -229,7 +229,7 @@ pub(super) async fn get_remote_pdu_list(&self, server: OwnedServerName, force: b
 }
 
 #[admin_command]
-pub(super) async fn get_remote_pdu(
+pub async fn get_remote_pdu(
 	&self,
 	event_id: OwnedEventId,
 	server: OwnedServerName,
@@ -303,7 +303,7 @@ pub(super) async fn get_remote_pdu(
 }
 
 #[admin_command]
-pub(super) async fn get_room_state(&self, room: OwnedRoomOrAliasId) -> Result {
+pub async fn get_room_state(&self, room: OwnedRoomOrAliasId) -> Result {
 	let room_id = self.services.alias.resolve(&room).await?;
 	let room_state: Vec<Raw<AnyStateEvent>> = self
 		.services
@@ -329,7 +329,7 @@ pub(super) async fn get_room_state(&self, room: OwnedRoomOrAliasId) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn ping(&self, server: OwnedServerName) -> Result {
+pub async fn ping(&self, server: OwnedServerName) -> Result {
 	if server == self.services.globals.server_name() {
 		return Err!("Not allowed to send federation requests to ourselves.");
 	}
@@ -365,7 +365,7 @@ pub(super) async fn ping(&self, server: OwnedServerName) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn force_device_list_updates(&self) -> Result {
+pub async fn force_device_list_updates(&self) -> Result {
 	// Force E2EE device list updates for all users
 	self.services
 		.users
@@ -381,7 +381,7 @@ pub(super) async fn force_device_list_updates(&self) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn change_log_level(&self, filter: Option<String>, reset: bool) -> Result {
+pub async fn change_log_level(&self, filter: Option<String>, reset: bool) -> Result {
 	let handles = &["console"];
 
 	if reset {
@@ -433,7 +433,7 @@ pub(super) async fn change_log_level(&self, filter: Option<String>, reset: bool)
 }
 
 #[admin_command]
-pub(super) async fn sign_json(&self) -> Result {
+pub async fn sign_json(&self) -> Result {
 	if self.body.len() < 2
 		|| !self.body[0].trim().starts_with("```")
 		|| self.body.last().unwrap_or(&"").trim() != "```"
@@ -454,7 +454,7 @@ pub(super) async fn sign_json(&self) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn verify_json(&self) -> Result {
+pub async fn verify_json(&self) -> Result {
 	if self.body.len() < 2
 		|| !self.body[0].trim().starts_with("```")
 		|| self.body.last().unwrap_or(&"").trim() != "```"
@@ -479,7 +479,7 @@ pub(super) async fn verify_json(&self) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn verify_pdu(&self, event_id: OwnedEventId) -> Result {
+pub async fn verify_pdu(&self, event_id: OwnedEventId) -> Result {
 	use ruma::signatures::Verified;
 
 	let mut event = self
@@ -505,7 +505,7 @@ pub(super) async fn verify_pdu(&self, event_id: OwnedEventId) -> Result {
 
 #[admin_command]
 #[tracing::instrument(skip(self))]
-pub(super) async fn first_pdu_in_room(&self, room_id: OwnedRoomId) -> Result {
+pub async fn first_pdu_in_room(&self, room_id: OwnedRoomId) -> Result {
 	if !self
 		.services
 		.state_cache
@@ -528,7 +528,7 @@ pub(super) async fn first_pdu_in_room(&self, room_id: OwnedRoomId) -> Result {
 
 #[admin_command]
 #[tracing::instrument(skip(self))]
-pub(super) async fn latest_pdu_in_room(&self, room_id: OwnedRoomId) -> Result {
+pub async fn latest_pdu_in_room(&self, room_id: OwnedRoomId) -> Result {
 	if !self
 		.services
 		.state_cache
@@ -551,7 +551,7 @@ pub(super) async fn latest_pdu_in_room(&self, room_id: OwnedRoomId) -> Result {
 
 #[admin_command]
 #[tracing::instrument(skip(self))]
-pub(super) async fn force_set_room_state_from_server(
+pub async fn force_set_room_state_from_server(
 	&self,
 	room_id: OwnedRoomId,
 	server_name: OwnedServerName,
@@ -701,7 +701,7 @@ pub(super) async fn force_set_room_state_from_server(
 }
 
 #[admin_command]
-pub(super) async fn get_signing_keys(
+pub async fn get_signing_keys(
 	&self,
 	server_name: Option<OwnedServerName>,
 	notary: Option<OwnedServerName>,
@@ -737,7 +737,7 @@ pub(super) async fn get_signing_keys(
 }
 
 #[admin_command]
-pub(super) async fn get_verify_keys(&self, server_name: Option<OwnedServerName>) -> Result {
+pub async fn get_verify_keys(&self, server_name: Option<OwnedServerName>) -> Result {
 	let server_name = server_name.unwrap_or_else(|| self.services.server.name.clone());
 
 	let keys = self
@@ -757,7 +757,7 @@ pub(super) async fn get_verify_keys(&self, server_name: Option<OwnedServerName>)
 }
 
 #[admin_command]
-pub(super) async fn resolve_true_destination(
+pub async fn resolve_true_destination(
 	&self,
 	server_name: OwnedServerName,
 	no_cache: bool,
@@ -784,7 +784,7 @@ pub(super) async fn resolve_true_destination(
 }
 
 #[admin_command]
-pub(super) async fn memory_stats(&self, opts: Option<String>) -> Result {
+pub async fn memory_stats(&self, opts: Option<String>) -> Result {
 	const OPTS: &str = "abcdefghijklmnopqrstuvwxyz";
 
 	let opts: String = OPTS
@@ -808,7 +808,7 @@ pub(super) async fn memory_stats(&self, opts: Option<String>) -> Result {
 
 #[cfg(tokio_unstable)]
 #[admin_command]
-pub(super) async fn runtime_metrics(&self) -> Result {
+pub async fn runtime_metrics(&self) -> Result {
 	let out = self
 		.services
 		.server
@@ -831,14 +831,14 @@ pub(super) async fn runtime_metrics(&self) -> Result {
 
 #[cfg(not(tokio_unstable))]
 #[admin_command]
-pub(super) async fn runtime_metrics(&self) -> Result {
+pub async fn runtime_metrics(&self) -> Result {
 	self.write_str("Runtime metrics require building with `tokio_unstable`.")
 		.await
 }
 
 #[cfg(tokio_unstable)]
 #[admin_command]
-pub(super) async fn runtime_interval(&self) -> Result {
+pub async fn runtime_interval(&self) -> Result {
 	let out = self
 		.services
 		.server
@@ -854,13 +854,13 @@ pub(super) async fn runtime_interval(&self) -> Result {
 
 #[cfg(not(tokio_unstable))]
 #[admin_command]
-pub(super) async fn runtime_interval(&self) -> Result {
+pub async fn runtime_interval(&self) -> Result {
 	self.write_str("Runtime metrics require building with `tokio_unstable`.")
 		.await
 }
 
 #[admin_command]
-pub(super) async fn time(&self) -> Result {
+pub async fn time(&self) -> Result {
 	let now = SystemTime::now();
 	let now = utils::time::format(now, "%+");
 
@@ -868,7 +868,7 @@ pub(super) async fn time(&self) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn list_dependencies(&self, names: bool) -> Result {
+pub async fn list_dependencies(&self, names: bool) -> Result {
 	if names {
 		let out = info::cargo::dependencies_names().join(" ");
 		return self.write_str(&out).await;
@@ -894,7 +894,7 @@ pub(super) async fn list_dependencies(&self, names: bool) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn database_stats(
+pub async fn database_stats(
 	&self,
 	property: Option<String>,
 	map: Option<String>,
@@ -914,7 +914,7 @@ pub(super) async fn database_stats(
 }
 
 #[admin_command]
-pub(super) async fn database_files(&self, map: Option<String>, level: Option<i32>) -> Result {
+pub async fn database_files(&self, map: Option<String>, level: Option<i32>) -> Result {
 	let mut files: Vec<_> = self
 		.services
 		.db
@@ -954,14 +954,14 @@ pub(super) async fn database_files(&self, map: Option<String>, level: Option<i32
 }
 
 #[admin_command]
-pub(super) async fn trim_memory(&self) -> Result {
+pub async fn trim_memory(&self) -> Result {
 	tuwunel_core::alloc::trim(None)?;
 
 	writeln!(self, "done").await
 }
 
 #[admin_command]
-pub(super) async fn create_jwt(
+pub async fn create_jwt(
 	&self,
 	user: String,
 	exp_from_now: Option<u64>,
@@ -1018,7 +1018,7 @@ pub(super) async fn create_jwt(
 }
 
 #[admin_command]
-pub(super) async fn resync_database(&self) -> Result {
+pub async fn resync_database(&self) -> Result {
 	if !self.services.db.is_secondary() {
 		return Err!("Not a secondary instance.");
 	}

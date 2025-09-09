@@ -29,7 +29,7 @@ const AUTO_GEN_PASSWORD_LENGTH: usize = 25;
 const BULK_JOIN_REASON: &str = "Bulk force joining this room as initiated by the server admin.";
 
 #[admin_command]
-pub(super) async fn list_users(&self) -> Result {
+pub async fn list_users(&self) -> Result {
 	let users: Vec<_> = self
 		.services
 		.users
@@ -46,7 +46,7 @@ pub(super) async fn list_users(&self) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn create_user(&self, username: String, password: Option<String>) -> Result {
+pub async fn create_user(&self, username: String, password: Option<String>) -> Result {
 	// Validate user id
 	let user_id = parse_local_user_id(self.services, &username)?;
 
@@ -209,7 +209,7 @@ pub(super) async fn create_user(&self, username: String, password: Option<String
 }
 
 #[admin_command]
-pub(super) async fn deactivate(&self, no_leave_rooms: bool, user_id: String) -> Result {
+pub async fn deactivate(&self, no_leave_rooms: bool, user_id: String) -> Result {
 	// Validate user id
 	let user_id = parse_local_user_id(self.services, &user_id)?;
 
@@ -225,7 +225,7 @@ pub(super) async fn deactivate(&self, no_leave_rooms: bool, user_id: String) -> 
 }
 
 #[admin_command]
-pub(super) async fn reset_password(&self, username: String, password: Option<String>) -> Result {
+pub async fn reset_password(&self, username: String, password: Option<String>) -> Result {
 	let user_id = parse_local_user_id(self.services, &username)?;
 
 	if user_id == self.services.globals.server_user {
@@ -251,7 +251,7 @@ pub(super) async fn reset_password(&self, username: String, password: Option<Str
 }
 
 #[admin_command]
-pub(super) async fn deactivate_all(&self, no_leave_rooms: bool, force: bool) -> Result {
+pub async fn deactivate_all(&self, no_leave_rooms: bool, force: bool) -> Result {
 	if self.body.len() < 2
 		|| !self.body[0].trim().starts_with("```")
 		|| self.body.last().unwrap_or(&"").trim() != "```"
@@ -352,7 +352,7 @@ async fn deactivate_user(services: &Services, user_id: &UserId, no_leave_rooms: 
 }
 
 #[admin_command]
-pub(super) async fn list_joined_rooms(&self, user_id: String) -> Result {
+pub async fn list_joined_rooms(&self, user_id: String) -> Result {
 	// Validate user id
 	let user_id = parse_local_user_id(self.services, &user_id)?;
 
@@ -382,7 +382,7 @@ pub(super) async fn list_joined_rooms(&self, user_id: String) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn force_join_list_of_local_users(
+pub async fn force_join_list_of_local_users(
 	&self,
 	room_id: OwnedRoomOrAliasId,
 	yes_i_want_to_do_this: bool,
@@ -513,7 +513,7 @@ pub(super) async fn force_join_list_of_local_users(
 }
 
 #[admin_command]
-pub(super) async fn force_join_all_local_users(
+pub async fn force_join_all_local_users(
 	&self,
 	room_id: OwnedRoomOrAliasId,
 	yes_i_want_to_do_this: bool,
@@ -608,7 +608,7 @@ pub(super) async fn force_join_all_local_users(
 }
 
 #[admin_command]
-pub(super) async fn force_join_room(
+pub async fn force_join_room(
 	&self,
 	user_id: String,
 	room_id: OwnedRoomOrAliasId,
@@ -639,7 +639,7 @@ pub(super) async fn force_join_room(
 }
 
 #[admin_command]
-pub(super) async fn force_leave_room(
+pub async fn force_leave_room(
 	&self,
 	user_id: String,
 	room_id: OwnedRoomOrAliasId,
@@ -676,7 +676,7 @@ pub(super) async fn force_leave_room(
 }
 
 #[admin_command]
-pub(super) async fn force_demote(&self, user_id: String, room_id: OwnedRoomOrAliasId) -> Result {
+pub async fn force_demote(&self, user_id: String, room_id: OwnedRoomOrAliasId) -> Result {
 	let user_id = parse_local_user_id(self.services, &user_id)?;
 	let room_id = self.services.alias.resolve(&room_id).await?;
 
@@ -738,7 +738,7 @@ pub(super) async fn force_demote(&self, user_id: String, room_id: OwnedRoomOrAli
 }
 
 #[admin_command]
-pub(super) async fn force_promote(
+pub async fn force_promote(
 	&self,
 	target_id: String,
 	room_id: OwnedRoomOrAliasId,
@@ -817,7 +817,7 @@ pub(super) async fn force_promote(
 }
 
 #[admin_command]
-pub(super) async fn make_user_admin(&self, user_id: String) -> Result {
+pub async fn make_user_admin(&self, user_id: String) -> Result {
 	let user_id = parse_local_user_id(self.services, &user_id)?;
 	assert!(
 		self.services.globals.user_is_local(&user_id),
@@ -835,7 +835,7 @@ pub(super) async fn make_user_admin(&self, user_id: String) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn put_room_tag(
+pub async fn put_room_tag(
 	&self,
 	user_id: String,
 	room_id: OwnedRoomId,
@@ -874,7 +874,7 @@ pub(super) async fn put_room_tag(
 }
 
 #[admin_command]
-pub(super) async fn delete_room_tag(
+pub async fn delete_room_tag(
 	&self,
 	user_id: String,
 	room_id: OwnedRoomId,
@@ -914,7 +914,7 @@ pub(super) async fn delete_room_tag(
 }
 
 #[admin_command]
-pub(super) async fn get_room_tags(&self, user_id: String, room_id: OwnedRoomId) -> Result {
+pub async fn get_room_tags(&self, user_id: String, room_id: OwnedRoomId) -> Result {
 	let user_id = parse_active_local_user_id(self.services, &user_id).await?;
 
 	let tags_event = self
@@ -931,7 +931,7 @@ pub(super) async fn get_room_tags(&self, user_id: String, room_id: OwnedRoomId) 
 }
 
 #[admin_command]
-pub(super) async fn redact_event(&self, event_id: OwnedEventId) -> Result {
+pub async fn redact_event(&self, event_id: OwnedEventId) -> Result {
 	let Ok(event) = self
 		.services
 		.timeline

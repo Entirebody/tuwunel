@@ -34,10 +34,10 @@ pub struct CachedOverride {
 }
 
 pub type IpAddrs = ArrayVec<IpAddr, MAX_IPS>;
-pub(crate) const MAX_IPS: usize = 3;
+pub const MAX_IPS: usize = 3;
 
 impl Cache {
-	pub(super) fn new(args: &crate::Args<'_>) -> Arc<Self> {
+	pub fn new(args: &crate::Args<'_>) -> Arc<Self> {
 		Arc::new(Self {
 			destinations: args.db["servername_destination"].clone(),
 			overrides: args.db["servername_override"].clone(),
@@ -128,7 +128,7 @@ impl CachedDest {
 	pub fn valid(&self) -> bool { self.expire > SystemTime::now() }
 
 	#[must_use]
-	pub(crate) fn default_expire() -> SystemTime {
+	pub fn default_expire() -> SystemTime {
 		rand::time_from_now_secs(60 * 60 * 18..60 * 60 * 36)
 	}
 
@@ -148,7 +148,7 @@ impl CachedOverride {
 	pub fn valid(&self) -> bool { self.expire > SystemTime::now() }
 
 	#[must_use]
-	pub(crate) fn default_expire() -> SystemTime {
+	pub fn default_expire() -> SystemTime {
 		rand::time_from_now_secs(60 * 60 * 6..60 * 60 * 12)
 	}
 

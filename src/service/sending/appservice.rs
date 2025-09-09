@@ -12,7 +12,7 @@ use tuwunel_core::{Err, Result, debug_error, err, trace, utils, warn};
 ///
 /// Only returns Ok(None) if there is no url specified in the appservice
 /// registration file
-pub(crate) async fn send_request<T>(
+pub async fn send_request<T>(
 	client: &Client,
 	registration: Registration,
 	request: T,

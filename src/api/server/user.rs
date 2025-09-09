@@ -17,7 +17,7 @@ use crate::{
 /// # `GET /_matrix/federation/v1/user/devices/{userId}`
 ///
 /// Gets information on all devices of the user.
-pub(crate) async fn get_devices_route(
+pub async fn get_devices_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_devices::v1::Request>,
 ) -> Result<get_devices::v1::Response> {
@@ -75,7 +75,7 @@ pub(crate) async fn get_devices_route(
 /// # `POST /_matrix/federation/v1/user/keys/query`
 ///
 /// Gets devices and identity keys for the given users.
-pub(crate) async fn get_keys_route(
+pub async fn get_keys_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_keys::v1::Request>,
 ) -> Result<get_keys::v1::Response> {
@@ -109,7 +109,7 @@ pub(crate) async fn get_keys_route(
 /// # `POST /_matrix/federation/v1/user/keys/claim`
 ///
 /// Claims one-time keys.
-pub(crate) async fn claim_keys_route(
+pub async fn claim_keys_route(
 	State(services): State<crate::State>,
 	body: Ruma<claim_keys::v1::Request>,
 ) -> Result<claim_keys::v1::Response> {

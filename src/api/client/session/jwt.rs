@@ -17,7 +17,7 @@ struct Claim {
 	sub: String,
 }
 
-pub(super) async fn handle_login(
+pub async fn handle_login(
 	services: &Services,
 	_body: &Ruma<Request>,
 	info: &Token,

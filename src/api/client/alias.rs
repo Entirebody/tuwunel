@@ -13,7 +13,7 @@ use crate::Ruma;
 /// # `PUT /_matrix/client/v3/directory/room/{roomAlias}`
 ///
 /// Creates a new room alias on this server.
-pub(crate) async fn create_alias_route(
+pub async fn create_alias_route(
 	State(services): State<crate::State>,
 	body: Ruma<create_alias::v3::Request>,
 ) -> Result<create_alias::v3::Response> {
@@ -54,7 +54,7 @@ pub(crate) async fn create_alias_route(
 /// Deletes a room alias from this server.
 ///
 /// - TODO: Update canonical alias event
-pub(crate) async fn delete_alias_route(
+pub async fn delete_alias_route(
 	State(services): State<crate::State>,
 	body: Ruma<delete_alias::v3::Request>,
 ) -> Result<delete_alias::v3::Response> {
@@ -77,7 +77,7 @@ pub(crate) async fn delete_alias_route(
 /// # `GET /_matrix/client/v3/directory/room/{roomAlias}`
 ///
 /// Resolve an alias locally or over federation.
-pub(crate) async fn get_alias_route(
+pub async fn get_alias_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_alias::v3::Request>,
 ) -> Result<get_alias::v3::Response> {

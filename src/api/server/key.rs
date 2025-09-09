@@ -22,7 +22,7 @@ use tuwunel_core::{Result, utils::timepoint_from_now};
 ///   this will be valid forever.
 // Response type for this endpoint is Json because we need to calculate a
 // signature for the response
-pub(crate) async fn get_server_keys_route(
+pub async fn get_server_keys_route(
 	State(services): State<crate::State>,
 ) -> Result<impl IntoResponse> {
 	let server_name = services.globals.server_name();
@@ -77,7 +77,7 @@ fn expires_ts() -> MilliSecondsSinceUnixEpoch {
 ///
 /// - Matrix does not support invalidating public keys, so the key returned by
 ///   this will be valid forever.
-pub(crate) async fn get_server_keys_deprecated_route(
+pub async fn get_server_keys_deprecated_route(
 	State(services): State<crate::State>,
 ) -> impl IntoResponse {
 	get_server_keys_route(State(services)).await

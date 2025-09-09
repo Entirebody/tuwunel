@@ -44,7 +44,7 @@ where
 	Ok((*out).as_ref())
 }
 
-pub(crate) struct Serializer<'a, W: Write> {
+pub struct Serializer<'a, W: Write> {
 	out: &'a mut W,
 	depth: u32,
 	sep: bool,

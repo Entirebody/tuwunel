@@ -35,7 +35,7 @@ const TUWUNEL_CSP: &[&str; 5] = &[
 
 const TUWUNEL_PERMISSIONS_POLICY: &[&str; 2] = &["interest-cohort=()", "browsing-topics=()"];
 
-pub(crate) fn build(services: &Arc<Services>) -> Result<(Router, Guard)> {
+pub fn build(services: &Arc<Services>) -> Result<(Router, Guard)> {
 	let server = &services.server;
 	let layers = ServiceBuilder::new();
 

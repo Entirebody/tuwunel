@@ -12,7 +12,7 @@ use crate::Ruma;
 ///
 /// <https://spec.matrix.org/v1.15/client-server-api/#post_matrixclientv3refresh>
 #[tracing::instrument(skip_all, fields(%client), name = "refresh_token")]
-pub(crate) async fn refresh_token_route(
+pub async fn refresh_token_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<Request>,

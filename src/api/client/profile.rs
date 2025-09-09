@@ -24,7 +24,7 @@ use crate::Ruma;
 /// Updates the displayname.
 ///
 /// - Also makes sure other users receive the update using presence EDUs
-pub(crate) async fn set_displayname_route(
+pub async fn set_displayname_route(
 	State(services): State<crate::State>,
 	body: Ruma<set_display_name::v3::Request>,
 ) -> Result<set_display_name::v3::Response> {
@@ -63,7 +63,7 @@ pub(crate) async fn set_displayname_route(
 ///
 /// - If user is on another server and we do not have a local copy already fetch
 ///   displayname over federation
-pub(crate) async fn get_displayname_route(
+pub async fn get_displayname_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_display_name::v3::Request>,
 ) -> Result<get_display_name::v3::Response> {
@@ -121,7 +121,7 @@ pub(crate) async fn get_displayname_route(
 /// Updates the `avatar_url` and `blurhash`.
 ///
 /// - Also makes sure other users receive the update using presence EDUs
-pub(crate) async fn set_avatar_url_route(
+pub async fn set_avatar_url_route(
 	State(services): State<crate::State>,
 	body: Ruma<set_avatar_url::v3::Request>,
 ) -> Result<set_avatar_url::v3::Response> {
@@ -166,7 +166,7 @@ pub(crate) async fn set_avatar_url_route(
 ///
 /// - If user is on another server and we do not have a local copy already fetch
 ///   `avatar_url` and blurhash over federation
-pub(crate) async fn get_avatar_url_route(
+pub async fn get_avatar_url_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_avatar_url::v3::Request>,
 ) -> Result<get_avatar_url::v3::Response> {
@@ -228,7 +228,7 @@ pub(crate) async fn get_avatar_url_route(
 ///
 /// - If user is on another server and we do not have a local copy already,
 ///   fetch profile over federation.
-pub(crate) async fn get_profile_route(
+pub async fn get_profile_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_profile::v3::Request>,
 ) -> Result<get_profile::v3::Response> {

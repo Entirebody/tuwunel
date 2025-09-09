@@ -23,7 +23,7 @@ use super::check_room_id;
 	fields(%origin),
 )]
 #[allow(clippy::type_complexity)]
-pub(super) async fn fetch_prev<'a, Events>(
+pub async fn fetch_prev<'a, Events>(
 	&self,
 	origin: &ServerName,
 	room_id: &RoomId,

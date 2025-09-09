@@ -21,7 +21,7 @@ const LIMIT_DEFAULT: usize = 50;
 ///
 /// Retrieves events from before the sender joined the room, if the room's
 /// history visibility allows.
-pub(crate) async fn get_backfill_route(
+pub async fn get_backfill_route(
 	State(services): State<crate::State>,
 	ref body: Ruma<get_backfill::v1::Request>,
 ) -> Result<get_backfill::v1::Response> {

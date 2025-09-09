@@ -465,7 +465,7 @@ pub fn parse_master_key(
 	Ok((master_key_key, master_key))
 }
 
-pub(super) fn parse_user_signing_key(user_signing_key: &Raw<CrossSigningKey>) -> Result<String> {
+pub fn parse_user_signing_key(user_signing_key: &Raw<CrossSigningKey>) -> Result<String> {
 	let mut user_signing_key_ids = user_signing_key
 		.deserialize()
 		.map_err(|_| err!(Request(InvalidParam("Invalid user signing key"))))?

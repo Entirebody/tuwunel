@@ -10,7 +10,7 @@ use super::{cf_opts::cache_size_f64, logger::handle as handle_log};
 /// resulting value. Note that we require special per-column options on some
 /// columns, therefor columns should only be opened after passing this result
 /// through cf_options().
-pub(crate) fn db_options(config: &Config, env: &Env, row_cache: &Cache) -> Result<Options> {
+pub fn db_options(config: &Config, env: &Env, row_cache: &Cache) -> Result<Options> {
 	const DEFAULT_STATS_LEVEL: StatsLevel = if cfg!(debug_assertions) {
 		StatsLevel::ExceptDetailedTimers
 	} else {

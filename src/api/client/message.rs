@@ -63,7 +63,7 @@ const LIMIT_DEFAULT: usize = 10;
 ///
 /// - Only works if the user is joined (TODO: always allow, but only show events
 ///   where the user was joined, depending on `history_visibility`)
-pub(crate) async fn get_message_events_route(
+pub async fn get_message_events_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_message_events::v3::Request>,
 ) -> Result<get_message_events::v3::Response> {
@@ -167,7 +167,7 @@ pub(crate) async fn get_message_events_route(
 	})
 }
 
-pub(crate) async fn lazy_loading_witness<'a, I>(
+pub async fn lazy_loading_witness<'a, I>(
 	services: &Services,
 	lazy_loading_context: &lazy_loading::Context<'_>,
 	events: I,
@@ -229,7 +229,7 @@ async fn get_member_event(
 }
 
 #[inline]
-pub(crate) async fn ignored_filter(
+pub async fn ignored_filter(
 	services: &Services,
 	item: PdusIterItem,
 	user_id: &UserId,
@@ -243,7 +243,7 @@ pub(crate) async fn ignored_filter(
 }
 
 #[inline]
-pub(crate) async fn is_ignored_pdu<Pdu>(
+pub async fn is_ignored_pdu<Pdu>(
 	services: &Services,
 	event: &Pdu,
 	user_id: &UserId,
@@ -280,7 +280,7 @@ where
 }
 
 #[inline]
-pub(crate) async fn visibility_filter(
+pub async fn visibility_filter(
 	services: &Services,
 	item: PdusIterItem,
 	user_id: &UserId,
@@ -295,7 +295,7 @@ pub(crate) async fn visibility_filter(
 }
 
 #[inline]
-pub(crate) fn event_filter(item: PdusIterItem, filter: &RoomEventFilter) -> Option<PdusIterItem> {
+pub fn event_filter(item: PdusIterItem, filter: &RoomEventFilter) -> Option<PdusIterItem> {
 	let (_, pdu) = &item;
 	filter.matches(pdu).then_some(item)
 }

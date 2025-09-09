@@ -12,17 +12,17 @@ use tuwunel_core::{
 };
 use tuwunel_database::{Deserialized, Interfix, Json, Map};
 
-pub(super) struct Data {
+pub struct Data {
 	roomuserid_privateread: Arc<Map>,
 	roomuserid_lastprivatereadupdate: Arc<Map>,
 	services: Arc<crate::services::OnceServices>,
 	readreceiptid_readreceipt: Arc<Map>,
 }
 
-pub(super) type ReceiptItem<'a> = (&'a UserId, u64, Raw<AnySyncEphemeralRoomEvent>);
+pub type ReceiptItem<'a> = (&'a UserId, u64, Raw<AnySyncEphemeralRoomEvent>);
 
 impl Data {
-	pub(super) fn new(args: &crate::Args<'_>) -> Self {
+	pub fn new(args: &crate::Args<'_>) -> Self {
 		let db = &args.db;
 		Self {
 			roomuserid_privateread: db["roomuserid_privateread"].clone(),
@@ -33,7 +33,7 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) async fn readreceipt_update(
+	pub async fn readreceipt_update(
 		&self,
 		user_id: &UserId,
 		room_id: &RoomId,
@@ -56,7 +56,7 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) fn readreceipts_since<'a>(
+	pub fn readreceipts_since<'a>(
 		&'a self,
 		room_id: &'a RoomId,
 		since: u64,
@@ -85,7 +85,7 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) fn private_read_set(&self, room_id: &RoomId, user_id: &UserId, pdu_count: u64) {
+	pub fn private_read_set(&self, room_id: &RoomId, user_id: &UserId, pdu_count: u64) {
 		let key = (room_id, user_id);
 		let next_count = self.services.globals.next_count();
 
@@ -95,7 +95,7 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) async fn private_read_get_count(
+	pub async fn private_read_get_count(
 		&self,
 		room_id: &RoomId,
 		user_id: &UserId,
@@ -108,7 +108,7 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) async fn last_privateread_update(
+	pub async fn last_privateread_update(
 		&self,
 		user_id: &UserId,
 		room_id: &RoomId,
@@ -122,7 +122,7 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) async fn delete_all_read_receipts(&self, room_id: &RoomId) -> Result {
+	pub async fn delete_all_read_receipts(&self, room_id: &RoomId) -> Result {
 		let prefix = (room_id, Interfix);
 
 		self.roomuserid_privateread

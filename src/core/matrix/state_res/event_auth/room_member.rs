@@ -34,7 +34,7 @@ use super::{
 /// as some authorization rules depend on the signatures being valid on the
 /// event.
 #[tracing::instrument(level = "trace", skip_all)]
-pub(super) async fn check_room_member<Fetch, Fut, Pdu>(
+pub async fn check_room_member<Fetch, Fut, Pdu>(
 	room_member_event: &RoomMemberEvent<Pdu>,
 	rules: &AuthorizationRules,
 	room_create_event: &RoomCreateEvent<Pdu>,

@@ -24,7 +24,7 @@ use crate::utils::stream::{IterStream, ReadyExt};
 /// ## Returns
 ///
 /// Outputs the event IDs that are not present in all the auth chains.
-pub(super) fn auth_difference<'a, AuthSets, Id>(auth_sets: AuthSets) -> impl Stream<Item = Id>
+pub fn auth_difference<'a, AuthSets, Id>(auth_sets: AuthSets) -> impl Stream<Item = Id>
 where
 	AuthSets: Stream<Item = AuthSet<Id>>,
 	Id: Borrow<EventId> + Clone + Eq + Ord + Send + 'a,

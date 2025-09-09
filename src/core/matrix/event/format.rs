@@ -10,9 +10,9 @@ use serde_json::json;
 
 use super::{Event, redact};
 
-pub struct Owned<E: Event>(pub(super) E);
+pub struct Owned<E: Event>(pub E);
 
-pub struct Ref<'a, E: Event>(pub(super) &'a E);
+pub struct Ref<'a, E: Event>(pub &'a E);
 
 impl<E: Event> From<Owned<E>> for Raw<AnySyncTimelineEvent> {
 	fn from(event: Owned<E>) -> Self { Ref(&event.0).into() }

@@ -8,7 +8,7 @@ use tuwunel_core::{Err, Result};
 use crate::Context;
 
 #[derive(Debug, Subcommand)]
-pub(crate) enum RoomAliasCommand {
+pub enum RoomAliasCommand {
 	/// - Make an alias point to a room.
 	Set {
 		#[arg(short, long)]
@@ -42,7 +42,7 @@ pub(crate) enum RoomAliasCommand {
 	},
 }
 
-pub(super) async fn process(command: RoomAliasCommand, context: &Context<'_>) -> Result {
+pub async fn process(command: RoomAliasCommand, context: &Context<'_>) -> Result {
 	let services = context.services;
 	let server_user = &services.globals.server_user;
 

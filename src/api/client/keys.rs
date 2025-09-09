@@ -34,7 +34,7 @@ use crate::Ruma;
 /// - Adds one time keys
 /// - If there are no device keys yet: Adds device keys (TODO: merge with
 ///   existing keys?)
-pub(crate) async fn upload_keys_route(
+pub async fn upload_keys_route(
 	State(services): State<crate::State>,
 	body: Ruma<upload_keys::v3::Request>,
 ) -> Result<upload_keys::v3::Response> {
@@ -123,7 +123,7 @@ pub(crate) async fn upload_keys_route(
 /// - Gets master keys, self-signing keys, user signing keys and device keys.
 /// - The master and self-signing keys contain signatures that the user is
 ///   allowed to see
-pub(crate) async fn get_keys_route(
+pub async fn get_keys_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_keys::v3::Request>,
 ) -> Result<get_keys::v3::Response> {
@@ -142,7 +142,7 @@ pub(crate) async fn get_keys_route(
 /// # `POST /_matrix/client/r0/keys/claim`
 ///
 /// Claims one-time keys
-pub(crate) async fn claim_keys_route(
+pub async fn claim_keys_route(
 	State(services): State<crate::State>,
 	body: Ruma<claim_keys::v3::Request>,
 ) -> Result<claim_keys::v3::Response> {
@@ -154,7 +154,7 @@ pub(crate) async fn claim_keys_route(
 /// Uploads end-to-end key information for the sender user.
 ///
 /// - Requires UIAA to verify password
-pub(crate) async fn upload_signing_keys_route(
+pub async fn upload_signing_keys_route(
 	State(services): State<crate::State>,
 	body: Ruma<upload_signing_keys::v3::Request>,
 ) -> Result<upload_signing_keys::v3::Response> {
@@ -308,7 +308,7 @@ async fn check_for_new_keys(
 /// TODO: clean this timo-code up more and integrate failures. tried to improve
 /// it a bit to stop exploding the entire request on bad sigs, but needs way
 /// more work.
-pub(crate) async fn upload_signatures_route(
+pub async fn upload_signatures_route(
 	State(services): State<crate::State>,
 	body: Ruma<upload_signatures::v3::Request>,
 ) -> Result<upload_signatures::v3::Response> {
@@ -366,7 +366,7 @@ pub(crate) async fn upload_signatures_route(
 /// previous sync token.
 ///
 /// - TODO: left users
-pub(crate) async fn get_key_changes_route(
+pub async fn get_key_changes_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_key_changes::v3::Request>,
 ) -> Result<get_key_changes::v3::Response> {
@@ -416,7 +416,7 @@ pub(crate) async fn get_key_changes_route(
 	})
 }
 
-pub(crate) async fn get_keys_helper<F>(
+pub async fn get_keys_helper<F>(
 	services: &Services,
 	sender_user: Option<&UserId>,
 	device_keys_input: &BTreeMap<OwnedUserId, Vec<OwnedDeviceId>>,
@@ -617,7 +617,7 @@ fn add_unsigned_device_display_name(
 	Ok(())
 }
 
-pub(crate) async fn claim_keys_helper(
+pub async fn claim_keys_helper(
 	services: &Services,
 	one_time_keys_input: &BTreeMap<OwnedUserId, BTreeMap<OwnedDeviceId, OneTimeKeyAlgorithm>>,
 ) -> Result<claim_keys::v3::Response> {

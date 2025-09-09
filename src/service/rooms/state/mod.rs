@@ -526,7 +526,7 @@ impl Service {
 		}
 	}
 
-	pub(super) async fn delete_all_rooms_forward_extremities(&self, room_id: &RoomId) -> Result {
+	pub async fn delete_all_rooms_forward_extremities(&self, room_id: &RoomId) -> Result {
 		let prefix = (room_id, Interfix);
 
 		self.db
@@ -542,7 +542,7 @@ impl Service {
 		Ok(())
 	}
 
-	pub(super) async fn delete_room_shortstatehash(
+	pub async fn delete_room_shortstatehash(
 		&self,
 		room_id: &RoomId,
 		_mutex_lock: &Guard<OwnedRoomId, ()>,

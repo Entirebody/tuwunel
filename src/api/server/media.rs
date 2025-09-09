@@ -20,7 +20,7 @@ use crate::Ruma;
 	skip_all,
 	fields(%client)
 )]
-pub(crate) async fn get_content_route(
+pub async fn get_content_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_content::v1::Request>,
@@ -62,7 +62,7 @@ pub(crate) async fn get_content_route(
 	skip_all,
 	fields(%client)
 )]
-pub(crate) async fn get_content_thumbnail_route(
+pub async fn get_content_thumbnail_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_content_thumbnail::v1::Request>,

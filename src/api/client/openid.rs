@@ -12,7 +12,7 @@ use crate::Ruma;
 /// Request an OpenID token to verify identity with third-party services.
 ///
 /// - The token generated is only valid for the OpenID API
-pub(crate) async fn create_openid_token_route(
+pub async fn create_openid_token_route(
 	State(services): State<crate::State>,
 	body: Ruma<account::request_openid_token::v3::Request>,
 ) -> Result<account::request_openid_token::v3::Response> {

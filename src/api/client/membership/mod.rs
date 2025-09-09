@@ -19,7 +19,7 @@ use ruma::{
 use tuwunel_core::{Err, Result, result::LogErr, utils::shuffle, warn};
 use tuwunel_service::Services;
 
-pub(crate) use self::{
+pub use self::{
 	ban::ban_user_route,
 	forget::forget_room_route,
 	invite::invite_user_route,
@@ -35,7 +35,7 @@ use crate::Ruma;
 /// # `POST /_matrix/client/r0/joined_rooms`
 ///
 /// Lists all rooms the user has joined.
-pub(crate) async fn joined_rooms_route(
+pub async fn joined_rooms_route(
 	State(services): State<crate::State>,
 	body: Ruma<joined_rooms::v3::Request>,
 ) -> Result<joined_rooms::v3::Response> {
@@ -55,7 +55,7 @@ pub(crate) async fn joined_rooms_route(
 /// Performs automatic deactivation if `auto_deactivate_banned_room_attempts` is
 /// enabled
 #[tracing::instrument(skip(services))]
-pub(crate) async fn banned_room_check(
+pub async fn banned_room_check(
 	services: &Services,
 	user_id: &UserId,
 	room_id: Option<&RoomId>,

@@ -8,7 +8,7 @@ use crate::Context;
 /// every user in our database (remote and local). Reports total count, any
 /// errors if there were any, etc
 #[implement(Context, params = "<'_>")]
-pub(super) async fn check_all_users(&self) -> Result {
+pub async fn check_all_users(&self) -> Result {
 	let timer = tokio::time::Instant::now();
 	let users = self
 		.services

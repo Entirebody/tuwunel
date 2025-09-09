@@ -10,7 +10,7 @@ use crate::Ruma;
 
 const LIMIT_MAX: usize = 100;
 
-pub(crate) async fn room_initial_sync_route(
+pub async fn room_initial_sync_route(
 	State(services): State<crate::State>,
 	body: Ruma<Request>,
 ) -> Result<Response> {

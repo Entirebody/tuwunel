@@ -12,7 +12,7 @@ use crate::Ruma;
 ///
 /// Retrieves a snapshot of a room's state at a given event, in the form of
 /// event IDs.
-pub(crate) async fn get_room_state_ids_route(
+pub async fn get_room_state_ids_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_room_state_ids::v1::Request>,
 ) -> Result<get_room_state_ids::v1::Response> {

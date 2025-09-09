@@ -19,7 +19,7 @@ use crate::Ruma;
 ///
 /// Note: Unstable features are used while developing new features. Clients
 /// should avoid using unstable features in their stable releases
-pub(crate) async fn get_supported_versions_route(
+pub async fn get_supported_versions_route(
 	_body: Ruma<get_supported_versions::Request>,
 ) -> Result<get_supported_versions::Response> {
 	let resp = get_supported_versions::Response {
@@ -64,7 +64,7 @@ pub(crate) async fn get_supported_versions_route(
 ///
 /// Tuwunel-specific API to get the server version, results akin to
 /// `/_matrix/federation/v1/version`
-pub(crate) async fn tuwunel_server_version() -> Result<impl IntoResponse> {
+pub async fn tuwunel_server_version() -> Result<impl IntoResponse> {
 	Ok(Json(serde_json::json!({
 		"name": tuwunel_core::version::name(),
 		"version": tuwunel_core::version::version(),
@@ -76,7 +76,7 @@ pub(crate) async fn tuwunel_server_version() -> Result<impl IntoResponse> {
 /// Tuwunel-specific API to return the amount of users registered on this
 /// homeserver. Endpoint is disabled if federation is disabled for privacy. This
 /// only includes active users (not deactivated, no guests, etc)
-pub(crate) async fn tuwunel_local_user_count(
+pub async fn tuwunel_local_user_count(
 	State(services): State<crate::State>,
 ) -> Result<impl IntoResponse> {
 	let user_count = services.users.list_local_users().count().await;

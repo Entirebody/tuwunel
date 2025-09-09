@@ -11,7 +11,7 @@ use crate::Ruma;
 /// # `GET /_matrix/federation/v1/state/{roomId}`
 ///
 /// Retrieves a snapshot of a room's state at a given event.
-pub(crate) async fn get_room_state_route(
+pub async fn get_room_state_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_room_state::v1::Request>,
 ) -> Result<get_room_state::v1::Response> {

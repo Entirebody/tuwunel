@@ -9,7 +9,7 @@ use crate::Ruma;
 /// Loads a filter that was previously created.
 ///
 /// - A user can only access their own filters
-pub(crate) async fn get_filter_route(
+pub async fn get_filter_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_filter::v3::Request>,
 ) -> Result<get_filter::v3::Response> {
@@ -24,7 +24,7 @@ pub(crate) async fn get_filter_route(
 /// # `PUT /_matrix/client/r0/user/{userId}/filter`
 ///
 /// Creates a new filter to be used by other endpoints.
-pub(crate) async fn create_filter_route(
+pub async fn create_filter_route(
 	State(services): State<crate::State>,
 	body: Ruma<create_filter::v3::Request>,
 ) -> Result<create_filter::v3::Response> {

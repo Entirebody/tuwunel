@@ -36,7 +36,7 @@ use std::{
 use rocksdb::{AsColumnFamilyRef, ColumnFamily, ReadOptions, WriteOptions};
 use tuwunel_core::Result;
 
-pub(crate) use self::options::{
+pub use self::options::{
 	cache_iter_options_default, cache_read_options_default, iter_options_default,
 	read_options_default, write_options_default,
 };
@@ -55,7 +55,7 @@ pub struct Map {
 }
 
 impl Map {
-	pub(crate) fn open(db: &Arc<Engine>, name: &'static str) -> Result<Arc<Self>> {
+	pub fn open(db: &Arc<Engine>, name: &'static str) -> Result<Arc<Self>> {
 		Ok(Arc::new(Self {
 			name,
 			watch: Watch::default(),
@@ -79,10 +79,10 @@ impl Map {
 	pub fn name(&self) -> &str { self.name }
 
 	#[inline]
-	pub(crate) fn db(&self) -> &Arc<Engine> { &self.db }
+	pub fn db(&self) -> &Arc<Engine> { &self.db }
 
 	#[inline]
-	pub(crate) fn cf(&self) -> impl AsColumnFamilyRef + '_ { &*self.cf }
+	pub fn cf(&self) -> impl AsColumnFamilyRef + '_ { &*self.cf }
 }
 
 impl Debug for Map {

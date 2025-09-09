@@ -12,7 +12,7 @@ use tuwunel_core::{
 use crate::Ruma;
 
 /// # `GET /_matrix/client/r0/rooms/{roomId}/threads`
-pub(crate) async fn get_threads_route(
+pub async fn get_threads_route(
 	State(services): State<crate::State>,
 	ref body: Ruma<get_threads::v1::Request>,
 ) -> Result<get_threads::v1::Response> {

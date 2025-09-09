@@ -11,7 +11,7 @@ use crate::Ruma;
 /// # `GET /_matrix/federation/v1/make_leave/{roomId}/{eventId}`
 ///
 /// Creates a leave template.
-pub(crate) async fn create_leave_event_template_route(
+pub async fn create_leave_event_template_route(
 	State(services): State<crate::State>,
 	body: Ruma<prepare_leave_event::v1::Request>,
 ) -> Result<prepare_leave_event::v1::Response> {

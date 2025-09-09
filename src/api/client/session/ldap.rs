@@ -10,7 +10,7 @@ use super::password_login;
 /// Creates the user if the user is found in the LDAP and do not already have an
 /// account.
 #[tracing::instrument(skip_all, fields(%user_id), name = "ldap")]
-pub(super) async fn ldap_login(
+pub async fn ldap_login(
 	services: &Services,
 	user_id: &UserId,
 	lowercased_user_id: &UserId,

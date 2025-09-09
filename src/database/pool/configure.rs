@@ -13,7 +13,7 @@ use tuwunel_core::{
 
 use super::{QUEUE_LIMIT, WORKER_LIMIT};
 
-pub(super) fn configure(server: &Arc<Server>) -> (usize, Vec<usize>, Vec<usize>) {
+pub fn configure(server: &Arc<Server>) -> (usize, Vec<usize>, Vec<usize>) {
 	let config = &server.config;
 
 	// This finds the block device and gathers all the properties we need.

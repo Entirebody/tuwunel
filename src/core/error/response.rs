@@ -45,7 +45,7 @@ impl From<Error> for UiaaResponse {
 	}
 }
 
-pub(super) fn status_code(kind: &ErrorKind, hint: StatusCode) -> StatusCode {
+pub fn status_code(kind: &ErrorKind, hint: StatusCode) -> StatusCode {
 	if hint == StatusCode::BAD_REQUEST {
 		bad_request_code(kind)
 	} else {
@@ -53,7 +53,7 @@ pub(super) fn status_code(kind: &ErrorKind, hint: StatusCode) -> StatusCode {
 	}
 }
 
-pub(super) fn bad_request_code(kind: &ErrorKind) -> StatusCode {
+pub fn bad_request_code(kind: &ErrorKind) -> StatusCode {
 	use ErrorKind::*;
 
 	match kind {
@@ -85,7 +85,7 @@ pub(super) fn bad_request_code(kind: &ErrorKind) -> StatusCode {
 	}
 }
 
-pub(super) fn ruma_error_message(error: &ruma::api::client::error::Error) -> String {
+pub fn ruma_error_message(error: &ruma::api::client::error::Error) -> String {
 	if let ErrorBody::Standard { message, .. } = &error.body {
 		return message.clone();
 	}
@@ -93,11 +93,11 @@ pub(super) fn ruma_error_message(error: &ruma::api::client::error::Error) -> Str
 	format!("{error}")
 }
 
-pub(super) fn ruma_error_kind(e: &ruma::api::client::error::Error) -> &ErrorKind {
+pub fn ruma_error_kind(e: &ruma::api::client::error::Error) -> &ErrorKind {
 	e.error_kind().unwrap_or(&ErrorKind::Unknown)
 }
 
-pub(super) fn io_error_code(kind: std::io::ErrorKind) -> StatusCode {
+pub fn io_error_code(kind: std::io::ErrorKind) -> StatusCode {
 	use std::io::ErrorKind;
 
 	match kind {

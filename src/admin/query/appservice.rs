@@ -6,7 +6,7 @@ use crate::Context;
 
 #[derive(Debug, Subcommand)]
 /// All the getters and iterators from src/database/key_value/appservice.rs
-pub(crate) enum AppserviceCommand {
+pub enum AppserviceCommand {
 	/// - Gets the appservice registration info/details from the ID as a string
 	GetRegistration {
 		/// Appservice registration ID
@@ -18,7 +18,7 @@ pub(crate) enum AppserviceCommand {
 }
 
 /// All the getters and iterators from src/database/key_value/appservice.rs
-pub(super) async fn process(subcommand: AppserviceCommand, context: &Context<'_>) -> Result {
+pub async fn process(subcommand: AppserviceCommand, context: &Context<'_>) -> Result {
 	let services = context.services;
 
 	match subcommand {

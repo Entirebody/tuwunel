@@ -21,7 +21,7 @@ use crate::Ruma;
 /// # `GET /_matrix/federation/v1/make_join/{roomId}/{userId}`
 ///
 /// Creates a join template.
-pub(crate) async fn create_join_event_template_route(
+pub async fn create_join_event_template_route(
 	State(services): State<crate::State>,
 	body: Ruma<prepare_join_event::v1::Request>,
 ) -> Result<prepare_join_event::v1::Response> {
@@ -145,7 +145,7 @@ pub(crate) async fn create_join_event_template_route(
 }
 
 /// Checks whether the given user can join the given room via a restricted join.
-pub(crate) async fn user_can_perform_restricted_join(
+pub async fn user_can_perform_restricted_join(
 	services: &Services,
 	user_id: &UserId,
 	room_id: &RoomId,

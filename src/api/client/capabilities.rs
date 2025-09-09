@@ -20,7 +20,7 @@ use crate::Ruma;
 ///
 /// Get information on the supported feature set and other relevant capabilities
 /// of this server.
-pub(crate) async fn get_capabilities_route(
+pub async fn get_capabilities_route(
 	State(services): State<crate::State>,
 	_body: Ruma<get_capabilities::v3::Request>,
 ) -> Result<get_capabilities::v3::Response> {

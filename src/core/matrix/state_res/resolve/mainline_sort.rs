@@ -42,7 +42,7 @@ use crate::{
 		?power_level,
 	)
 )]
-pub(super) async fn mainline_sort<'a, RemainingEvents, Fetch, Fut, Pdu>(
+pub async fn mainline_sort<'a, RemainingEvents, Fetch, Fut, Pdu>(
 	mut power_level: Option<OwnedEventId>,
 	events: RemainingEvents,
 	fetch: &Fetch,

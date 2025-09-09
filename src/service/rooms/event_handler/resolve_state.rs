@@ -96,7 +96,7 @@ pub async fn resolve_state(
 }
 
 #[implement(super::Service)]
-pub(super) async fn state_resolution<StateSets, AuthSets>(
+pub async fn state_resolution<StateSets, AuthSets>(
 	&self,
 	room_version: &RoomVersionId,
 	state_sets: StateSets,

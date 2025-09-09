@@ -32,7 +32,7 @@ impl Module {
 		}
 	}
 
-	pub(crate) fn close(&mut self) {
+	pub fn close(&mut self) {
 		if let Some(handle) = self.handle.take() {
 			handle.close().expect("Module handle closed");
 		}

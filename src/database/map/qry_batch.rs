@@ -34,7 +34,7 @@ where
 
 #[implement(super::Map)]
 #[tracing::instrument(skip(self, keys), level = "trace")]
-pub(crate) fn qry_batch<'a, S, K>(
+pub fn qry_batch<'a, S, K>(
 	self: &'a Arc<Self>,
 	keys: S,
 ) -> impl Stream<Item = Result<Handle<'_>>> + Send + 'a

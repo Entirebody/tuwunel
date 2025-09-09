@@ -10,7 +10,7 @@ use tuwunel_core::{
 use crate::admin_command;
 
 #[admin_command]
-pub(super) async fn uptime(&self) -> Result {
+pub async fn uptime(&self) -> Result {
 	let elapsed = self
 		.services
 		.server
@@ -23,13 +23,13 @@ pub(super) async fn uptime(&self) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn show_config(&self) -> Result {
+pub async fn show_config(&self) -> Result {
 	self.write_str(&format!("{}", *self.services.server.config))
 		.await
 }
 
 #[admin_command]
-pub(super) async fn reload_config(&self, path: Option<PathBuf>) -> Result {
+pub async fn reload_config(&self, path: Option<PathBuf>) -> Result {
 	let path = path.as_deref().into_iter();
 	self.services.config.reload(path)?;
 
@@ -37,7 +37,7 @@ pub(super) async fn reload_config(&self, path: Option<PathBuf>) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn list_features(&self, available: bool, enabled: bool, comma: bool) -> Result {
+pub async fn list_features(&self, available: bool, enabled: bool, comma: bool) -> Result {
 	let delim = if comma { "," } else { " " };
 	if enabled && !available {
 		let features = info::rustc::features().join(delim);
@@ -65,7 +65,7 @@ pub(super) async fn list_features(&self, available: bool, enabled: bool, comma: 
 }
 
 #[admin_command]
-pub(super) async fn memory_usage(&self) -> Result {
+pub async fn memory_usage(&self) -> Result {
 	let services_usage = self.services.memory_usage().await?;
 	let database_usage = self.services.db.db.memory_usage()?;
 	let allocator_usage = tuwunel_core::alloc::memory_usage()
@@ -78,14 +78,14 @@ pub(super) async fn memory_usage(&self) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn clear_caches(&self) -> Result {
+pub async fn clear_caches(&self) -> Result {
 	self.services.clear_cache().await;
 
 	self.write_str("Done.").await
 }
 
 #[admin_command]
-pub(super) async fn list_backups(&self) -> Result {
+pub async fn list_backups(&self) -> Result {
 	self.services
 		.db
 		.db
@@ -96,7 +96,7 @@ pub(super) async fn list_backups(&self) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn backup_database(&self) -> Result {
+pub async fn backup_database(&self) -> Result {
 	let db = Arc::clone(&self.services.db);
 	let result = self
 		.services
@@ -114,7 +114,7 @@ pub(super) async fn backup_database(&self) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn admin_notice(&self, message: Vec<String>) -> Result {
+pub async fn admin_notice(&self, message: Vec<String>) -> Result {
 	let message = message.join(" ");
 	self.services.admin.send_text(&message).await;
 
@@ -122,7 +122,7 @@ pub(super) async fn admin_notice(&self, message: Vec<String>) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn reload_mods(&self) -> Result {
+pub async fn reload_mods(&self) -> Result {
 	self.services.server.reload()?;
 
 	self.write_str("Reloading server...").await
@@ -130,7 +130,7 @@ pub(super) async fn reload_mods(&self) -> Result {
 
 #[admin_command]
 #[cfg(unix)]
-pub(super) async fn restart(&self, force: bool) -> Result {
+pub async fn restart(&self, force: bool) -> Result {
 	use tuwunel_core::utils::sys::current_exe_deleted;
 
 	if !force && current_exe_deleted() {
@@ -146,7 +146,7 @@ pub(super) async fn restart(&self, force: bool) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn shutdown(&self) -> Result {
+pub async fn shutdown(&self) -> Result {
 	warn!("shutdown command");
 	self.services.server.shutdown()?;
 

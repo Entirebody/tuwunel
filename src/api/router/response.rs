@@ -5,7 +5,7 @@ use http_body_util::Full;
 use ruma::api::{OutgoingResponse, client::uiaa::UiaaResponse};
 use tuwunel_core::{Error, error};
 
-pub(crate) struct RumaResponse<T>(pub(crate) T)
+pub struct RumaResponse<T>(pub T)
 where
 	T: OutgoingResponse;
 

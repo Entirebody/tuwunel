@@ -5,24 +5,24 @@ use tuwunel_core::{Err, Result};
 use crate::{admin_command, get_room_info};
 
 #[admin_command]
-pub(super) async fn disable_room(&self, room_id: OwnedRoomId) -> Result {
+pub async fn disable_room(&self, room_id: OwnedRoomId) -> Result {
 	self.services.metadata.disable_room(&room_id);
 	self.write_str("Room disabled.").await
 }
 
 #[admin_command]
-pub(super) async fn enable_room(&self, room_id: OwnedRoomId) -> Result {
+pub async fn enable_room(&self, room_id: OwnedRoomId) -> Result {
 	self.services.metadata.enable_room(&room_id);
 	self.write_str("Room enabled.").await
 }
 
 #[admin_command]
-pub(super) async fn incoming_federation(&self) -> Result {
+pub async fn incoming_federation(&self) -> Result {
 	Err!("This command is temporarily disabled")
 }
 
 #[admin_command]
-pub(super) async fn fetch_support_well_known(&self, server_name: OwnedServerName) -> Result {
+pub async fn fetch_support_well_known(&self, server_name: OwnedServerName) -> Result {
 	let response = self
 		.services
 		.client
@@ -62,7 +62,7 @@ pub(super) async fn fetch_support_well_known(&self, server_name: OwnedServerName
 }
 
 #[admin_command]
-pub(super) async fn remote_user_in_rooms(&self, user_id: OwnedUserId) -> Result {
+pub async fn remote_user_in_rooms(&self, user_id: OwnedUserId) -> Result {
 	if user_id.server_name() == self.services.server.name {
 		return Err!(
 			"User belongs to our server, please use `list-joined-rooms` user admin command \

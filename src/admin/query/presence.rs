@@ -7,7 +7,7 @@ use crate::Context;
 
 #[derive(Debug, Subcommand)]
 /// All the getters and iterators from src/database/key_value/presence.rs
-pub(crate) enum PresenceCommand {
+pub enum PresenceCommand {
 	/// - Returns the latest presence event for the given user.
 	GetPresence {
 		/// Full user ID
@@ -26,7 +26,7 @@ pub(crate) enum PresenceCommand {
 }
 
 /// All the getters and iterators in key_value/presence.rs
-pub(super) async fn process(subcommand: PresenceCommand, context: &Context<'_>) -> Result {
+pub async fn process(subcommand: PresenceCommand, context: &Context<'_>) -> Result {
 	let services = context.services;
 
 	match subcommand {

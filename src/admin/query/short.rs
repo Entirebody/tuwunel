@@ -7,7 +7,7 @@ use crate::{admin_command, admin_command_dispatch};
 #[admin_command_dispatch]
 #[derive(Debug, Subcommand)]
 /// Query tables from database
-pub(crate) enum ShortCommand {
+pub enum ShortCommand {
 	ShortEventId {
 		event_id: OwnedEventId,
 	},
@@ -18,7 +18,7 @@ pub(crate) enum ShortCommand {
 }
 
 #[admin_command]
-pub(super) async fn short_event_id(&self, event_id: OwnedEventId) -> Result {
+pub async fn short_event_id(&self, event_id: OwnedEventId) -> Result {
 	let shortid = self
 		.services
 		.short
@@ -29,7 +29,7 @@ pub(super) async fn short_event_id(&self, event_id: OwnedEventId) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn short_room_id(&self, room_id: OwnedRoomOrAliasId) -> Result {
+pub async fn short_room_id(&self, room_id: OwnedRoomOrAliasId) -> Result {
 	let room_id = self.services.alias.resolve(&room_id).await?;
 
 	let shortid = self

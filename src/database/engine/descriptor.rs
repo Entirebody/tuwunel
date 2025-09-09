@@ -8,42 +8,42 @@ use super::cf_opts::SENTINEL_COMPRESSION_LEVEL;
 
 /// Column Descriptor
 #[derive(Debug, Clone, Copy)]
-pub(crate) struct Descriptor {
-	pub(crate) name: &'static str,
-	pub(crate) dropped: bool,
-	pub(crate) cache_disp: CacheDisp,
-	pub(crate) key_size_hint: Option<usize>,
-	pub(crate) val_size_hint: Option<usize>,
-	pub(crate) block_size: usize,
-	pub(crate) index_size: usize,
-	pub(crate) write_size: usize,
-	pub(crate) cache_size: usize,
-	pub(crate) level_size: u64,
-	pub(crate) level_shape: [i32; 7],
-	pub(crate) file_size: u64,
-	pub(crate) file_shape: i32,
-	pub(crate) level0_width: i32,
-	pub(crate) merge_width: (i32, i32),
-	pub(crate) limit_size: u64,
-	pub(crate) ttl: u64,
-	pub(crate) compaction: CompactionStyle,
-	pub(crate) compaction_pri: CompactionPri,
-	pub(crate) compression: CompressionType,
-	pub(crate) compressed_index: bool,
-	pub(crate) compression_shape: [i32; 7],
-	pub(crate) compression_level: i32,
-	pub(crate) bottommost_level: Option<i32>,
-	pub(crate) block_index_hashing: Option<bool>,
-	pub(crate) cache_shards: u32,
-	pub(crate) write_to_cache: bool,
-	pub(crate) auto_readahead_thresh: u32,
-	pub(crate) auto_readahead_init: usize,
-	pub(crate) auto_readahead_max: usize,
+pub struct Descriptor {
+	pub name: &'static str,
+	pub dropped: bool,
+	pub cache_disp: CacheDisp,
+	pub key_size_hint: Option<usize>,
+	pub val_size_hint: Option<usize>,
+	pub block_size: usize,
+	pub index_size: usize,
+	pub write_size: usize,
+	pub cache_size: usize,
+	pub level_size: u64,
+	pub level_shape: [i32; 7],
+	pub file_size: u64,
+	pub file_shape: i32,
+	pub level0_width: i32,
+	pub merge_width: (i32, i32),
+	pub limit_size: u64,
+	pub ttl: u64,
+	pub compaction: CompactionStyle,
+	pub compaction_pri: CompactionPri,
+	pub compression: CompressionType,
+	pub compressed_index: bool,
+	pub compression_shape: [i32; 7],
+	pub compression_level: i32,
+	pub bottommost_level: Option<i32>,
+	pub block_index_hashing: Option<bool>,
+	pub cache_shards: u32,
+	pub write_to_cache: bool,
+	pub auto_readahead_thresh: u32,
+	pub auto_readahead_init: usize,
+	pub auto_readahead_max: usize,
 }
 
 /// Cache Disposition
 #[derive(Debug, Clone, Copy)]
-pub(crate) enum CacheDisp {
+pub enum CacheDisp {
 	Unique,
 	Shared,
 	SharedWith(&'static str),
@@ -84,10 +84,10 @@ static BASE: Descriptor = Descriptor {
 };
 
 /// Tombstone descriptor for columns which have been or will be deleted.
-pub(crate) static DROPPED: Descriptor = Descriptor { dropped: true, ..BASE };
+pub static DROPPED: Descriptor = Descriptor { dropped: true, ..BASE };
 
 /// Descriptor for large datasets with random updates across the keyspace.
-pub(crate) static RANDOM: Descriptor = Descriptor {
+pub static RANDOM: Descriptor = Descriptor {
 	compaction_pri: CompactionPri::OldestSmallestSeqFirst,
 	write_size: 1024 * 1024 * 32,
 	cache_shards: 128,
@@ -98,7 +98,7 @@ pub(crate) static RANDOM: Descriptor = Descriptor {
 };
 
 /// Descriptor for large datasets with updates to the end of the keyspace.
-pub(crate) static SEQUENTIAL: Descriptor = Descriptor {
+pub static SEQUENTIAL: Descriptor = Descriptor {
 	compaction_pri: CompactionPri::OldestLargestSeqFirst,
 	write_size: 1024 * 1024 * 64,
 	level_size: 1024 * 1024 * 32,
@@ -112,7 +112,7 @@ pub(crate) static SEQUENTIAL: Descriptor = Descriptor {
 };
 
 /// Descriptor for small datasets with random updates across the keyspace.
-pub(crate) static RANDOM_SMALL: Descriptor = Descriptor {
+pub static RANDOM_SMALL: Descriptor = Descriptor {
 	compaction: CompactionStyle::Universal,
 	write_size: 1024 * 1024 * 16,
 	level_size: 1024 * 512,
@@ -129,7 +129,7 @@ pub(crate) static RANDOM_SMALL: Descriptor = Descriptor {
 };
 
 /// Descriptor for small datasets with updates to the end of the keyspace.
-pub(crate) static SEQUENTIAL_SMALL: Descriptor = Descriptor {
+pub static SEQUENTIAL_SMALL: Descriptor = Descriptor {
 	compaction: CompactionStyle::Universal,
 	write_size: 1024 * 1024 * 16,
 	level_size: 1024 * 1024,
@@ -147,7 +147,7 @@ pub(crate) static SEQUENTIAL_SMALL: Descriptor = Descriptor {
 
 /// Descriptor for small persistent caches with random updates. Oldest entries
 /// are deleted after limit_size reached.
-pub(crate) static RANDOM_SMALL_CACHE: Descriptor = Descriptor {
+pub static RANDOM_SMALL_CACHE: Descriptor = Descriptor {
 	compaction: CompactionStyle::Fifo,
 	cache_disp: CacheDisp::Unique,
 	limit_size: 1024 * 1024 * 64,

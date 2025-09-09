@@ -31,7 +31,7 @@ use crate::{Ruma, RumaResponse};
 /// `get_room_summary`.
 ///
 /// An implementation of [MSC3266](https://github.com/matrix-org/matrix-spec-proposals/pull/3266)
-pub(crate) async fn get_room_summary_legacy(
+pub async fn get_room_summary_legacy(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_summary::v1::Request>,
@@ -48,7 +48,7 @@ pub(crate) async fn get_room_summary_legacy(
 ///
 /// An implementation of [MSC3266](https://github.com/matrix-org/matrix-spec-proposals/pull/3266)
 #[tracing::instrument(skip_all, fields(%client), name = "room_summary")]
-pub(crate) async fn get_room_summary(
+pub async fn get_room_summary(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_summary::v1::Request>,

@@ -21,7 +21,7 @@ use super::{
 use crate::{extract_variant, info};
 
 /// The default `m.room.power_levels` event when creating a public room.
-pub(super) fn default_room_power_levels() -> RoomPowerLevelsEvent<PduEvent> {
+pub fn default_room_power_levels() -> RoomPowerLevelsEvent<PduEvent> {
 	RoomPowerLevelsEvent::new(to_pdu_event(
 		"IPOWER",
 		alice(),

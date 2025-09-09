@@ -11,7 +11,7 @@ use ruma::{
 use tuwunel_core::{Err, Result, debug, implement};
 
 #[implement(super::Service)]
-pub(super) async fn batch_notary_request<'a, S, K>(
+pub async fn batch_notary_request<'a, S, K>(
 	&self,
 	notary: &ServerName,
 	batch: S,

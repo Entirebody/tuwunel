@@ -47,7 +47,7 @@ where
 /// Fetch a value from the cache without I/O.
 #[implement(super::Map)]
 #[tracing::instrument(skip(self, key), name = "cache", level = "trace")]
-pub(crate) fn get_cached<K>(&self, key: &K) -> Result<Option<Handle<'_>>>
+pub fn get_cached<K>(&self, key: &K) -> Result<Option<Handle<'_>>>
 where
 	K: AsRef<[u8]> + Debug + ?Sized,
 {
@@ -83,7 +83,7 @@ where
 }
 
 #[inline]
-pub(super) fn handle_from(
+pub fn handle_from(
 	result: Result<Option<DBPinnableSlice<'_>>, rocksdb::Error>,
 ) -> Result<Handle<'_>> {
 	result
@@ -93,7 +93,7 @@ pub(super) fn handle_from(
 }
 
 #[inline]
-pub(super) fn cached_handle_from(
+pub fn cached_handle_from(
 	result: Result<Option<DBPinnableSlice<'_>>, rocksdb::Error>,
 ) -> Result<Option<Handle<'_>>> {
 	match result {

@@ -30,7 +30,7 @@ static WORKER_AFFINITY: OnceLock<bool> = OnceLock::new();
 static GC_ON_PARK: OnceLock<Option<bool>> = OnceLock::new();
 static GC_MUZZY: OnceLock<Option<bool>> = OnceLock::new();
 
-pub(super) fn new(args: &Args) -> Result<tokio::runtime::Runtime> {
+pub fn new(args: &Args) -> Result<tokio::runtime::Runtime> {
 	WORKER_AFFINITY
 		.set(args.worker_affinity)
 		.expect("set WORKER_AFFINITY from program argument");
@@ -86,7 +86,7 @@ fn enable_histogram(builder: &mut Builder, args: &Args) {
 
 #[cfg(tokio_unstable)]
 #[tracing::instrument(name = "stop", level = "info", skip_all)]
-pub(super) fn shutdown(server: &Arc<Server>, runtime: tokio::runtime::Runtime) {
+pub fn shutdown(server: &Arc<Server>, runtime: tokio::runtime::Runtime) {
 	use tracing::Level;
 	use tuwunel_core::event;
 
@@ -110,7 +110,7 @@ pub(super) fn shutdown(server: &Arc<Server>, runtime: tokio::runtime::Runtime) {
 
 #[cfg(not(tokio_unstable))]
 #[tracing::instrument(name = "stop", level = "info", skip_all)]
-pub(super) fn shutdown(server: &Arc<Server>, runtime: tokio::runtime::Runtime) {
+pub fn shutdown(server: &Arc<Server>, runtime: tokio::runtime::Runtime) {
 	wait_shutdown(server, runtime);
 }
 

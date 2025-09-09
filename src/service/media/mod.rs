@@ -1,6 +1,6 @@
 pub mod blurhash;
 mod data;
-pub(super) mod migrations;
+pub mod migrations;
 mod preview;
 mod remote;
 mod tests;
@@ -32,7 +32,7 @@ pub struct FileMeta {
 
 pub struct Service {
 	url_preview_mutex: MutexMap<String, ()>,
-	pub(super) db: Data,
+	pub db: Data,
 	services: Arc<crate::services::OnceServices>,
 }
 

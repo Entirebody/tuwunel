@@ -20,7 +20,7 @@ use crate::rooms::{
 
 #[implement(super::Service)]
 #[tracing::instrument(name = "upgrade", level = "debug", skip_all, ret(Debug))]
-pub(super) async fn upgrade_outlier_to_timeline_pdu(
+pub async fn upgrade_outlier_to_timeline_pdu(
 	&self,
 	origin: &ServerName,
 	room_id: &RoomId,

@@ -12,11 +12,11 @@ use tuwunel_core::{
 use crate::{clap::Args, logging::TracingFlameGuard};
 
 /// Server runtime state; complete
-pub(crate) struct Server {
+pub struct Server {
 	/// Server runtime state; public portion
-	pub(crate) server: Arc<tuwunel_core::Server>,
+	pub server: Arc<tuwunel_core::Server>,
 
-	pub(crate) services: Mutex<Option<Arc<tuwunel_service::Services>>>,
+	pub services: Mutex<Option<Arc<tuwunel_service::Services>>>,
 
 	_tracing_flame_guard: TracingFlameGuard,
 
@@ -25,11 +25,11 @@ pub(crate) struct Server {
 
 	#[cfg(all(tuwunel_mods, feature = "tuwunel_mods"))]
 	// Module instances; TODO: move to mods::loaded mgmt vector
-	pub(crate) mods: tokio::sync::RwLock<Vec<tuwunel_core::mods::Module>>,
+	pub mods: tokio::sync::RwLock<Vec<tuwunel_core::mods::Module>>,
 }
 
 impl Server {
-	pub(crate) fn new(
+	pub fn new(
 		args: &Args,
 		runtime: Option<&runtime::Handle>,
 	) -> Result<Arc<Self>, Error> {

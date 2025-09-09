@@ -12,17 +12,17 @@ pub struct Data {
 	global: Arc<Map>,
 	retires: Sender<u64>,
 	counter: Arc<Counter>,
-	pub(super) db: Arc<Database>,
+	pub db: Arc<Database>,
 }
 
-pub(super) type Permit = TwoPhasePermit<Callback>;
+pub type Permit = TwoPhasePermit<Callback>;
 type Counter = TwoPhaseCounter<Callback>;
 type Callback = Box<dyn Fn(u64) -> Result + Send + Sync>;
 
 const COUNTER: &[u8] = b"c";
 
 impl Data {
-	pub(super) fn new(args: &crate::Args<'_>) -> Self {
+	pub fn new(args: &crate::Args<'_>) -> Self {
 		let db = args.db.clone();
 		let count = Self::stored_count(&args.db["global"]).expect("initialize global counter");
 		let retires = Sender::new(count);
@@ -39,7 +39,7 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) async fn wait_pending(&self) -> Result<u64> {
+	pub async fn wait_pending(&self) -> Result<u64> {
 		let count = self.counter.dispatched();
 		self.wait_count(&count).await.inspect(|retired| {
 			debug_assert!(
@@ -50,7 +50,7 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) async fn wait_count(&self, count: &u64) -> Result<u64> {
+	pub async fn wait_count(&self, count: &u64) -> Result<u64> {
 		self.retires
 			.subscribe()
 			.wait_for(|retired| retired.ge(count))
@@ -60,17 +60,17 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) fn next_count(&self) -> Permit {
+	pub fn next_count(&self) -> Permit {
 		self.counter
 			.next()
 			.expect("failed to obtain next sequence number")
 	}
 
 	#[inline]
-	pub(super) fn current_count(&self) -> u64 { self.counter.current() }
+	pub fn current_count(&self) -> u64 { self.counter.current() }
 
 	#[inline]
-	pub(super) fn pending_count(&self) -> Range<u64> { self.counter.range() }
+	pub fn pending_count(&self) -> Range<u64> { self.counter.range() }
 
 	#[tracing::instrument(name = "retire", level = "debug", skip(sender))]
 	fn handle_retire(sender: &Sender<u64>, count: u64) -> Result {

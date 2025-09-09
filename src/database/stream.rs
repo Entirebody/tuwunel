@@ -8,7 +8,7 @@ use std::sync::Arc;
 use rocksdb::{DBRawIteratorWithThreadMode, ReadOptions};
 use tuwunel_core::{Result, utils::exchange};
 
-pub(crate) use self::{items::Items, items_rev::ItemsRev, keys::Keys, keys_rev::KeysRev};
+pub use self::{items::Items, items_rev::ItemsRev, keys::Keys, keys_rev::KeysRev};
 use crate::{
 	Map, Slice,
 	engine::Db,
@@ -16,13 +16,13 @@ use crate::{
 	util::{is_incomplete, map_err},
 };
 
-pub(crate) struct State<'a> {
+pub struct State<'a> {
 	inner: Inner<'a>,
 	seek: bool,
 	init: bool,
 }
 
-pub(crate) trait Cursor<'a, T> {
+pub trait Cursor<'a, T> {
 	fn state(&self) -> &State<'a>;
 
 	fn fetch(&self) -> Option<T>;
@@ -48,7 +48,7 @@ type From<'a> = Option<Key<'a>>;
 
 impl<'a> State<'a> {
 	#[inline]
-	pub(super) fn new(map: &'a Arc<Map>, opts: ReadOptions) -> Self {
+	pub fn new(map: &'a Arc<Map>, opts: ReadOptions) -> Self {
 		Self {
 			inner: map.db().db.raw_iterator_cf_opt(&map.cf(), opts),
 			init: true,
@@ -58,7 +58,7 @@ impl<'a> State<'a> {
 
 	#[inline]
 	#[tracing::instrument(level = "trace", skip_all)]
-	pub(super) fn init_fwd(mut self, from: From<'_>) -> Self {
+	pub fn init_fwd(mut self, from: From<'_>) -> Self {
 		debug_assert!(self.init, "init must be set to make this call");
 		debug_assert!(!self.seek, "seek must not be set to make this call");
 
@@ -74,7 +74,7 @@ impl<'a> State<'a> {
 
 	#[inline]
 	#[tracing::instrument(level = "trace", skip_all)]
-	pub(super) fn init_rev(mut self, from: From<'_>) -> Self {
+	pub fn init_rev(mut self, from: From<'_>) -> Self {
 		debug_assert!(self.init, "init must be set to make this call");
 		debug_assert!(!self.seek, "seek must not be set to make this call");
 
@@ -90,7 +90,7 @@ impl<'a> State<'a> {
 
 	#[inline]
 	#[cfg_attr(unabridged, tracing::instrument(level = "trace", skip_all))]
-	pub(super) fn seek_fwd(&mut self) {
+	pub fn seek_fwd(&mut self) {
 		if !exchange(&mut self.init, false) {
 			self.inner.next();
 		} else if !self.seek {
@@ -100,7 +100,7 @@ impl<'a> State<'a> {
 
 	#[inline]
 	#[cfg_attr(unabridged, tracing::instrument(level = "trace", skip_all))]
-	pub(super) fn seek_rev(&mut self) {
+	pub fn seek_rev(&mut self) {
 		if !exchange(&mut self.init, false) {
 			self.inner.prev();
 		} else if !self.seek {
@@ -108,7 +108,7 @@ impl<'a> State<'a> {
 		}
 	}
 
-	pub(super) fn is_incomplete(&self) -> bool {
+	pub fn is_incomplete(&self) -> bool {
 		matches!(self.status(), Some(e) if is_incomplete(&e))
 	}
 
@@ -122,10 +122,10 @@ impl<'a> State<'a> {
 	fn fetch(&self) -> Option<KeyVal<'_>> { self.inner.item() }
 
 	#[inline]
-	pub(super) fn status(&self) -> Option<rocksdb::Error> { self.inner.status().err() }
+	pub fn status(&self) -> Option<rocksdb::Error> { self.inner.status().err() }
 
 	#[inline]
-	pub(super) fn valid(&self) -> bool { self.inner.valid() }
+	pub fn valid(&self) -> bool { self.inner.valid() }
 }
 
 fn keyval_longevity<'a, 'b: 'a>(item: KeyVal<'a>) -> KeyVal<'b> {

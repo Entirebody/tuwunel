@@ -11,7 +11,7 @@ use crate::Ruma;
 /// Tries to send a redaction event into the room.
 ///
 /// - TODO: Handle txn id
-pub(crate) async fn redact_event_route(
+pub async fn redact_event_route(
 	State(services): State<crate::State>,
 	body: Ruma<redact_event::v3::Request>,
 ) -> Result<redact_event::v3::Response> {

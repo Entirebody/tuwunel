@@ -21,7 +21,7 @@ use crate::{Ruma, RumaResponse, client::create_content_route};
 /// # `GET /_matrix/media/v3/config`
 ///
 /// Returns max upload size.
-pub(crate) async fn get_media_config_legacy_route(
+pub async fn get_media_config_legacy_route(
 	State(services): State<crate::State>,
 	_body: Ruma<get_media_config::v3::Request>,
 ) -> Result<get_media_config::v3::Response> {
@@ -37,7 +37,7 @@ pub(crate) async fn get_media_config_legacy_route(
 /// See <https://spec.matrix.org/legacy/legacy/#id27>
 ///
 /// Returns max upload size.
-pub(crate) async fn get_media_config_legacy_legacy_route(
+pub async fn get_media_config_legacy_legacy_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_media_config::v3::Request>,
 ) -> Result<RumaResponse<get_media_config::v3::Response>> {
@@ -50,7 +50,7 @@ pub(crate) async fn get_media_config_legacy_legacy_route(
 ///
 /// Returns URL preview.
 #[tracing::instrument(skip_all, fields(%client), name = "url_preview_legacy", level = "debug")]
-pub(crate) async fn get_media_preview_legacy_route(
+pub async fn get_media_preview_legacy_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_media_preview::v3::Request>,
@@ -96,7 +96,7 @@ pub(crate) async fn get_media_preview_legacy_route(
 /// See <https://spec.matrix.org/legacy/legacy/#id27>
 ///
 /// Returns URL preview.
-pub(crate) async fn get_media_preview_legacy_legacy_route(
+pub async fn get_media_preview_legacy_legacy_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_media_preview::v3::Request>,
@@ -116,7 +116,7 @@ pub(crate) async fn get_media_preview_legacy_legacy_route(
 ///
 /// - Some metadata will be saved in the database
 /// - Media will be saved in the media/ directory
-pub(crate) async fn create_content_legacy_route(
+pub async fn create_content_legacy_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<create_content::v3::Request>,
@@ -135,7 +135,7 @@ pub(crate) async fn create_content_legacy_route(
 /// - Uses client-provided `timeout_ms` if available, else defaults to 20
 ///   seconds
 #[tracing::instrument(skip_all, fields(%client), name = "media_get_legacy", level = "debug")]
-pub(crate) async fn get_content_legacy_route(
+pub async fn get_content_legacy_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_content::v3::Request>,
@@ -207,7 +207,7 @@ pub(crate) async fn get_content_legacy_route(
 /// - Uses client-provided `timeout_ms` if available, else defaults to 20
 ///   seconds
 #[tracing::instrument(skip_all, fields(%client), name = "media_get_legacy", level = "debug")]
-pub(crate) async fn get_content_legacy_legacy_route(
+pub async fn get_content_legacy_legacy_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_content::v3::Request>,
@@ -226,7 +226,7 @@ pub(crate) async fn get_content_legacy_legacy_route(
 /// - Uses client-provided `timeout_ms` if available, else defaults to 20
 ///   seconds
 #[tracing::instrument(skip_all, fields(%client), name = "media_get_legacy", level = "debug")]
-pub(crate) async fn get_content_as_filename_legacy_route(
+pub async fn get_content_as_filename_legacy_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_content_as_filename::v3::Request>,
@@ -297,7 +297,7 @@ pub(crate) async fn get_content_as_filename_legacy_route(
 /// - Only redirects if `allow_redirect` is true
 /// - Uses client-provided `timeout_ms` if available, else defaults to 20
 ///   seconds
-pub(crate) async fn get_content_as_filename_legacy_legacy_route(
+pub async fn get_content_as_filename_legacy_legacy_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_content_as_filename::v3::Request>,
@@ -316,7 +316,7 @@ pub(crate) async fn get_content_as_filename_legacy_legacy_route(
 /// - Uses client-provided `timeout_ms` if available, else defaults to 20
 ///   seconds
 #[tracing::instrument(skip_all, fields(%client), name = "media_thumbnail_get_legacy", level = "debug")]
-pub(crate) async fn get_content_thumbnail_legacy_route(
+pub async fn get_content_thumbnail_legacy_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_content_thumbnail::v3::Request>,
@@ -388,7 +388,7 @@ pub(crate) async fn get_content_thumbnail_legacy_route(
 /// - Only redirects if `allow_redirect` is true
 /// - Uses client-provided `timeout_ms` if available, else defaults to 20
 ///   seconds
-pub(crate) async fn get_content_thumbnail_legacy_legacy_route(
+pub async fn get_content_thumbnail_legacy_legacy_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_content_thumbnail::v3::Request>,

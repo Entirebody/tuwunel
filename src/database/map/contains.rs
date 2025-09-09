@@ -93,7 +93,7 @@ where
 /// Rocksdb limits this to kBlockCacheTier internally so this is not actually a
 /// blocking call; in case that changes we set this as well in our read_options.
 #[implement(super::Map)]
-pub(crate) fn maybe_exists<K>(&self, key: &K) -> bool
+pub fn maybe_exists<K>(&self, key: &K) -> bool
 where
 	K: AsRef<[u8]> + ?Sized,
 {

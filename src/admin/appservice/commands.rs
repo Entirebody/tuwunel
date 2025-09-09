@@ -4,7 +4,7 @@ use tuwunel_core::{Err, Result, checked};
 use crate::admin_command;
 
 #[admin_command]
-pub(super) async fn register(&self) -> Result {
+pub async fn register(&self) -> Result {
 	let body = &self.body;
 	let body_len = self.body.len();
 	if body_len < 2
@@ -34,7 +34,7 @@ pub(super) async fn register(&self) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn unregister(&self, appservice_identifier: String) -> Result {
+pub async fn unregister(&self, appservice_identifier: String) -> Result {
 	match self
 		.services
 		.appservice
@@ -48,7 +48,7 @@ pub(super) async fn unregister(&self, appservice_identifier: String) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn show_appservice_config(&self, appservice_identifier: String) -> Result {
+pub async fn show_appservice_config(&self, appservice_identifier: String) -> Result {
 	match self
 		.services
 		.appservice
@@ -65,7 +65,7 @@ pub(super) async fn show_appservice_config(&self, appservice_identifier: String)
 }
 
 #[admin_command]
-pub(super) async fn list_registered(&self) -> Result {
+pub async fn list_registered(&self) -> Result {
 	self.services
 		.appservice
 		.iter_ids()

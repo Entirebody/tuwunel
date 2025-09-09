@@ -4,13 +4,13 @@ use ruma::{OwnedRoomId, OwnedUserId, RoomId, UserId};
 use tuwunel_core::{Err, Result, err};
 use tuwunel_service::Services;
 
-pub(crate) fn escape_html(s: &str) -> String {
+pub fn escape_html(s: &str) -> String {
 	s.replace('&', "&amp;")
 		.replace('<', "&lt;")
 		.replace('>', "&gt;")
 }
 
-pub(crate) async fn get_room_info(
+pub async fn get_room_info(
 	services: &Services,
 	room_id: &RoomId,
 ) -> (OwnedRoomId, u64, String) {
@@ -30,13 +30,13 @@ pub(crate) async fn get_room_info(
 }
 
 /// Parses user ID
-pub(crate) fn parse_user_id(services: &Services, user_id: &str) -> Result<OwnedUserId> {
+pub fn parse_user_id(services: &Services, user_id: &str) -> Result<OwnedUserId> {
 	UserId::parse_with_server_name(user_id.to_lowercase(), services.globals.server_name())
 		.map_err(|e| err!("The supplied username is not a valid username: {e}"))
 }
 
 /// Parses user ID as our local user
-pub(crate) fn parse_local_user_id(services: &Services, user_id: &str) -> Result<OwnedUserId> {
+pub fn parse_local_user_id(services: &Services, user_id: &str) -> Result<OwnedUserId> {
 	let user_id = parse_user_id(services, user_id)?;
 
 	if !services.globals.user_is_local(&user_id) {
@@ -47,7 +47,7 @@ pub(crate) fn parse_local_user_id(services: &Services, user_id: &str) -> Result<
 }
 
 /// Parses user ID that is an active (not guest or deactivated) local user
-pub(crate) async fn parse_active_local_user_id(
+pub async fn parse_active_local_user_id(
 	services: &Services,
 	user_id: &str,
 ) -> Result<OwnedUserId> {

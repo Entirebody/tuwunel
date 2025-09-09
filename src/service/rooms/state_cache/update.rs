@@ -241,7 +241,7 @@ pub async fn update_joined_count(&self, room_id: &RoomId) {
 /// `update_membership` instead
 #[implement(super::Service)]
 #[tracing::instrument(skip(self), level = "debug")]
-pub(crate) fn mark_as_joined(&self, user_id: &UserId, room_id: &RoomId) {
+pub fn mark_as_joined(&self, user_id: &UserId, room_id: &RoomId) {
 	let userroom_id = (user_id, room_id);
 	let userroom_id = serialize_key(userroom_id).expect("failed to serialize userroom_id");
 
@@ -276,7 +276,7 @@ pub(crate) fn mark_as_joined(&self, user_id: &UserId, room_id: &RoomId) {
 /// `update_membership` instead
 #[implement(super::Service)]
 #[tracing::instrument(skip(self), level = "debug")]
-pub(crate) fn mark_as_left(&self, user_id: &UserId, room_id: &RoomId) {
+pub fn mark_as_left(&self, user_id: &UserId, room_id: &RoomId) {
 	let count = self.services.globals.next_count();
 
 	let userroom_id = (user_id, room_id);
@@ -320,7 +320,7 @@ pub(crate) fn mark_as_left(&self, user_id: &UserId, room_id: &RoomId) {
 /// `update_membership` instead
 #[implement(super::Service)]
 #[tracing::instrument(skip(self), level = "debug")]
-pub(crate) fn _mark_as_knocked(
+pub fn _mark_as_knocked(
 	&self,
 	user_id: &UserId,
 	room_id: &RoomId,
@@ -377,7 +377,7 @@ fn mark_as_once_joined(&self, user_id: &UserId, room_id: &RoomId) {
 
 #[implement(super::Service)]
 #[tracing::instrument(level = "debug", skip(self, last_state, invite_via))]
-pub(crate) async fn mark_as_invited(
+pub async fn mark_as_invited(
 	&self,
 	user_id: &UserId,
 	room_id: &RoomId,

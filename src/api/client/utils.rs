@@ -2,7 +2,7 @@ use ruma::{RoomId, UserId};
 use tuwunel_core::{Err, Result, warn};
 use tuwunel_service::Services;
 
-pub(crate) async fn invite_check(
+pub async fn invite_check(
 	services: &Services,
 	sender_user: &UserId,
 	room_id: &RoomId,

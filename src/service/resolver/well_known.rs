@@ -2,7 +2,7 @@ use tuwunel_core::{Result, debug, debug_error, debug_info, debug_warn, implement
 
 #[implement(super::Service)]
 #[tracing::instrument(name = "well-known", level = "debug", skip(self, dest))]
-pub(super) async fn request_well_known(&self, dest: &str) -> Result<Option<String>> {
+pub async fn request_well_known(&self, dest: &str) -> Result<Option<String>> {
 	trace!("Requesting well known for {dest}");
 	let response = self
 		.services

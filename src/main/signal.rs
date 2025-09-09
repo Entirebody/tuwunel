@@ -7,7 +7,7 @@ use super::server::Server;
 
 #[cfg(unix)]
 #[tracing::instrument(skip_all)]
-pub(super) async fn signal(server: Arc<Server>) {
+pub async fn signal(server: Arc<Server>) {
 	use signal::unix;
 	use unix::SignalKind;
 
@@ -46,7 +46,7 @@ pub(super) async fn signal(server: Arc<Server>) {
 
 #[cfg(not(unix))]
 #[tracing::instrument(skip_all)]
-pub(super) async fn signal(server: Arc<Server>) {
+pub async fn signal(server: Arc<Server>) {
 	loop {
 		tokio::select! {
 			_ = signal::ctrl_c() => {

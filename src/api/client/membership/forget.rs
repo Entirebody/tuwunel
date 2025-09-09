@@ -14,7 +14,7 @@ use crate::Ruma;
 ///
 /// Note: Other devices of the user have no way of knowing the room was
 /// forgotten, so this has to be called from every device
-pub(crate) async fn forget_room_route(
+pub async fn forget_room_route(
 	State(services): State<crate::State>,
 	body: Ruma<forget_room::v3::Request>,
 ) -> Result<forget_room::v3::Response> {

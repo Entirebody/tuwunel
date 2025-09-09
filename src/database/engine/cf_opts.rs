@@ -8,12 +8,12 @@ use tuwunel_core::{Config, Result, err, utils::math::Expected};
 use super::descriptor::{CacheDisp, Descriptor};
 use crate::{Context, util::map_err};
 
-pub(super) const SENTINEL_COMPRESSION_LEVEL: i32 = 32767;
+pub const SENTINEL_COMPRESSION_LEVEL: i32 = 32767;
 
 /// Adjust options for the specific column by name. Provide the result of
 /// db_options() as the argument to this function and use the return value in
 /// the arguments to open the specific column.
-pub(crate) fn cf_options(ctx: &Context, opts: Options, desc: &Descriptor) -> Result<Options> {
+pub fn cf_options(ctx: &Context, opts: Options, desc: &Descriptor) -> Result<Options> {
 	let cache = get_cache(ctx, desc);
 	let config = &ctx.server.config;
 	descriptor_cf_options(opts, *desc, config, cache.as_ref())
@@ -264,7 +264,7 @@ fn get_cache(ctx: &Context, desc: &Descriptor) -> Option<Cache> {
 	}
 }
 
-pub(crate) fn cache_size(config: &Config, base_size: u32, entity_size: usize) -> usize {
+pub fn cache_size(config: &Config, base_size: u32, entity_size: usize) -> usize {
 	cache_size_f64(config, f64::from(base_size), entity_size)
 }
 
@@ -273,7 +273,7 @@ pub(crate) fn cache_size(config: &Config, base_size: u32, entity_size: usize) ->
 	clippy::cast_sign_loss,
 	clippy::cast_possible_truncation
 )]
-pub(crate) fn cache_size_f64(config: &Config, base_size: f64, entity_size: usize) -> usize {
+pub fn cache_size_f64(config: &Config, base_size: f64, entity_size: usize) -> usize {
 	let ents = base_size * config.cache_capacity_modifier;
 
 	(ents as usize)

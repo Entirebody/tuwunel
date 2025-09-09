@@ -89,7 +89,7 @@ where
 		sender = ?incoming_event.sender(),
 	)
 )]
-pub(super) async fn check_state_independent_auth_rules<Fetch, Fut, Pdu>(
+pub async fn check_state_independent_auth_rules<Fetch, Fut, Pdu>(
 	rules: &RoomVersionRules,
 	incoming_event: &Pdu,
 	fetch_event: &Fetch,
@@ -238,7 +238,7 @@ where
 		sender = ?incoming_event.sender(),
 	)
 )]
-pub(super) async fn check_state_dependent_auth_rules<Fetch, Fut, Pdu>(
+pub async fn check_state_dependent_auth_rules<Fetch, Fut, Pdu>(
 	rules: &RoomVersionRules,
 	incoming_event: &Pdu,
 	fetch_state: &Fetch,

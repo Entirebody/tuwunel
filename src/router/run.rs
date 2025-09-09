@@ -16,7 +16,7 @@ use crate::serve;
 
 /// Main loop base
 #[tracing::instrument(skip_all)]
-pub(crate) async fn run(services: Arc<Services>) -> Result {
+pub async fn run(services: Arc<Services>) -> Result {
 	let server = &services.server;
 	debug!("Start");
 
@@ -55,7 +55,7 @@ pub(crate) async fn run(services: Arc<Services>) -> Result {
 
 /// Async initializations
 #[tracing::instrument(skip_all)]
-pub(crate) async fn start(server: Arc<Server>) -> Result<Arc<Services>> {
+pub async fn start(server: Arc<Server>) -> Result<Arc<Services>> {
 	debug!("Starting...");
 
 	let services = Services::build(server).await?.start().await?;
@@ -70,7 +70,7 @@ pub(crate) async fn start(server: Arc<Server>) -> Result<Arc<Services>> {
 
 /// Async destructions
 #[tracing::instrument(skip_all)]
-pub(crate) async fn stop(services: Arc<Services>) -> Result {
+pub async fn stop(services: Arc<Services>) -> Result {
 	debug!("Shutting down...");
 
 	#[cfg(all(feature = "systemd", target_os = "linux"))]

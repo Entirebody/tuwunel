@@ -11,7 +11,7 @@ use crate::{Ruma, client::utils::invite_check};
 ///
 /// Tries to send an invite event into the room.
 #[tracing::instrument(skip_all, fields(%client), name = "invite")]
-pub(crate) async fn invite_user_route(
+pub async fn invite_user_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<invite_user::v3::Request>,

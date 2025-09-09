@@ -65,7 +65,7 @@ pub fn raw_stream(self: &Arc<Self>) -> impl Stream<Item = Result<KeyVal<'_>>> + 
     skip_all,
     fields(%map),
 )]
-pub(super) fn is_cached(map: &Arc<super::Map>) -> bool {
+pub fn is_cached(map: &Arc<super::Map>) -> bool {
 	let opts = super::cache_iter_options_default(&map.db);
 	let state = stream::State::new(map, opts).init_fwd(None);
 

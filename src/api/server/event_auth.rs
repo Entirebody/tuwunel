@@ -16,7 +16,7 @@ use crate::Ruma;
 /// Retrieves the auth chain for a given event.
 ///
 /// - This does not include the event itself
-pub(crate) async fn get_event_authorization_route(
+pub async fn get_event_authorization_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_event_authorization::v1::Request>,
 ) -> Result<get_event_authorization::v1::Response> {

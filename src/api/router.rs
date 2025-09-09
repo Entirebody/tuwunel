@@ -16,7 +16,7 @@ use http::{Uri, uri};
 use tuwunel_core::{Server, err};
 
 use self::handler::RouterExt;
-pub(super) use self::{args::Args as Ruma, response::RumaResponse, state::State};
+pub use self::{args::Args as Ruma, response::RumaResponse, state::State};
 use crate::{client, server};
 
 pub fn build(router: Router<State>, server: &Server) -> Router<State> {

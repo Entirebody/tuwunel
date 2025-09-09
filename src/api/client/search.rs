@@ -35,7 +35,7 @@ const BATCH_MAX: usize = 20;
 ///
 /// - Only works if the user is currently joined to the room (TODO: Respect
 ///   history visibility)
-pub(crate) async fn search_events_route(
+pub async fn search_events_route(
 	State(services): State<crate::State>,
 	body: Ruma<Request>,
 ) -> Result<Response> {

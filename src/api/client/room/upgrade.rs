@@ -47,7 +47,7 @@ const TRANSFERABLE_STATE_EVENTS: &[StateEventType; 9] = &[
 /// - Transfers some state events
 /// - Moves local aliases
 /// - Modifies old room power levels to prevent users from speaking
-pub(crate) async fn upgrade_room_route(
+pub async fn upgrade_room_route(
 	State(services): State<crate::State>,
 	body: Ruma<upgrade_room::v3::Request>,
 ) -> Result<upgrade_room::v3::Response> {

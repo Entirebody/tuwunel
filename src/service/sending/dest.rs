@@ -12,7 +12,7 @@ pub enum Destination {
 
 #[implement(Destination)]
 #[must_use]
-pub(super) fn get_prefix(&self) -> Vec<u8> {
+pub fn get_prefix(&self) -> Vec<u8> {
 	match self {
 		| Self::Federation(server) => {
 			let len = server.as_bytes().len().saturating_add(1);

@@ -34,7 +34,7 @@ const NULL_ADDR: net::SocketAddr = net::SocketAddr::new(IpAddr::V4(Ipv4Addr::UNS
 const FINI_POLL_INTERVAL: Duration = Duration::from_millis(750);
 
 #[tracing::instrument(skip_all, level = "debug")]
-pub(super) async fn serve(
+pub async fn serve(
 	server: &Arc<Server>,
 	app: Router,
 	mut shutdown: broadcast::Receiver<()>,

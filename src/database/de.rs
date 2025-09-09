@@ -18,7 +18,7 @@ use crate::util::unhandled;
 		fields(len = %buf.len()),
 	)
 )]
-pub(crate) fn from_slice<'a, T>(buf: &'a [u8]) -> Result<T>
+pub fn from_slice<'a, T>(buf: &'a [u8]) -> Result<T>
 where
 	T: Deserialize<'a>,
 {
@@ -32,7 +32,7 @@ where
 }
 
 /// Deserialization state.
-pub(crate) struct Deserializer<'de> {
+pub struct Deserializer<'de> {
 	buf: &'de [u8],
 	pos: usize,
 	rec: usize,

@@ -104,7 +104,7 @@ impl<E: Event> RoomCreateEvent<E> {
 	/// This function ignores the primary room creator, and should only be used
 	/// in `check_room_member_join`. Otherwise, you should use `creators`
 	/// instead.
-	pub(super) fn additional_creators(
+	pub fn additional_creators(
 		&self,
 		rules: &AuthorizationRules,
 	) -> Result<impl Iterator<Item = OwnedUserId> + Clone> {

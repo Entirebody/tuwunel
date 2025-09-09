@@ -6,7 +6,7 @@ use tuwunel_core::Result;
 use crate::{Context, PAGE_SIZE, get_room_info};
 
 #[derive(Debug, Subcommand)]
-pub(crate) enum RoomDirectoryCommand {
+pub enum RoomDirectoryCommand {
 	/// - Publish a room to the room directory
 	Publish {
 		/// The room id of the room to publish
@@ -25,7 +25,7 @@ pub(crate) enum RoomDirectoryCommand {
 	},
 }
 
-pub(super) async fn process(command: RoomDirectoryCommand, context: &Context<'_>) -> Result {
+pub async fn process(command: RoomDirectoryCommand, context: &Context<'_>) -> Result {
 	let services = context.services;
 	match command {
 		| RoomDirectoryCommand::Publish { room_id } => {

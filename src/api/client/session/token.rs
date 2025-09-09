@@ -18,7 +18,7 @@ use tuwunel_service::{Services, uiaa::SESSION_ID_LENGTH};
 use super::TOKEN_LENGTH;
 use crate::Ruma;
 
-pub(super) async fn handle_login(
+pub async fn handle_login(
 	services: &Services,
 	_body: &Ruma<Request>,
 	info: &Token,
@@ -39,7 +39,7 @@ pub(super) async fn handle_login(
 ///
 /// <https://spec.matrix.org/v1.13/client-server-api/#post_matrixclientv1loginget_token>
 #[tracing::instrument(skip_all, fields(%client), name = "login_token")]
-pub(crate) async fn login_token_route(
+pub async fn login_token_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_login_token::v1::Request>,

@@ -1,5 +1,5 @@
 mod commands;
-pub(crate) mod tester;
+pub mod tester;
 
 use clap::Subcommand;
 use ruma::{OwnedEventId, OwnedRoomId, OwnedRoomOrAliasId, OwnedServerName};
@@ -11,7 +11,7 @@ use crate::admin_command_dispatch;
 
 #[admin_command_dispatch]
 #[derive(Debug, Subcommand)]
-pub(super) enum DebugCommand {
+pub enum DebugCommand {
 	/// - Echo input of admin command
 	Echo {
 		message: Vec<String>,

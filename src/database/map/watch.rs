@@ -15,7 +15,7 @@ use crate::keyval::{KeyBuf, serialize_key};
 type Watchers = Mutex<BTreeMap<KeyBuf, Sender<()>>>;
 
 #[derive(Default)]
-pub(super) struct Watch {
+pub struct Watch {
 	watchers: Watchers,
 }
 
@@ -57,7 +57,7 @@ where
 }
 
 #[implement(super::Map)]
-pub(crate) fn notify<K>(&self, key: &K)
+pub fn notify<K>(&self, key: &K)
 where
 	K: AsRef<[u8]> + Ord + ?Sized,
 {

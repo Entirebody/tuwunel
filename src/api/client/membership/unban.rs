@@ -8,7 +8,7 @@ use crate::Ruma;
 /// # `POST /_matrix/client/r0/rooms/{roomId}/unban`
 ///
 /// Tries to send an unban event into the room.
-pub(crate) async fn unban_user_route(
+pub async fn unban_user_route(
 	State(services): State<crate::State>,
 	body: Ruma<unban_user::v3::Request>,
 ) -> Result<unban_user::v3::Response> {

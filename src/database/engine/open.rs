@@ -18,7 +18,7 @@ use crate::{Context, or_else};
 
 #[implement(Engine)]
 #[tracing::instrument(skip_all)]
-pub(crate) async fn open(ctx: Arc<Context>, desc: &[Descriptor]) -> Result<Arc<Self>> {
+pub async fn open(ctx: Arc<Context>, desc: &[Descriptor]) -> Result<Arc<Self>> {
 	let server = &ctx.server;
 	let config = &server.config;
 	let path = &config.database_path;

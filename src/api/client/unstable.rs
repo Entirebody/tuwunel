@@ -28,7 +28,7 @@ use crate::Ruma;
 ///
 /// An implementation of [MSC2666](https://github.com/matrix-org/matrix-spec-proposals/pull/2666)
 #[tracing::instrument(skip_all, fields(%client), name = "mutual_rooms")]
-pub(crate) async fn get_mutual_rooms_route(
+pub async fn get_mutual_rooms_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<mutual_rooms::unstable::Request>,
@@ -61,7 +61,7 @@ pub(crate) async fn get_mutual_rooms_route(
 /// Deletes the `tz` (timezone) of a user, as per MSC4133 and MSC4175.
 ///
 /// - Also makes sure other users receive the update using presence EDUs
-pub(crate) async fn delete_timezone_key_route(
+pub async fn delete_timezone_key_route(
 	State(services): State<crate::State>,
 	body: Ruma<delete_timezone_key::unstable::Request>,
 ) -> Result<delete_timezone_key::unstable::Response> {
@@ -89,7 +89,7 @@ pub(crate) async fn delete_timezone_key_route(
 /// Updates the `tz` (timezone) of a user, as per MSC4133 and MSC4175.
 ///
 /// - Also makes sure other users receive the update using presence EDUs
-pub(crate) async fn set_timezone_key_route(
+pub async fn set_timezone_key_route(
 	State(services): State<crate::State>,
 	body: Ruma<set_timezone_key::unstable::Request>,
 ) -> Result<set_timezone_key::unstable::Response> {
@@ -119,7 +119,7 @@ pub(crate) async fn set_timezone_key_route(
 /// Updates the profile key-value field of a user, as per MSC4133.
 ///
 /// This also handles the avatar_url and displayname being updated.
-pub(crate) async fn set_profile_field_route(
+pub async fn set_profile_field_route(
 	State(services): State<crate::State>,
 	body: Ruma<set_profile_field::v3::Request>,
 ) -> Result<set_profile_field::v3::Response> {
@@ -187,7 +187,7 @@ pub(crate) async fn set_profile_field_route(
 /// Deletes the profile key-value field of a user, as per MSC4133.
 ///
 /// This also handles the avatar_url and displayname being updated.
-pub(crate) async fn delete_profile_field_route(
+pub async fn delete_profile_field_route(
 	State(services): State<crate::State>,
 	body: Ruma<delete_profile_field::v3::Request>,
 ) -> Result<delete_profile_field::v3::Response> {
@@ -244,7 +244,7 @@ pub(crate) async fn delete_profile_field_route(
 ///
 /// - If user is on another server and we do not have a local copy already fetch
 ///   `timezone` over federation
-pub(crate) async fn get_timezone_key_route(
+pub async fn get_timezone_key_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_timezone_key::unstable::Request>,
 ) -> Result<get_timezone_key::unstable::Response> {
@@ -305,7 +305,7 @@ pub(crate) async fn get_timezone_key_route(
 ///
 /// - If user is on another server and we do not have a local copy already fetch
 ///   `timezone` over federation
-pub(crate) async fn get_profile_field_route(
+pub async fn get_profile_field_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_profile_field::v3::Request>,
 ) -> Result<get_profile_field::v3::Response> {

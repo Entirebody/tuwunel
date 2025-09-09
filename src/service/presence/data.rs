@@ -10,14 +10,14 @@ use tuwunel_database::{Deserialized, Json, Map};
 
 use super::Presence;
 
-pub(crate) struct Data {
+pub struct Data {
 	presenceid_presence: Arc<Map>,
 	userid_presenceid: Arc<Map>,
 	services: Arc<crate::services::OnceServices>,
 }
 
 impl Data {
-	pub(super) fn new(args: &crate::Args<'_>) -> Self {
+	pub fn new(args: &crate::Args<'_>) -> Self {
 		let db = &args.db;
 		Self {
 			presenceid_presence: db["presenceid_presence"].clone(),
@@ -27,7 +27,7 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) async fn get_presence(&self, user_id: &UserId) -> Result<(u64, PresenceEvent)> {
+	pub async fn get_presence(&self, user_id: &UserId) -> Result<(u64, PresenceEvent)> {
 		let count = self
 			.userid_presenceid
 			.get(user_id)
@@ -43,7 +43,7 @@ impl Data {
 		Ok((count, event))
 	}
 
-	pub(super) async fn set_presence(
+	pub async fn set_presence(
 		&self,
 		user_id: &UserId,
 		presence_state: &PresenceState,
@@ -128,7 +128,7 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) async fn remove_presence(&self, user_id: &UserId) {
+	pub async fn remove_presence(&self, user_id: &UserId) {
 		let Ok(count) = self
 			.userid_presenceid
 			.get(user_id)
@@ -144,7 +144,7 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) fn presence_since(
+	pub fn presence_since(
 		&self,
 		since: u64,
 		to: Option<u64>,

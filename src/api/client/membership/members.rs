@@ -20,7 +20,7 @@ use crate::Ruma;
 /// specific membership).
 ///
 /// - Only works if the user is currently joined
-pub(crate) async fn get_member_events_route(
+pub async fn get_member_events_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_member_events::v3::Request>,
 ) -> Result<get_member_events::v3::Response> {
@@ -55,7 +55,7 @@ pub(crate) async fn get_member_events_route(
 ///
 /// - The sender user must be in the room
 /// - TODO: An appservice just needs a puppet joined
-pub(crate) async fn joined_members_route(
+pub async fn joined_members_route(
 	State(services): State<crate::State>,
 	body: Ruma<joined_members::v3::Request>,
 ) -> Result<joined_members::v3::Response> {

@@ -7,7 +7,7 @@ use tuwunel_core::{
 };
 use tuwunel_database::Database;
 
-pub(crate) use crate::OnceServices;
+pub use crate::OnceServices;
 use crate::{
 	account_data, admin, appservice, client, config, deactivate, emergency, federation, globals,
 	key_backups,
@@ -131,7 +131,7 @@ pub async fn build(server: Arc<Server>) -> Result<Arc<Self>> {
 }
 
 #[implement(Services)]
-pub(crate) fn services(&self) -> impl Iterator<Item = Arc<dyn Service>> + Send {
+pub fn services(&self) -> impl Iterator<Item = Arc<dyn Service>> + Send {
 	macro_rules! cast {
 		($s:expr) => {
 			<Arc<dyn Service> as Into<_>>::into($s.clone())
@@ -215,7 +215,7 @@ pub async fn stop(&self) {
 }
 
 #[implement(Services)]
-pub(crate) async fn interrupt(&self) {
+pub async fn interrupt(&self) {
 	debug!("Interrupting services...");
 	for service in self.services() {
 		let name = service.name();

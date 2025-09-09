@@ -21,7 +21,7 @@ use crate::rooms::{
 	timeline::{PduId, RawPduId},
 };
 
-pub(super) struct Data {
+pub struct Data {
 	tofrom_relation: Arc<Map>,
 	referencedevents: Arc<Map>,
 	softfailedeventids: Arc<Map>,
@@ -29,7 +29,7 @@ pub(super) struct Data {
 }
 
 impl Data {
-	pub(super) fn new(args: &crate::Args<'_>) -> Self {
+	pub fn new(args: &crate::Args<'_>) -> Self {
 		let db = &args.db;
 		Self {
 			tofrom_relation: db["tofrom_relation"].clone(),
@@ -40,7 +40,7 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) fn add_relation(&self, from: u64, to: u64) {
+	pub fn add_relation(&self, from: u64, to: u64) {
 		const BUFSIZE: usize = size_of::<u64>() * 2;
 
 		let key: &[u64] = &[to, from];
@@ -48,7 +48,7 @@ impl Data {
 			.aput_raw::<BUFSIZE, _, _>(key, []);
 	}
 
-	pub(super) fn get_relations<'a>(
+	pub fn get_relations<'a>(
 		&'a self,
 		user_id: &'a UserId,
 		shortroomid: ShortRoomId,
@@ -100,7 +100,7 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) fn mark_as_referenced<'a, I>(&self, room_id: &RoomId, event_ids: I)
+	pub fn mark_as_referenced<'a, I>(&self, room_id: &RoomId, event_ids: I)
 	where
 		I: Iterator<Item = &'a EventId>,
 	{
@@ -111,18 +111,18 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) async fn is_event_referenced(&self, room_id: &RoomId, event_id: &EventId) -> bool {
+	pub async fn is_event_referenced(&self, room_id: &RoomId, event_id: &EventId) -> bool {
 		let key = (room_id, event_id);
 		self.referencedevents.qry(&key).await.is_ok()
 	}
 
 	#[inline]
-	pub(super) fn mark_event_soft_failed(&self, event_id: &EventId) {
+	pub fn mark_event_soft_failed(&self, event_id: &EventId) {
 		self.softfailedeventids.insert(event_id, []);
 	}
 
 	#[inline]
-	pub(super) async fn is_event_soft_failed(&self, event_id: &EventId) -> bool {
+	pub async fn is_event_soft_failed(&self, event_id: &EventId) -> bool {
 		self.softfailedeventids
 			.get(event_id)
 			.await
@@ -130,7 +130,7 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) async fn delete_all_referenced_for_room(&self, room_id: &RoomId) -> Result {
+	pub async fn delete_all_referenced_for_room(&self, room_id: &RoomId) -> Result {
 		let prefix = (room_id, Interfix);
 
 		self.referencedevents

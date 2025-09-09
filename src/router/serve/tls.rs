@@ -12,7 +12,7 @@ use axum_server_dual_protocol::{
 use tokio::task::JoinSet;
 use tuwunel_core::{Result, Server, debug, debug_info, err, info, warn};
 
-pub(super) async fn serve(
+pub async fn serve(
 	server: &Arc<Server>,
 	app: Router,
 	handle: ServerHandle,

@@ -6,7 +6,7 @@ use crate::Context;
 
 #[derive(Debug, Subcommand)]
 /// All the getters and iterators from src/database/key_value/globals.rs
-pub(crate) enum GlobalsCommand {
+pub enum GlobalsCommand {
 	DatabaseVersion,
 
 	CurrentCount,
@@ -19,7 +19,7 @@ pub(crate) enum GlobalsCommand {
 }
 
 /// All the getters and iterators from src/database/key_value/globals.rs
-pub(super) async fn process(subcommand: GlobalsCommand, context: &Context<'_>) -> Result {
+pub async fn process(subcommand: GlobalsCommand, context: &Context<'_>) -> Result {
 	let services = context.services;
 
 	match subcommand {

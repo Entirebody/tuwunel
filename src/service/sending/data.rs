@@ -10,21 +10,21 @@ use tuwunel_database::{Database, Deserialized, Map};
 
 use super::{Destination, SendingEvent};
 
-pub(super) type OutgoingItem = (Key, SendingEvent, Destination);
-pub(super) type SendingItem = (Key, SendingEvent);
-pub(super) type QueueItem = (Key, SendingEvent);
-pub(super) type Key = Vec<u8>;
+pub type OutgoingItem = (Key, SendingEvent, Destination);
+pub type SendingItem = (Key, SendingEvent);
+pub type QueueItem = (Key, SendingEvent);
+pub type Key = Vec<u8>;
 
 pub struct Data {
 	servercurrentevent_data: Arc<Map>,
 	servernameevent_data: Arc<Map>,
 	servername_educount: Arc<Map>,
-	pub(super) db: Arc<Database>,
+	pub db: Arc<Database>,
 	services: Arc<crate::services::OnceServices>,
 }
 
 impl Data {
-	pub(super) fn new(args: &crate::Args<'_>) -> Self {
+	pub fn new(args: &crate::Args<'_>) -> Self {
 		let db = &args.db;
 		Self {
 			servercurrentevent_data: db["servercurrentevent_data"].clone(),
@@ -36,11 +36,11 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) fn delete_active_request(&self, key: &[u8]) {
+	pub fn delete_active_request(&self, key: &[u8]) {
 		self.servercurrentevent_data.remove(key);
 	}
 
-	pub(super) async fn delete_all_active_requests_for(&self, destination: &Destination) {
+	pub async fn delete_all_active_requests_for(&self, destination: &Destination) {
 		let prefix = destination.get_prefix();
 		self.servercurrentevent_data
 			.raw_keys_prefix(&prefix)
@@ -49,7 +49,7 @@ impl Data {
 			.await;
 	}
 
-	pub(super) async fn delete_all_requests_for(&self, destination: &Destination) {
+	pub async fn delete_all_requests_for(&self, destination: &Destination) {
 		let prefix = destination.get_prefix();
 		self.servercurrentevent_data
 			.raw_keys_prefix(&prefix)
@@ -64,7 +64,7 @@ impl Data {
 			.await;
 	}
 
-	pub(super) fn mark_as_active<'a, I>(&self, events: I)
+	pub fn mark_as_active<'a, I>(&self, events: I)
 	where
 		I: Iterator<Item = &'a QueueItem>,
 	{
@@ -109,7 +109,7 @@ impl Data {
 			})
 	}
 
-	pub(super) fn queue_requests<'a, I>(&self, requests: I) -> Vec<Vec<u8>>
+	pub fn queue_requests<'a, I>(&self, requests: I) -> Vec<Vec<u8>>
 	where
 		I: Iterator<Item = (&'a SendingEvent, &'a Destination)> + Clone + Debug + Send,
 	{
@@ -164,7 +164,7 @@ impl Data {
 			})
 	}
 
-	pub(super) fn set_latest_educount(&self, server_name: &ServerName, last_count: u64) {
+	pub fn set_latest_educount(&self, server_name: &ServerName, last_count: u64) {
 		self.servername_educount
 			.raw_put(server_name, last_count);
 	}

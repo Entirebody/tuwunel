@@ -6,7 +6,7 @@ use tuwunel_core::Result;
 use crate::Context;
 
 #[derive(Debug, Subcommand)]
-pub(crate) enum RoomStateCacheCommand {
+pub enum RoomStateCacheCommand {
 	ServerInRoom {
 		server: OwnedServerName,
 		room_id: OwnedRoomId,
@@ -76,7 +76,7 @@ pub(crate) enum RoomStateCacheCommand {
 	},
 }
 
-pub(super) async fn process(subcommand: RoomStateCacheCommand, context: &Context<'_>) -> Result {
+pub async fn process(subcommand: RoomStateCacheCommand, context: &Context<'_>) -> Result {
 	let services = context.services;
 
 	match subcommand {

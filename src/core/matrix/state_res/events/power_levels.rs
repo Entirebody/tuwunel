@@ -40,7 +40,7 @@ impl<E: Event> RoomPowerLevelsEvent<E> {
 	/// Get the value of a field that should contain an integer, if any.
 	///
 	/// The deserialization of this field is cached in memory.
-	pub(crate) fn get_as_int(
+	pub fn get_as_int(
 		&self,
 		field: RoomPowerLevelsIntField,
 		rules: &AuthorizationRules,
@@ -70,7 +70,7 @@ impl<E: Event> RoomPowerLevelsEvent<E> {
 	/// Get the value of a field that should contain an integer, or its default
 	/// value if it is absent.
 	#[inline]
-	pub(crate) fn get_as_int_or_default(
+	pub fn get_as_int_or_default(
 		&self,
 		field: RoomPowerLevelsIntField,
 		rules: &AuthorizationRules,
@@ -109,7 +109,7 @@ impl<E: Event> RoomPowerLevelsEvent<E> {
 
 	/// Get the power levels required to send events, if any.
 	#[inline]
-	pub(crate) fn events(
+	pub fn events(
 		&self,
 		rules: &AuthorizationRules,
 	) -> Result<Option<Vec<(TimelineEventType, Int)>>> {
@@ -118,7 +118,7 @@ impl<E: Event> RoomPowerLevelsEvent<E> {
 
 	/// Get the power levels required to trigger notifications, if any.
 	#[inline]
-	pub(crate) fn notifications(
+	pub fn notifications(
 		&self,
 		rules: &AuthorizationRules,
 	) -> Result<Option<Vec<(String, Int)>>> {
@@ -129,7 +129,7 @@ impl<E: Event> RoomPowerLevelsEvent<E> {
 	///
 	/// The deserialization of this field is cached in memory.
 	#[inline]
-	pub(crate) fn users(
+	pub fn users(
 		&self,
 		rules: &AuthorizationRules,
 	) -> Result<Option<Vec<(OwnedUserId, Int)>>> {
@@ -140,7 +140,7 @@ impl<E: Event> RoomPowerLevelsEvent<E> {
 	///
 	/// Calling this method several times should be cheap because the necessary
 	/// deserialization results are cached.
-	pub(crate) fn user_power_level(
+	pub fn user_power_level(
 		&self,
 		user_id: &UserId,
 		rules: &AuthorizationRules,
@@ -159,7 +159,7 @@ impl<E: Event> RoomPowerLevelsEvent<E> {
 	}
 
 	/// Get the power level required to send an event of the given type.
-	pub(crate) fn event_power_level(
+	pub fn event_power_level(
 		&self,
 		event_type: &TimelineEventType,
 		state_key: Option<&str>,
@@ -185,7 +185,7 @@ impl<E: Event> RoomPowerLevelsEvent<E> {
 
 	/// Get a map of all the fields with an integer value in the `content` of an
 	/// `m.room.power_levels` event.
-	pub(crate) fn int_fields_map(
+	pub fn int_fields_map(
 		&self,
 		rules: &AuthorizationRules,
 	) -> Result<Vec<(RoomPowerLevelsIntField, Int)>> {
@@ -208,7 +208,7 @@ impl<E: Event> Deref for RoomPowerLevelsEvent<E> {
 }
 
 /// Helper trait for `Option<RoomPowerLevelsEvent<E>>`.
-pub(crate) trait RoomPowerLevelsEventOptionExt {
+pub trait RoomPowerLevelsEventOptionExt {
 	/// Get the power level of the user with the given ID.
 	fn user_power_level(
 		&self,
@@ -292,7 +292,7 @@ where
 }
 
 #[inline]
-pub(crate) fn get_value<'a, K, V, B>(vec: &'a [(K, V)], key: &'a B) -> Option<&'a V>
+pub fn get_value<'a, K, V, B>(vec: &'a [(K, V)], key: &'a B) -> Option<&'a V>
 where
 	&'a K: PartialEq<&'a B>,
 	B: ?Sized,
@@ -303,7 +303,7 @@ where
 }
 
 #[inline]
-pub(crate) fn contains_key<'a, K, V, B>(vec: &'a [(K, V)], key: &'a B) -> bool
+pub fn contains_key<'a, K, V, B>(vec: &'a [(K, V)], key: &'a B) -> bool
 where
 	&'a K: PartialEq<&'a B>,
 	B: ?Sized,

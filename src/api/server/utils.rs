@@ -3,15 +3,15 @@ use ruma::{EventId, RoomId, ServerName};
 use tuwunel_core::{Err, Result, implement, is_false};
 use tuwunel_service::Services;
 
-pub(super) struct AccessCheck<'a> {
-	pub(super) services: &'a Services,
-	pub(super) origin: &'a ServerName,
-	pub(super) room_id: &'a RoomId,
-	pub(super) event_id: Option<&'a EventId>,
+pub struct AccessCheck<'a> {
+	pub services: &'a Services,
+	pub origin: &'a ServerName,
+	pub room_id: &'a RoomId,
+	pub event_id: Option<&'a EventId>,
 }
 
 #[implement(AccessCheck, params = "<'_>")]
-pub(super) async fn check(&self) -> Result {
+pub async fn check(&self) -> Result {
 	let acl_check = self
 		.services
 		.event_handler

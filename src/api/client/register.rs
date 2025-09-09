@@ -36,7 +36,7 @@ const RANDOM_USER_ID_LENGTH: usize = 10;
 /// Note: This will not reserve the username, so the username might become
 /// invalid when trying to register
 #[tracing::instrument(skip_all, fields(%client), name = "register_available")]
-pub(crate) async fn get_register_available_route(
+pub async fn get_register_available_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_username_availability::v3::Request>,
@@ -138,7 +138,7 @@ pub(crate) async fn get_register_available_route(
 ///   access_token
 #[allow(clippy::doc_markdown)]
 #[tracing::instrument(skip_all, fields(%client), name = "register")]
-pub(crate) async fn register_route(
+pub async fn register_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<register::v3::Request>,
@@ -601,7 +601,7 @@ pub(crate) async fn register_route(
 ///
 /// Currently does not have any ratelimiting, and this isn't very practical as
 /// there is only one registration token allowed.
-pub(crate) async fn check_registration_token_validity(
+pub async fn check_registration_token_validity(
 	State(services): State<crate::State>,
 	body: Ruma<check_registration_token_validity::v1::Request>,
 ) -> Result<check_registration_token_validity::v1::Response> {

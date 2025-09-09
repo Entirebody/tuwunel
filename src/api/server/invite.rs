@@ -24,7 +24,7 @@ use crate::Ruma;
 ///
 /// Invites a remote user to a room.
 #[tracing::instrument(skip_all, fields(%client), name = "invite")]
-pub(crate) async fn create_invite_route(
+pub async fn create_invite_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<create_invite::v2::Request>,

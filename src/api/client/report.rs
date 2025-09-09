@@ -21,7 +21,7 @@ const REASON_MAX_LEN: usize = 750;
 ///
 /// Reports an abusive room to homeserver admins
 #[tracing::instrument(skip_all, fields(%client), name = "report_room")]
-pub(crate) async fn report_room_route(
+pub async fn report_room_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<report_room::v3::Request>,
@@ -72,7 +72,7 @@ pub(crate) async fn report_room_route(
 ///
 /// Reports an inappropriate event to homeserver admins
 #[tracing::instrument(skip_all, fields(%client), name = "report_event")]
-pub(crate) async fn report_event_route(
+pub async fn report_event_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<report_content::v3::Request>,

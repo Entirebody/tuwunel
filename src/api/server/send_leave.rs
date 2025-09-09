@@ -19,7 +19,7 @@ use crate::Ruma;
 /// # `PUT /_matrix/federation/v1/send_leave/{roomId}/{eventId}`
 ///
 /// Submits a signed leave event.
-pub(crate) async fn create_leave_event_v1_route(
+pub async fn create_leave_event_v1_route(
 	State(services): State<crate::State>,
 	body: Ruma<create_leave_event::v1::Request>,
 ) -> Result<create_leave_event::v1::Response> {
@@ -31,7 +31,7 @@ pub(crate) async fn create_leave_event_v1_route(
 /// # `PUT /_matrix/federation/v2/send_leave/{roomId}/{eventId}`
 ///
 /// Submits a signed leave event.
-pub(crate) async fn create_leave_event_v2_route(
+pub async fn create_leave_event_v2_route(
 	State(services): State<crate::State>,
 	body: Ruma<create_leave_event::v2::Request>,
 ) -> Result<create_leave_event::v2::Response> {

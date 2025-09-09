@@ -6,12 +6,12 @@ use crate::{Result, err};
 
 #[inline]
 #[must_use]
-pub(super) fn as_value<E: Event>(event: &E) -> JsonValue {
+pub fn as_value<E: Event>(event: &E) -> JsonValue {
 	get(event).expect("Failed to represent Event content as JsonValue")
 }
 
 #[inline]
-pub(super) fn get<T, E>(event: &E) -> Result<T>
+pub fn get<T, E>(event: &E) -> Result<T>
 where
 	T: for<'de> Deserialize<'de>,
 	E: Event,

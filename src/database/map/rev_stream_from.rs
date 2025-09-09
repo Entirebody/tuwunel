@@ -114,7 +114,7 @@ where
     skip(map, from),
     fields(%map),
 )]
-pub(super) fn is_cached<P>(map: &Arc<super::Map>, from: &P) -> bool
+pub fn is_cached<P>(map: &Arc<super::Map>, from: &P) -> bool
 where
 	P: AsRef<[u8]> + ?Sized,
 {

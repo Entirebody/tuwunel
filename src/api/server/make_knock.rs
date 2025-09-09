@@ -13,7 +13,7 @@ use crate::Ruma;
 /// # `GET /_matrix/federation/v1/make_knock/{roomId}/{userId}`
 ///
 /// Creates a knock template.
-pub(crate) async fn create_knock_event_template_route(
+pub async fn create_knock_event_template_route(
 	State(services): State<crate::State>,
 	body: Ruma<prepare_knock_event::v1::Request>,
 ) -> Result<prepare_knock_event::v1::Response> {

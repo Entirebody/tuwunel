@@ -25,7 +25,7 @@ use crate::validated;
 /// ## Returns
 ///
 /// Returns an `(unconflicted_state, conflicted_states)` tuple.
-pub(super) async fn split_conflicted_state<'a, Maps, Id>(
+pub async fn split_conflicted_state<'a, Maps, Id>(
 	state_maps: Maps,
 ) -> (StateMap<Id>, StateMap<Vec<Id>>)
 where

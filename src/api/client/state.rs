@@ -28,7 +28,7 @@ use crate::{Ruma, RumaResponse};
 /// # `PUT /_matrix/client/*/rooms/{roomId}/state/{eventType}/{stateKey}`
 ///
 /// Sends a state event into the room.
-pub(crate) async fn send_state_event_for_key_route(
+pub async fn send_state_event_for_key_route(
 	State(services): State<crate::State>,
 	body: Ruma<send_state_event::v3::Request>,
 ) -> Result<send_state_event::v3::Response> {
@@ -55,7 +55,7 @@ pub(crate) async fn send_state_event_for_key_route(
 /// # `PUT /_matrix/client/*/rooms/{roomId}/state/{eventType}`
 ///
 /// Sends a state event into the room.
-pub(crate) async fn send_state_event_for_empty_key_route(
+pub async fn send_state_event_for_empty_key_route(
 	State(services): State<crate::State>,
 	body: Ruma<send_state_event::v3::Request>,
 ) -> Result<RumaResponse<send_state_event::v3::Response>> {
@@ -71,7 +71,7 @@ pub(crate) async fn send_state_event_for_empty_key_route(
 ///
 /// - If not joined: Only works if current room history visibility is world
 ///   readable
-pub(crate) async fn get_state_events_route(
+pub async fn get_state_events_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_state_events::v3::Request>,
 ) -> Result<get_state_events::v3::Response> {
@@ -103,7 +103,7 @@ pub(crate) async fn get_state_events_route(
 ///
 /// - If not joined: Only works if current room history visibility is world
 ///   readable
-pub(crate) async fn get_state_events_for_key_route(
+pub async fn get_state_events_for_key_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_state_event_for_key::v3::Request>,
 ) -> Result<get_state_event_for_key::v3::Response> {
@@ -161,7 +161,7 @@ pub(crate) async fn get_state_events_for_key_route(
 ///
 /// - If not joined: Only works if current room history visibility is world
 ///   readable
-pub(crate) async fn get_state_events_for_empty_key_route(
+pub async fn get_state_events_for_empty_key_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_state_event_for_key::v3::Request>,
 ) -> Result<RumaResponse<get_state_event_for_key::v3::Response>> {

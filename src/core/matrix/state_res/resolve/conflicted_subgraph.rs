@@ -25,7 +25,7 @@ struct Local {
 	stack: Vec<Vec<OwnedEventId>>,
 }
 
-pub(super) fn conflicted_subgraph_dfs<ConflictedEventIds, Fetch, Fut, Pdu>(
+pub fn conflicted_subgraph_dfs<ConflictedEventIds, Fetch, Fut, Pdu>(
 	conflicted_event_ids: ConflictedEventIds,
 	fetch: &Fetch,
 ) -> impl Stream<Item = OwnedEventId> + Send

@@ -27,7 +27,7 @@ fn init_argon() -> Argon2<'static> {
 	Argon2::new(algorithm, version, params)
 }
 
-pub(super) fn password(password: &str) -> Result<String> {
+pub fn password(password: &str) -> Result<String> {
 	let salt = SaltString::generate(rand::thread_rng());
 	ARGON
 		.get_or_init(init_argon)
@@ -36,7 +36,7 @@ pub(super) fn password(password: &str) -> Result<String> {
 		.map_err(map_err)
 }
 
-pub(super) fn verify_password(password: &str, password_hash: &str) -> Result {
+pub fn verify_password(password: &str, password_hash: &str) -> Result {
 	let password_hash = PasswordHash::new(password_hash).map_err(map_err)?;
 	ARGON
 		.get_or_init(init_argon)

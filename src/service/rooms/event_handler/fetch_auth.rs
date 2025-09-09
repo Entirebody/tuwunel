@@ -27,7 +27,7 @@ use tuwunel_core::{
 /// c. Ask origin server over federation
 /// d. TODO: Ask other servers over federation?
 #[implement(super::Service)]
-pub(super) async fn fetch_auth<'a, Events>(
+pub async fn fetch_auth<'a, Events>(
 	&self,
 	origin: &ServerName,
 	room_id: &RoomId,

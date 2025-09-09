@@ -10,7 +10,7 @@ use tuwunel_service::media::Dim;
 use crate::{admin_command, utils::parse_local_user_id};
 
 #[admin_command]
-pub(super) async fn delete(
+pub async fn delete(
 	&self,
 	mxc: Option<OwnedMxcUri>,
 	event_id: Option<OwnedEventId>,
@@ -179,7 +179,7 @@ pub(super) async fn delete(
 }
 
 #[admin_command]
-pub(super) async fn delete_list(&self) -> Result {
+pub async fn delete_list(&self) -> Result {
 	if self.body.len() < 2
 		|| !self.body[0].trim().starts_with("```")
 		|| self.body.last().unwrap_or(&"").trim() != "```"
@@ -228,7 +228,7 @@ pub(super) async fn delete_list(&self) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn delete_past_remote_media(
+pub async fn delete_past_remote_media(
 	&self,
 	duration: String,
 	before: bool,
@@ -257,7 +257,7 @@ pub(super) async fn delete_past_remote_media(
 }
 
 #[admin_command]
-pub(super) async fn delete_all_from_user(&self, username: String) -> Result {
+pub async fn delete_all_from_user(&self, username: String) -> Result {
 	let user_id = parse_local_user_id(self.services, &username)?;
 
 	let deleted_count = self
@@ -271,7 +271,7 @@ pub(super) async fn delete_all_from_user(&self, username: String) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn delete_all_from_server(
+pub async fn delete_all_from_server(
 	&self,
 	server_name: OwnedServerName,
 	yes_i_want_to_delete_local_media: bool,
@@ -331,7 +331,7 @@ pub(super) async fn delete_all_from_server(
 }
 
 #[admin_command]
-pub(super) async fn get_file_info(&self, mxc: OwnedMxcUri) -> Result {
+pub async fn get_file_info(&self, mxc: OwnedMxcUri) -> Result {
 	let mxc: Mxc<'_> = mxc.as_str().try_into()?;
 	let metadata = self.services.media.get_metadata(&mxc).await;
 
@@ -340,7 +340,7 @@ pub(super) async fn get_file_info(&self, mxc: OwnedMxcUri) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn get_remote_file(
+pub async fn get_remote_file(
 	&self,
 	mxc: OwnedMxcUri,
 	server: Option<OwnedServerName>,
@@ -363,7 +363,7 @@ pub(super) async fn get_remote_file(
 }
 
 #[admin_command]
-pub(super) async fn get_remote_thumbnail(
+pub async fn get_remote_thumbnail(
 	&self,
 	mxc: OwnedMxcUri,
 	server: Option<OwnedServerName>,

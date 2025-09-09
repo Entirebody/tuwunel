@@ -15,9 +15,9 @@ use tuwunel_core::{
 };
 use tuwunel_service::Services;
 
-pub(crate) use self::{v3::sync_events_route, v5::sync_events_v5_route};
+pub use self::{v3::sync_events_route, v5::sync_events_v5_route};
 
-pub(crate) const DEFAULT_BUMP_TYPES: &[TimelineEventType; 6] =
+pub const DEFAULT_BUMP_TYPES: &[TimelineEventType; 6] =
 	&[CallInvite, PollStart, Beacon, RoomEncrypted, RoomMessage, Sticker];
 
 async fn load_timeline(

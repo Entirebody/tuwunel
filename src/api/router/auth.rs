@@ -50,12 +50,12 @@ enum Token {
 }
 
 #[derive(Debug, Default)]
-pub(super) struct Auth {
-	pub(super) origin: Option<OwnedServerName>,
-	pub(super) sender_user: Option<OwnedUserId>,
-	pub(super) sender_device: Option<OwnedDeviceId>,
-	pub(super) appservice_info: Option<RegistrationInfo>,
-	pub(super) _expires_at: Option<SystemTime>,
+pub struct Auth {
+	pub origin: Option<OwnedServerName>,
+	pub sender_user: Option<OwnedUserId>,
+	pub sender_device: Option<OwnedDeviceId>,
+	pub appservice_info: Option<RegistrationInfo>,
+	pub _expires_at: Option<SystemTime>,
 }
 
 #[tracing::instrument(
@@ -64,7 +64,7 @@ pub(super) struct Auth {
 	err(level = "debug"),
 	ret
 )]
-pub(super) async fn auth(
+pub async fn auth(
 	services: &Services,
 	request: &mut Request,
 	json_body: Option<&CanonicalJsonValue>,

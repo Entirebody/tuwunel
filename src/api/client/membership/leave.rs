@@ -10,7 +10,7 @@ use crate::Ruma;
 /// Tries to leave the sender user from a room.
 ///
 /// - This should always work if the user is currently joined.
-pub(crate) async fn leave_room_route(
+pub async fn leave_room_route(
 	State(services): State<crate::State>,
 	body: Ruma<leave_room::v3::Request>,
 ) -> Result<leave_room::v3::Response> {

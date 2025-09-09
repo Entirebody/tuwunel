@@ -10,7 +10,7 @@ use tuwunel_service::Services;
 
 use crate::Ruma;
 
-pub(super) async fn handle_login(
+pub async fn handle_login(
 	services: &Services,
 	body: &Ruma<Request>,
 	info: &ApplicationService,

@@ -27,9 +27,9 @@ use crate::{Services, media};
 /// - If database is opened at lesser version we apply migrations up to this.
 ///   Note that named-feature migrations may also be performed when opening at
 ///   equal or lesser version. These are expected to be backward-compatible.
-pub(crate) const DATABASE_VERSION: u64 = 17;
+pub const DATABASE_VERSION: u64 = 17;
 
-pub(crate) async fn migrations(services: &Services) -> Result {
+pub async fn migrations(services: &Services) -> Result {
 	let users_count = services.users.count().await;
 
 	// Matrix resource ownership is based on the server name; changing it

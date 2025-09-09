@@ -4,7 +4,7 @@ use super::Capture;
 
 /// Capture instance scope guard.
 pub struct Guard {
-	pub(super) capture: Arc<Capture>,
+	pub capture: Arc<Capture>,
 }
 
 impl Drop for Guard {

@@ -17,7 +17,7 @@ use crate::Ruma;
 /// # `PUT /_matrix/client/r0/sendToDevice/{eventType}/{txnId}`
 ///
 /// Send a to-device event to a set of client devices.
-pub(crate) async fn send_event_to_device_route(
+pub async fn send_event_to_device_route(
 	State(services): State<crate::State>,
 	body: Ruma<send_event_to_device::v3::Request>,
 ) -> Result<send_event_to_device::v3::Response> {

@@ -19,7 +19,7 @@ use crate::{Ruma, client::membership::get_join_params};
 /// - If the server does not know about the room: asks other servers over
 ///   federation
 #[tracing::instrument(skip_all, fields(%client), name = "join")]
-pub(crate) async fn join_room_by_id_route(
+pub async fn join_room_by_id_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<join_room_by_id::v3::Request>,
@@ -64,7 +64,7 @@ pub(crate) async fn join_room_by_id_route(
 ///   param if specified. if not specified, asks other servers over federation
 ///   via room alias server name and room ID server name
 #[tracing::instrument(skip_all, fields(%client), name = "join")]
-pub(crate) async fn join_room_by_id_or_alias_route(
+pub async fn join_room_by_id_or_alias_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<join_room_by_id_or_alias::v3::Request>,

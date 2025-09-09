@@ -8,7 +8,7 @@ use crate::Ruma;
 /// # `POST /_matrix/client/r0/rooms/{roomId}/ban`
 ///
 /// Tries to send a ban event into the room.
-pub(crate) async fn ban_user_route(
+pub async fn ban_user_route(
 	State(services): State<crate::State>,
 	body: Ruma<ban_user::v3::Request>,
 ) -> Result<ban_user::v3::Response> {

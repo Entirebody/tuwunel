@@ -25,7 +25,7 @@ pub use self::{
 /// > `sender` does not match the `state_key`. The idea behind this is that
 /// > power events are events
 /// > that might remove someone’s ability to do something in the room.
-pub(super) fn is_power_event<Pdu>(event: &Pdu) -> bool
+pub fn is_power_event<Pdu>(event: &Pdu) -> bool
 where
 	Pdu: crate::matrix::Event,
 {

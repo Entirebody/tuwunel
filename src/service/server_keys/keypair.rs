@@ -6,7 +6,7 @@ use tuwunel_database::Database;
 
 use super::VerifyKeys;
 
-pub(super) fn init(db: &Arc<Database>) -> Result<(Box<Ed25519KeyPair>, VerifyKeys)> {
+pub fn init(db: &Arc<Database>) -> Result<(Box<Ed25519KeyPair>, VerifyKeys)> {
 	let keypair = load(db).inspect_err(|_e| {
 		error!("Keypair invalid. Deleting...");
 		remove(db);

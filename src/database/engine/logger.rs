@@ -7,7 +7,7 @@ use tuwunel_core::{debug, error, warn};
 	level = "trace"
 	skip(msg),
 )]
-pub(crate) fn handle(level: LogLevel, msg: &str) {
+pub fn handle(level: LogLevel, msg: &str) {
 	let msg = msg.trim();
 	if msg.starts_with("Options") {
 		return;

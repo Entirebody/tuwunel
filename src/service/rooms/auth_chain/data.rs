@@ -9,13 +9,13 @@ use tuwunel_database::Map;
 
 use crate::rooms::short::ShortEventId;
 
-pub(super) struct Data {
+pub struct Data {
 	shorteventid_authchain: Arc<Map>,
-	pub(super) auth_chain_cache: Mutex<LruCache<Vec<u64>, Arc<[ShortEventId]>>>,
+	pub auth_chain_cache: Mutex<LruCache<Vec<u64>, Arc<[ShortEventId]>>>,
 }
 
 impl Data {
-	pub(super) fn new(args: &crate::Args<'_>) -> Self {
+	pub fn new(args: &crate::Args<'_>) -> Self {
 		let db = &args.db;
 		let config = &args.server.config;
 		let cache_size = f64::from(config.auth_chain_cache_capacity);
@@ -27,7 +27,7 @@ impl Data {
 		}
 	}
 
-	pub(super) async fn get_cached_eventid_authchain(
+	pub async fn get_cached_eventid_authchain(
 		&self,
 		key: &[u64],
 	) -> Result<Arc<[ShortEventId]>> {
@@ -69,7 +69,7 @@ impl Data {
 		Ok(chain)
 	}
 
-	pub(super) fn cache_auth_chain(&self, key: Vec<u64>, auth_chain: Arc<[ShortEventId]>) {
+	pub fn cache_auth_chain(&self, key: Vec<u64>, auth_chain: Arc<[ShortEventId]>) {
 		debug_assert!(!key.is_empty(), "auth_chain key must not be empty");
 
 		// Only persist single events in db

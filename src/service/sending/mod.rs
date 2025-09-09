@@ -368,7 +368,7 @@ impl Service {
 		sender.send(msg).map_err(|e| err!("{e}"))
 	}
 
-	pub(super) fn shard_id(&self, dest: &Destination) -> usize {
+	pub fn shard_id(&self, dest: &Destination) -> usize {
 		if self.channels.len() <= 1 {
 			return 0;
 		}

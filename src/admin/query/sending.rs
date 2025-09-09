@@ -8,7 +8,7 @@ use crate::Context;
 
 #[derive(Debug, Subcommand)]
 /// All the getters and iterators from src/database/key_value/sending.rs
-pub(crate) enum SendingCommand {
+pub enum SendingCommand {
 	/// - Queries database for all `servercurrentevent_data`
 	ActiveRequests,
 
@@ -62,7 +62,7 @@ pub(crate) enum SendingCommand {
 }
 
 /// All the getters and iterators in key_value/sending.rs
-pub(super) async fn process(subcommand: SendingCommand, context: &Context<'_>) -> Result {
+pub async fn process(subcommand: SendingCommand, context: &Context<'_>) -> Result {
 	let services = context.services;
 
 	match subcommand {

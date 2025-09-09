@@ -21,7 +21,7 @@ use crate::rooms::short::ShortStateHash;
 #[implement(super::Service)]
 // request and build the state from a known point and resolve if > 1 prev_event
 #[tracing::instrument(name = "state", level = "debug", skip_all)]
-pub(super) async fn state_at_incoming_degree_one<Pdu>(
+pub async fn state_at_incoming_degree_one<Pdu>(
 	&self,
 	incoming_pdu: &Pdu,
 ) -> Result<Option<HashMap<u64, OwnedEventId>>>
@@ -82,7 +82,7 @@ where
 
 #[implement(super::Service)]
 #[tracing::instrument(name = "state", level = "debug", skip_all)]
-pub(super) async fn state_at_incoming_resolved<Pdu>(
+pub async fn state_at_incoming_resolved<Pdu>(
 	&self,
 	incoming_pdu: &Pdu,
 	room_id: &RoomId,

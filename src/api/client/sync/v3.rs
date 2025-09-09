@@ -119,7 +119,7 @@ type PresenceUpdates = HashMap<OwnedUserId, PresenceEventContent>;
 		user_id = %body.sender_user(),
     )
 )]
-pub(crate) async fn sync_events_route(
+pub async fn sync_events_route(
 	State(services): State<crate::State>,
 	body: Ruma<sync_events::v3::Request>,
 ) -> Result<sync_events::v3::Response, RumaResponse<UiaaResponse>> {

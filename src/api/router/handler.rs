@@ -13,12 +13,12 @@ use tuwunel_core::Result;
 
 use super::{Ruma, RumaResponse, State};
 
-pub(in super::super) trait RumaHandler<T> {
+pub trait RumaHandler<T> {
 	fn add_route(&'static self, router: Router<State>, path: &str) -> Router<State>;
 	fn add_routes(&'static self, router: Router<State>) -> Router<State>;
 }
 
-pub(in super::super) trait RouterExt {
+pub trait RouterExt {
 	fn ruma_route<H, T>(self, handler: &'static H) -> Self
 	where
 		H: RumaHandler<T>;

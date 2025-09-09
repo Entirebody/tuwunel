@@ -58,7 +58,7 @@ type KnownRooms = BTreeMap<String, BTreeMap<OwnedRoomId, u64>>;
 ///
 /// [MSC3575]: https://github.com/matrix-org/matrix-spec-proposals/pull/3575
 /// [MSC4186]: https://github.com/matrix-org/matrix-spec-proposals/pull/4186
-pub(crate) async fn sync_events_v5_route(
+pub async fn sync_events_v5_route(
 	State(ref services): State<crate::State>,
 	body: Ruma<sync_events::v5::Request>,
 ) -> Result<sync_events::v5::Response> {

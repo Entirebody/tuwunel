@@ -18,7 +18,7 @@ use crate::rooms::short::ShortStateKey;
 	skip_all,
 	fields(%origin),
 )]
-pub(super) async fn fetch_state(
+pub async fn fetch_state(
 	&self,
 	origin: &ServerName,
 	room_id: &RoomId,

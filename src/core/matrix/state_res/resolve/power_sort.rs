@@ -48,7 +48,7 @@ use crate::{
 		full_conflicted = full_conflicted_set.len(),
 	)
 )]
-pub(super) async fn power_sort<Fetch, Fut, Pdu>(
+pub async fn power_sort<Fetch, Fut, Pdu>(
 	rules: &RoomVersionRules,
 	full_conflicted_set: &AuthSet<OwnedEventId>,
 	fetch: &Fetch,

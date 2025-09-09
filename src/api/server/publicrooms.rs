@@ -15,7 +15,7 @@ use crate::Ruma;
 ///
 /// Lists the public rooms on this server.
 #[tracing::instrument(name = "publicrooms", level = "debug", skip_all, fields(%client))]
-pub(crate) async fn get_public_rooms_filtered_route(
+pub async fn get_public_rooms_filtered_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_public_rooms_filtered::v1::Request>,
@@ -53,7 +53,7 @@ pub(crate) async fn get_public_rooms_filtered_route(
 ///
 /// Lists the public rooms on this server.
 #[tracing::instrument(name = "publicrooms", level = "debug", skip_all, fields(%client))]
-pub(crate) async fn get_public_rooms_route(
+pub async fn get_public_rooms_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<get_public_rooms::v1::Request>,

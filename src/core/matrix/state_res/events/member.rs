@@ -51,7 +51,7 @@ impl<E: Event> Deref for RoomMemberEvent<E> {
 }
 
 /// Helper trait for `Option<RoomMemberEvent<E>>`.
-pub(crate) trait RoomMemberEventResultExt {
+pub trait RoomMemberEventResultExt {
 	/// The membership of the user.
 	///
 	/// Defaults to `leave` if there is no `m.room.member` event.

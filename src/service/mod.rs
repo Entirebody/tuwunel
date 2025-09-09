@@ -30,8 +30,8 @@ pub mod transaction_ids;
 pub mod uiaa;
 pub mod users;
 
-pub(crate) use once_services::OnceServices;
-pub(crate) use service::{Args, Service};
+pub use once_services::OnceServices;
+pub use service::{Args, Service};
 
 pub use crate::services::Services;
 

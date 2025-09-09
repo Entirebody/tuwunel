@@ -17,7 +17,7 @@ use crate::Ruma;
 /// Adds a tag to the room.
 ///
 /// - Inserts the tag into the tag event of the room account data.
-pub(crate) async fn update_tag_route(
+pub async fn update_tag_route(
 	State(services): State<crate::State>,
 	body: Ruma<create_tag::v3::Request>,
 ) -> Result<create_tag::v3::Response> {
@@ -54,7 +54,7 @@ pub(crate) async fn update_tag_route(
 /// Deletes a tag from the room.
 ///
 /// - Removes the tag from the tag event of the room account data.
-pub(crate) async fn delete_tag_route(
+pub async fn delete_tag_route(
 	State(services): State<crate::State>,
 	body: Ruma<delete_tag::v3::Request>,
 ) -> Result<delete_tag::v3::Response> {
@@ -91,7 +91,7 @@ pub(crate) async fn delete_tag_route(
 /// Returns tags on the room.
 ///
 /// - Gets the tag event of the room account data.
-pub(crate) async fn get_tags_route(
+pub async fn get_tags_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_tags::v3::Request>,
 ) -> Result<get_tags::v3::Response> {

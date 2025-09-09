@@ -5,7 +5,7 @@ use tuwunel_core::Result;
 use crate::Context;
 
 #[derive(Debug, Subcommand)]
-pub(crate) enum PusherCommand {
+pub enum PusherCommand {
 	/// - Returns all the pushers for the user.
 	GetPushers {
 		/// Full user ID
@@ -13,7 +13,7 @@ pub(crate) enum PusherCommand {
 	},
 }
 
-pub(super) async fn process(subcommand: PusherCommand, context: &Context<'_>) -> Result {
+pub async fn process(subcommand: PusherCommand, context: &Context<'_>) -> Result {
 	let services = context.services;
 
 	match subcommand {

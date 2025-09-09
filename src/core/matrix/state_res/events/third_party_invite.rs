@@ -19,7 +19,7 @@ impl<E: Event> RoomThirdPartyInviteEvent<E> {
 
 	/// The public keys of the identity server that might be used to sign the
 	/// third-party invite.
-	pub(crate) fn public_keys(&self) -> Result<BTreeSet<IdentityServerBase64PublicKey>> {
+	pub fn public_keys(&self) -> Result<BTreeSet<IdentityServerBase64PublicKey>> {
 		#[derive(Deserialize)]
 		struct RoomThirdPartyInviteContentPublicKeys {
 			public_key: Option<IdentityServerBase64PublicKey>,

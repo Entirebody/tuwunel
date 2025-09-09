@@ -7,20 +7,20 @@ use crate::{
 	engine::descriptor::{self, CacheDisp, Descriptor},
 };
 
-pub(super) type Maps = BTreeMap<MapsKey, MapsVal>;
-pub(super) type MapsKey = &'static str;
-pub(super) type MapsVal = Arc<Map>;
+pub type Maps = BTreeMap<MapsKey, MapsVal>;
+pub type MapsKey = &'static str;
+pub type MapsVal = Arc<Map>;
 
-pub(super) fn open(db: &Arc<Engine>) -> Result<Maps> { open_list(db, MAPS) }
+pub fn open(db: &Arc<Engine>) -> Result<Maps> { open_list(db, MAPS) }
 
 #[tracing::instrument(name = "maps", level = "debug", skip_all)]
-pub(super) fn open_list(db: &Arc<Engine>, maps: &[Descriptor]) -> Result<Maps> {
+pub fn open_list(db: &Arc<Engine>, maps: &[Descriptor]) -> Result<Maps> {
 	maps.iter()
 		.map(|desc| Ok((desc.name, Map::open(db, desc.name)?)))
 		.collect()
 }
 
-pub(super) static MAPS: &[Descriptor] = &[
+pub static MAPS: &[Descriptor] = &[
 	Descriptor {
 		name: "alias_roomid",
 		..descriptor::RANDOM_SMALL

@@ -12,7 +12,7 @@ use crate::{
 	matrix::{Event, StateKey},
 };
 
-pub(super) trait FetchStateExt<Pdu: Event> {
+pub trait FetchStateExt<Pdu: Event> {
 	async fn room_create_event(&self) -> Result<RoomCreateEvent<Pdu>>;
 
 	async fn user_membership(&self, user_id: &UserId) -> Result<MembershipState>;

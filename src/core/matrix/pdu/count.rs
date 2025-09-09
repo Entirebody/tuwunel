@@ -132,7 +132,7 @@ impl Count {
 	pub const fn max() -> Self { Self::Normal(i64::MAX as u64) }
 
 	#[inline]
-	pub(crate) fn debug_assert_valid(&self) {
+	pub fn debug_assert_valid(&self) {
 		if let Self::Backfilled(i) = self {
 			debug_assert!(*i <= 0, "Backfilled sequence must be negative");
 		}

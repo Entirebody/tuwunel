@@ -2,27 +2,27 @@
 #![allow(clippy::enum_glob_use)]
 #![allow(clippy::too_many_arguments)]
 
-pub(crate) mod admin;
-pub(crate) mod context;
-pub(crate) mod processor;
+pub mod admin;
+pub mod context;
+pub mod processor;
 mod tests;
-pub(crate) mod utils;
+pub mod utils;
 
-pub(crate) mod appservice;
-pub(crate) mod check;
-pub(crate) mod debug;
-pub(crate) mod federation;
-pub(crate) mod media;
-pub(crate) mod query;
-pub(crate) mod room;
-pub(crate) mod server;
-pub(crate) mod user;
+pub mod appservice;
+pub mod check;
+pub mod debug;
+pub mod federation;
+pub mod media;
+pub mod query;
+pub mod room;
+pub mod server;
+pub mod user;
 
-pub(crate) use tuwunel_macros::{admin_command, admin_command_dispatch};
+pub use tuwunel_macros::{admin_command, admin_command_dispatch};
 
-pub(crate) use crate::{context::Context, utils::get_room_info};
+pub use crate::{context::Context, utils::get_room_info};
 
-pub(crate) const PAGE_SIZE: usize = 100;
+pub const PAGE_SIZE: usize = 100;
 
 tuwunel_core::mod_ctor! {}
 tuwunel_core::mod_dtor! {}

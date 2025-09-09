@@ -25,7 +25,7 @@ use tuwunel_core::{Err, Result, info, utils, utils::stream::ReadyExt};
 use tuwunel_service::users::device::generate_refresh_token;
 
 use self::{ldap::ldap_login, password::password_login};
-pub(crate) use self::{
+pub use self::{
 	logout::{logout_all_route, logout_route},
 	refresh::refresh_token_route,
 	token::login_token_route,
@@ -38,7 +38,7 @@ use crate::Ruma;
 /// Get the supported login types of this server. One of these should be used as
 /// the `type` field when logging in.
 #[tracing::instrument(skip_all, fields(%client), name = "login")]
-pub(crate) async fn get_login_types_route(
+pub async fn get_login_types_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	_body: Ruma<get_login_types::v3::Request>,
@@ -68,7 +68,7 @@ pub(crate) async fn get_login_types_route(
 /// /_matrix/client/r0/login`](fn.get_supported_versions_route.html) to see
 /// supported login types.
 #[tracing::instrument(name = "login", skip_all, fields(%client, ?body.login_info))]
-pub(crate) async fn login_route(
+pub async fn login_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<login::v3::Request>,

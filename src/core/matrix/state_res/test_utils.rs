@@ -36,17 +36,17 @@ use crate::{
 
 static SERVER_TIMESTAMP: AtomicU64 = AtomicU64::new(0);
 
-pub(super) fn not_found() -> Error { err!(Request(NotFound("Test event not found"))) }
+pub fn not_found() -> Error { err!(Request(NotFound("Test event not found"))) }
 
-pub(super) fn event_not_found(event_id: &EventId) -> Error {
+pub fn event_not_found(event_id: &EventId) -> Error {
 	err!(Request(NotFound("Test event not found: {event_id:?}")))
 }
 
-pub(super) fn state_not_found(ty: &StateEventType, sk: &str) -> Error {
+pub fn state_not_found(ty: &StateEventType, sk: &str) -> Error {
 	err!(Request(NotFound("Test state not found: ({ty:?},{sk:?})")))
 }
 
-pub(super) async fn do_check(
+pub async fn do_check(
 	events: &[PduEvent],
 	edges: Vec<Vec<OwnedEventId>>,
 	expected_state_ids: Vec<OwnedEventId>,
@@ -249,10 +249,10 @@ pub(super) async fn do_check(
 }
 
 #[allow(clippy::exhaustive_structs)]
-pub(super) struct TestStore(pub(super) HashMap<OwnedEventId, PduEvent>);
+pub struct TestStore(pub HashMap<OwnedEventId, PduEvent>);
 
 impl TestStore {
-	pub(super) fn get_event(&self, _: &RoomId, event_id: &EventId) -> Result<PduEvent> {
+	pub fn get_event(&self, _: &RoomId, event_id: &EventId) -> Result<PduEvent> {
 		self.0
 			.get(event_id)
 			.cloned()
@@ -260,7 +260,7 @@ impl TestStore {
 	}
 
 	/// Returns a Vec of the related auth events to the given `event`.
-	pub(super) fn auth_event_ids(
+	pub fn auth_event_ids(
 		&self,
 		room_id: &RoomId,
 		event_ids: Vec<OwnedEventId>,
@@ -288,7 +288,7 @@ impl TestStore {
 // A StateStore implementation for testing
 #[allow(clippy::type_complexity)]
 impl TestStore {
-	pub(super) fn set_up(
+	pub fn set_up(
 		&mut self,
 	) -> (StateMap<OwnedEventId>, StateMap<OwnedEventId>, StateMap<OwnedEventId>) {
 		let create_event = to_pdu_event::<&EventId>(
@@ -390,7 +390,7 @@ impl TestStore {
 	}
 }
 
-pub(super) fn event_id(id: &str) -> OwnedEventId {
+pub fn event_id(id: &str) -> OwnedEventId {
 	if id.contains('$') {
 		return id.try_into().unwrap();
 	}
@@ -398,29 +398,29 @@ pub(super) fn event_id(id: &str) -> OwnedEventId {
 	format!("${id}:foo").try_into().unwrap()
 }
 
-pub(super) fn alice() -> &'static UserId { user_id!("@alice:foo") }
+pub fn alice() -> &'static UserId { user_id!("@alice:foo") }
 
-pub(super) fn bob() -> &'static UserId { user_id!("@bob:foo") }
+pub fn bob() -> &'static UserId { user_id!("@bob:foo") }
 
-pub(super) fn charlie() -> &'static UserId { user_id!("@charlie:foo") }
+pub fn charlie() -> &'static UserId { user_id!("@charlie:foo") }
 
-pub(super) fn ella() -> &'static UserId { user_id!("@ella:foo") }
+pub fn ella() -> &'static UserId { user_id!("@ella:foo") }
 
-pub(super) fn zara() -> &'static UserId { user_id!("@zara:foo") }
+pub fn zara() -> &'static UserId { user_id!("@zara:foo") }
 
-pub(super) fn room_id() -> &'static RoomId { room_id!("!test:foo") }
+pub fn room_id() -> &'static RoomId { room_id!("!test:foo") }
 
-pub(crate) fn hydra_room_id() -> &'static RoomId { room_id!("!CREATE") }
+pub fn hydra_room_id() -> &'static RoomId { room_id!("!CREATE") }
 
-pub(super) fn member_content_ban() -> Box<RawJsonValue> {
+pub fn member_content_ban() -> Box<RawJsonValue> {
 	to_raw_json_value(&RoomMemberEventContent::new(MembershipState::Ban)).unwrap()
 }
 
-pub(super) fn member_content_join() -> Box<RawJsonValue> {
+pub fn member_content_join() -> Box<RawJsonValue> {
 	to_raw_json_value(&RoomMemberEventContent::new(MembershipState::Join)).unwrap()
 }
 
-pub(super) fn to_init_pdu_event(
+pub fn to_init_pdu_event(
 	id: &str,
 	sender: &UserId,
 	ev_type: TimelineEventType,
@@ -455,7 +455,7 @@ pub(super) fn to_init_pdu_event(
 	}
 }
 
-pub(super) fn to_pdu_event<S>(
+pub fn to_pdu_event<S>(
 	id: &str,
 	sender: &UserId,
 	ev_type: TimelineEventType,
@@ -507,7 +507,7 @@ where
 
 /// Same as `to_pdu_event()`, but uses the default m.room.create event ID to
 /// generate the room ID.
-pub(super) fn to_hydra_pdu_event<S>(
+pub fn to_hydra_pdu_event<S>(
 	id: &str,
 	sender: &UserId,
 	ev_type: TimelineEventType,
@@ -560,7 +560,7 @@ where
 	}
 }
 
-pub(super) fn room_redaction_pdu_event<S>(
+pub fn room_redaction_pdu_event<S>(
 	id: &str,
 	sender: &UserId,
 	redacts: OwnedEventId,
@@ -608,7 +608,7 @@ where
 	}
 }
 
-pub(super) fn room_create_hydra_pdu_event(
+pub fn room_create_hydra_pdu_event(
 	id: &str,
 	sender: &UserId,
 	content: Box<RawJsonValue>,
@@ -647,7 +647,7 @@ pub(super) fn room_create_hydra_pdu_event(
 
 // all graphs start with these input events
 #[allow(non_snake_case)]
-pub(super) fn INITIAL_EVENTS() -> HashMap<OwnedEventId, PduEvent> {
+pub fn INITIAL_EVENTS() -> HashMap<OwnedEventId, PduEvent> {
 	vec![
 		to_pdu_event::<&EventId>(
 			"CREATE",
@@ -730,7 +730,7 @@ pub(super) fn INITIAL_EVENTS() -> HashMap<OwnedEventId, PduEvent> {
 /// Batch of initial events to use for incoming events from room version
 /// `org.matrix.hydra.11` onwards.
 #[allow(non_snake_case)]
-pub(super) fn INITIAL_HYDRA_EVENTS() -> HashMap<OwnedEventId, PduEvent> {
+pub fn INITIAL_HYDRA_EVENTS() -> HashMap<OwnedEventId, PduEvent> {
 	vec![
 		room_create_hydra_pdu_event(
 			"CREATE",
@@ -808,7 +808,7 @@ pub(super) fn INITIAL_HYDRA_EVENTS() -> HashMap<OwnedEventId, PduEvent> {
 
 // all graphs start with these input events
 #[allow(non_snake_case)]
-pub(super) fn INITIAL_EVENTS_CREATE_ROOM() -> HashMap<OwnedEventId, PduEvent> {
+pub fn INITIAL_EVENTS_CREATE_ROOM() -> HashMap<OwnedEventId, PduEvent> {
 	vec![to_pdu_event::<&EventId>(
 		"CREATE",
 		alice(),
@@ -824,14 +824,14 @@ pub(super) fn INITIAL_EVENTS_CREATE_ROOM() -> HashMap<OwnedEventId, PduEvent> {
 }
 
 #[allow(non_snake_case)]
-pub(super) fn INITIAL_EDGES() -> Vec<OwnedEventId> {
+pub fn INITIAL_EDGES() -> Vec<OwnedEventId> {
 	vec!["START", "IMC", "IMB", "IJR", "IPOWER", "IMA", "CREATE"]
 		.into_iter()
 		.map(event_id)
 		.collect::<Vec<_>>()
 }
 
-pub(super) fn init_subscriber() -> tracing::dispatcher::DefaultGuard {
+pub fn init_subscriber() -> tracing::dispatcher::DefaultGuard {
 	tracing::subscriber::set_default(
 		tracing_subscriber::fmt()
 			.with_test_writer()
@@ -840,11 +840,11 @@ pub(super) fn init_subscriber() -> tracing::dispatcher::DefaultGuard {
 }
 
 /// Wrapper around a state map.
-pub(super) struct TestStateMap(HashMap<StateEventType, HashMap<String, PduEvent>>);
+pub struct TestStateMap(HashMap<StateEventType, HashMap<String, PduEvent>>);
 
 impl TestStateMap {
 	/// Construct a `TestStateMap` from the given event map.
-	pub(super) fn new(events: &HashMap<OwnedEventId, PduEvent>) -> Arc<Self> {
+	pub fn new(events: &HashMap<OwnedEventId, PduEvent>) -> Arc<Self> {
 		let mut state_map: HashMap<StateEventType, HashMap<String, PduEvent>> = HashMap::new();
 
 		for event in events.values() {
@@ -860,7 +860,7 @@ impl TestStateMap {
 	}
 
 	/// Get the event with the given event type and state key.
-	pub(super) fn get(
+	pub fn get(
 		self: &Arc<Self>,
 		event_type: &StateEventType,
 		state_key: &str,
@@ -874,7 +874,7 @@ impl TestStateMap {
 	}
 
 	/// A function to get a state event from this map.
-	pub(super) fn fetch_state_fn(
+	pub fn fetch_state_fn(
 		self: &Arc<Self>,
 	) -> impl Fn(StateEventType, StateKey) -> Pin<Box<dyn Future<Output = Result<PduEvent>> + Send>>
 	{
@@ -887,13 +887,13 @@ impl TestStateMap {
 	/// The `m.room.create` event contained in this map.
 	///
 	/// Panics if there is no `m.room.create` event in this map.
-	pub(super) fn room_create_event(self: &Arc<Self>) -> RoomCreateEvent<PduEvent> {
+	pub fn room_create_event(self: &Arc<Self>) -> RoomCreateEvent<PduEvent> {
 		RoomCreateEvent::new(self.get(&StateEventType::RoomCreate, "").unwrap())
 	}
 }
 
 /// Create an `m.room.third_party_invite` event with the given sender.
-pub(super) fn room_third_party_invite(sender: &UserId) -> PduEvent {
+pub fn room_third_party_invite(sender: &UserId) -> PduEvent {
 	let content = json!({
 		"display_name": "o...@g...",
 		"key_validity_url": "https://identity.local/_matrix/identity/v2/pubkey/isvalid",

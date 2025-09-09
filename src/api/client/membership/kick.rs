@@ -8,7 +8,7 @@ use crate::Ruma;
 /// # `POST /_matrix/client/r0/rooms/{roomId}/kick`
 ///
 /// Tries to send a kick event into the room.
-pub(crate) async fn kick_user_route(
+pub async fn kick_user_route(
 	State(services): State<crate::State>,
 	body: Ruma<kick_user::v3::Request>,
 ) -> Result<kick_user::v3::Response> {

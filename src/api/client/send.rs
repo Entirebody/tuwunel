@@ -16,7 +16,7 @@ use crate::Ruma;
 /// - The only requirement for the content is that it has to be valid json
 /// - Tries to send the event into the room, auth rules will determine if it is
 ///   allowed
-pub(crate) async fn send_message_event_route(
+pub async fn send_message_event_route(
 	State(services): State<crate::State>,
 	body: Ruma<send_message_event::v3::Request>,
 ) -> Result<send_message_event::v3::Response> {

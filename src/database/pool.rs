@@ -28,7 +28,7 @@ use crate::{Handle, Map, keyval::KeyBuf, stream};
 /// Frontend thread-pool. Operating system threads are used to make database
 /// requests which are not cached. These thread-blocking requests are offloaded
 /// from the tokio async workers and executed on this threadpool.
-pub(crate) struct Pool {
+pub struct Pool {
 	server: Arc<Server>,
 	queues: Vec<Sender<Cmd>>,
 	workers: Mutex<Vec<JoinHandle<()>>>,
@@ -38,32 +38,32 @@ pub(crate) struct Pool {
 }
 
 /// Operations which can be submitted to the pool.
-pub(crate) enum Cmd {
+pub enum Cmd {
 	Get(Get),
 	Iter(Seek),
 }
 
 /// Multi-point-query
-pub(crate) struct Get {
-	pub(crate) map: Arc<Map>,
-	pub(crate) key: BatchQuery<'static>,
-	pub(crate) res: Option<ResultSender<BatchResult<'static>>>,
+pub struct Get {
+	pub map: Arc<Map>,
+	pub key: BatchQuery<'static>,
+	pub res: Option<ResultSender<BatchResult<'static>>>,
 }
 
 /// Iterator-seek.
 /// Note: only initial seek is supported at this time on the assumption rocksdb
 /// prefetching prevents mid-iteration polls from blocking on I/O.
-pub(crate) struct Seek {
-	pub(crate) map: Arc<Map>,
-	pub(crate) state: stream::State<'static>,
-	pub(crate) dir: Direction,
-	pub(crate) key: Option<KeyBuf>,
-	pub(crate) res: Option<ResultSender<stream::State<'static>>>,
+pub struct Seek {
+	pub map: Arc<Map>,
+	pub state: stream::State<'static>,
+	pub dir: Direction,
+	pub key: Option<KeyBuf>,
+	pub res: Option<ResultSender<stream::State<'static>>>,
 }
 
-pub(crate) type BatchQuery<'a> = SmallVec<[KeyBuf; BATCH_INLINE]>;
-pub(crate) type BatchResult<'a> = SmallVec<[ResultHandle<'a>; BATCH_INLINE]>;
-pub(crate) type ResultHandle<'a> = Result<Handle<'a>>;
+pub type BatchQuery<'a> = SmallVec<[KeyBuf; BATCH_INLINE]>;
+pub type BatchResult<'a> = SmallVec<[ResultHandle<'a>; BATCH_INLINE]>;
+pub type ResultHandle<'a> = Result<Handle<'a>>;
 
 const WORKER_LIMIT: (usize, usize) = (1, 1024);
 const QUEUE_LIMIT: (usize, usize) = (1, 4096);
@@ -73,7 +73,7 @@ const WORKER_STACK_SIZE: usize = 1_048_576;
 const WORKER_NAME: &str = "tuwunel:db";
 
 #[implement(Pool)]
-pub(crate) fn new(server: &Arc<Server>) -> Result<Arc<Self>> {
+pub fn new(server: &Arc<Server>) -> Result<Arc<Self>> {
 	const CHAN_SCHED: (QueueStrategy, QueueStrategy) = (QueueStrategy::Fifo, QueueStrategy::Lifo);
 
 	let (total_workers, queue_sizes, topology) = configure(server);
@@ -114,7 +114,7 @@ impl Drop for Pool {
 
 #[implement(Pool)]
 #[tracing::instrument(skip_all)]
-pub(crate) fn close(&self) {
+pub fn close(&self) {
 	let workers = take(&mut *self.workers.lock().expect("locked"));
 
 	let senders = self
@@ -197,7 +197,7 @@ fn spawn_one(
 
 #[implement(Pool)]
 #[tracing::instrument(level = "trace", name = "get", skip(self, cmd))]
-pub(crate) async fn execute_get(self: &Arc<Self>, mut cmd: Get) -> Result<BatchResult<'_>> {
+pub async fn execute_get(self: &Arc<Self>, mut cmd: Get) -> Result<BatchResult<'_>> {
 	let (send, recv) = oneshot::channel();
 	_ = cmd.res.insert(send);
 
@@ -212,7 +212,7 @@ pub(crate) async fn execute_get(self: &Arc<Self>, mut cmd: Get) -> Result<BatchR
 
 #[implement(Pool)]
 #[tracing::instrument(level = "trace", name = "iter", skip(self, cmd))]
-pub(crate) async fn execute_iter(self: &Arc<Self>, mut cmd: Seek) -> Result<stream::State<'_>> {
+pub async fn execute_iter(self: &Arc<Self>, mut cmd: Seek) -> Result<stream::State<'_>> {
 	let (send, recv) = oneshot::channel();
 	_ = cmd.res.insert(send);
 
@@ -441,7 +441,7 @@ fn into_recv_get<'a>(result: BatchResult<'static>) -> BatchResult<'a> {
 	unsafe { std::mem::transmute(result) }
 }
 
-pub(crate) fn into_send_seek(result: stream::State<'_>) -> stream::State<'static> {
+pub fn into_send_seek(result: stream::State<'_>) -> stream::State<'static> {
 	// SAFETY: Necessary to send the State through the channel; see above.
 	unsafe { std::mem::transmute(result) }
 }

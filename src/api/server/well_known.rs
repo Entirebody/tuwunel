@@ -7,7 +7,7 @@ use crate::Ruma;
 /// # `GET /.well-known/matrix/server`
 ///
 /// Returns the .well-known URL if it is configured, otherwise returns 404.
-pub(crate) async fn well_known_server(
+pub async fn well_known_server(
 	State(services): State<crate::State>,
 	_body: Ruma<discover_homeserver::Request>,
 ) -> Result<discover_homeserver::Response> {

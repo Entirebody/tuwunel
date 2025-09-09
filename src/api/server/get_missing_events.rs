@@ -13,7 +13,7 @@ const LIMIT_DEFAULT: usize = 10;
 /// # `POST /_matrix/federation/v1/get_missing_events/{roomId}`
 ///
 /// Retrieves events that the sender is missing.
-pub(crate) async fn get_missing_events_route(
+pub async fn get_missing_events_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_missing_events::v1::Request>,
 ) -> Result<get_missing_events::v1::Response> {

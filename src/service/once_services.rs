@@ -6,17 +6,17 @@ use std::{
 use crate::Services;
 
 #[derive(Default)]
-pub(crate) struct OnceServices {
+pub struct OnceServices {
 	lock: OnceLock<Arc<Services>>,
 }
 
 impl OnceServices {
-	pub(super) fn set(&self, services: Arc<Services>) -> Arc<Services> {
+	pub fn set(&self, services: Arc<Services>) -> Arc<Services> {
 		self.lock.get_or_init(move || services).clone()
 	}
 
 	#[inline]
-	pub(crate) fn get(&self) -> &Arc<Services> {
+	pub fn get(&self) -> &Arc<Services> {
 		self.lock
 			.get()
 			.expect("services must be initialized")

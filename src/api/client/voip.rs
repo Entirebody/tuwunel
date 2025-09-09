@@ -16,7 +16,7 @@ type HmacSha1 = Hmac<Sha1>;
 /// # `GET /_matrix/client/r0/voip/turnServer`
 ///
 /// TODO: Returns information about the recommended turn server.
-pub(crate) async fn turn_server_route(
+pub async fn turn_server_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_turn_server_info::v3::Request>,
 ) -> Result<get_turn_server_info::v3::Response> {

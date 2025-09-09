@@ -10,21 +10,21 @@ use tuwunel_database::{Database, Interfix, Map, serialize_key};
 
 use super::{preview::UrlPreviewData, thumbnail::Dim};
 
-pub(crate) struct Data {
+pub struct Data {
 	mediaid_file: Arc<Map>,
 	mediaid_user: Arc<Map>,
 	url_previews: Arc<Map>,
 }
 
 #[derive(Debug)]
-pub(super) struct Metadata {
-	pub(super) content_disposition: Option<ContentDisposition>,
-	pub(super) content_type: Option<String>,
-	pub(super) key: Vec<u8>,
+pub struct Metadata {
+	pub content_disposition: Option<ContentDisposition>,
+	pub content_type: Option<String>,
+	pub key: Vec<u8>,
 }
 
 impl Data {
-	pub(super) fn new(db: &Arc<Database>) -> Self {
+	pub fn new(db: &Arc<Database>) -> Self {
 		Self {
 			mediaid_file: db["mediaid_file"].clone(),
 			mediaid_user: db["mediaid_user"].clone(),
@@ -32,7 +32,7 @@ impl Data {
 		}
 	}
 
-	pub(super) fn create_file_metadata(
+	pub fn create_file_metadata(
 		&self,
 		mxc: &Mxc<'_>,
 		user: Option<&UserId>,
@@ -52,7 +52,7 @@ impl Data {
 		Ok(key.to_vec())
 	}
 
-	pub(super) async fn delete_file_mxc(&self, mxc: &Mxc<'_>) {
+	pub async fn delete_file_mxc(&self, mxc: &Mxc<'_>) {
 		debug!("MXC URI: {mxc}");
 
 		let prefix = (mxc, Interfix);
@@ -80,7 +80,7 @@ impl Data {
 	}
 
 	/// Searches for all files with the given MXC
-	pub(super) async fn search_mxc_metadata_prefix(&self, mxc: &Mxc<'_>) -> Result<Vec<Vec<u8>>> {
+	pub async fn search_mxc_metadata_prefix(&self, mxc: &Mxc<'_>) -> Result<Vec<Vec<u8>>> {
 		debug!("MXC URI: {mxc}");
 
 		let prefix = (mxc, Interfix);
@@ -101,7 +101,7 @@ impl Data {
 		Ok(keys)
 	}
 
-	pub(super) async fn search_file_metadata(
+	pub async fn search_file_metadata(
 		&self,
 		mxc: &Mxc<'_>,
 		dim: &Dim,
@@ -142,7 +142,7 @@ impl Data {
 	}
 
 	/// Gets all the MXCs associated with a user
-	pub(super) async fn get_all_user_mxcs(&self, user_id: &UserId) -> Vec<OwnedMxcUri> {
+	pub async fn get_all_user_mxcs(&self, user_id: &UserId) -> Vec<OwnedMxcUri> {
 		self.mediaid_user
 			.stream()
 			.ignore_err()
@@ -155,7 +155,7 @@ impl Data {
 
 	/// Gets all the media keys in our database (this includes all the metadata
 	/// associated with it such as width, height, content-type, etc)
-	pub(crate) async fn get_all_media_keys(&self) -> Vec<Vec<u8>> {
+	pub async fn get_all_media_keys(&self) -> Vec<Vec<u8>> {
 		self.mediaid_file
 			.raw_keys()
 			.ignore_err()
@@ -165,12 +165,12 @@ impl Data {
 	}
 
 	#[inline]
-	pub(super) fn remove_url_preview(&self, url: &str) -> Result {
+	pub fn remove_url_preview(&self, url: &str) -> Result {
 		self.url_previews.remove(url.as_bytes());
 		Ok(())
 	}
 
-	pub(super) fn set_url_preview(
+	pub fn set_url_preview(
 		&self,
 		url: &str,
 		data: &UrlPreviewData,
@@ -211,7 +211,7 @@ impl Data {
 		Ok(())
 	}
 
-	pub(super) async fn get_url_preview(&self, url: &str) -> Result<UrlPreviewData> {
+	pub async fn get_url_preview(&self, url: &str) -> Result<UrlPreviewData> {
 		let values = self.url_previews.get(url).await?;
 
 		let mut values = values.split(|&b| b == 0xFF);

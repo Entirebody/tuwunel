@@ -22,7 +22,7 @@ pub struct Service {
 	services: Arc<crate::services::OnceServices>,
 }
 
-pub(super) struct Data {
+pub struct Data {
 	threadid_userids: Arc<Map>,
 }
 
@@ -169,7 +169,7 @@ impl Service {
 			.try_flatten_stream()
 	}
 
-	pub(super) fn update_participants(
+	pub fn update_participants(
 		&self,
 		root_id: &RawPduId,
 		participants: &[OwnedUserId],
@@ -185,7 +185,7 @@ impl Service {
 		Ok(())
 	}
 
-	pub(super) async fn get_participants(&self, root_id: &RawPduId) -> Result<Vec<OwnedUserId>> {
+	pub async fn get_participants(&self, root_id: &RawPduId) -> Result<Vec<OwnedUserId>> {
 		self.db
 			.threadid_userids
 			.get(root_id)
@@ -193,7 +193,7 @@ impl Service {
 			.deserialized()
 	}
 
-	pub(super) async fn delete_all_rooms_threads(&self, room_id: &RoomId) -> Result {
+	pub async fn delete_all_rooms_threads(&self, room_id: &RoomId) -> Result {
 		let prefix = (room_id, Interfix);
 
 		self.db

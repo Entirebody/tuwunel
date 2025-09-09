@@ -12,16 +12,16 @@ use crate::{or_else, pool::Pool};
 /// outlive the database. These can also be shared between database instances
 /// though at the time of this comment we only open one database per process.
 /// These assets are housed in the shared Context.
-pub(crate) struct Context {
-	pub(crate) pool: Arc<Pool>,
-	pub(crate) col_cache: Mutex<BTreeMap<String, Cache>>,
-	pub(crate) row_cache: Mutex<Cache>,
-	pub(crate) env: Mutex<Env>,
-	pub(crate) server: Arc<Server>,
+pub struct Context {
+	pub pool: Arc<Pool>,
+	pub col_cache: Mutex<BTreeMap<String, Cache>>,
+	pub row_cache: Mutex<Cache>,
+	pub env: Mutex<Env>,
+	pub server: Arc<Server>,
 }
 
 impl Context {
-	pub(crate) fn new(server: &Arc<Server>) -> Result<Arc<Self>> {
+	pub fn new(server: &Arc<Server>) -> Result<Arc<Self>> {
 		let config = &server.config;
 		let cache_capacity_bytes = config.db_cache_capacity_mb * 1024.0 * 1024.0;
 

@@ -11,7 +11,7 @@ use crate::users;
 /// Represents data required to be kept in order to implement the presence
 /// specification.
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub(super) struct Presence {
+pub struct Presence {
 	state: PresenceState,
 	currently_active: bool,
 	last_active_ts: u64,
@@ -20,7 +20,7 @@ pub(super) struct Presence {
 
 impl Presence {
 	#[must_use]
-	pub(super) fn new(
+	pub fn new(
 		state: PresenceState,
 		currently_active: bool,
 		last_active_ts: u64,
@@ -34,13 +34,13 @@ impl Presence {
 		}
 	}
 
-	pub(super) fn from_json_bytes(bytes: &[u8]) -> Result<Self> {
+	pub fn from_json_bytes(bytes: &[u8]) -> Result<Self> {
 		serde_json::from_slice(bytes)
 			.map_err(|_| Error::bad_database("Invalid presence data in database"))
 	}
 
 	/// Creates a PresenceEvent from available data.
-	pub(super) async fn to_presence_event(
+	pub async fn to_presence_event(
 		&self,
 		user_id: &UserId,
 		users: &users::Service,

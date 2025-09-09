@@ -28,7 +28,7 @@ use tuwunel_service::Services;
 			.fetch_add(1, Ordering::Relaxed)
 	)
 )]
-pub(crate) async fn handle(
+pub async fn handle(
 	State(services): State<Arc<Services>>,
 	req: http::Request<axum::body::Body>,
 	next: axum::middleware::Next,

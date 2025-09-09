@@ -15,26 +15,26 @@ use super::{
 };
 
 #[derive(Clone, Debug)]
-pub(crate) struct ActualDest {
-	pub(crate) dest: FedDest,
-	pub(crate) host: String,
+pub struct ActualDest {
+	pub dest: FedDest,
+	pub host: String,
 }
 
 impl ActualDest {
 	#[inline]
-	pub(crate) fn string(&self) -> String { self.dest.https_string() }
+	pub fn string(&self) -> String { self.dest.https_string() }
 }
 
 impl super::Service {
 	#[tracing::instrument(skip_all, level = "debug", name = "resolve")]
-	pub(crate) async fn get_actual_dest(&self, server_name: &ServerName) -> Result<ActualDest> {
+	pub async fn get_actual_dest(&self, server_name: &ServerName) -> Result<ActualDest> {
 		let (CachedDest { dest, host, .. }, _cached) =
 			self.lookup_actual_dest(server_name).await?;
 
 		Ok(ActualDest { dest, host })
 	}
 
-	pub(crate) async fn lookup_actual_dest(
+	pub async fn lookup_actual_dest(
 		&self,
 		server_name: &ServerName,
 	) -> Result<(CachedDest, bool)> {
@@ -403,7 +403,7 @@ impl super::Service {
 		Ok(())
 	}
 
-	pub(crate) fn validate_ip(&self, ip: &IPAddress) -> Result {
+	pub fn validate_ip(&self, ip: &IPAddress) -> Result {
 		if !self.services.client.valid_cidr_range(ip) {
 			return Err!(BadServerResponse("Not allowed to send requests to this IP"));
 		}

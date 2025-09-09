@@ -26,7 +26,7 @@ const PROMPT: &str = "uwu> ";
 const HISTORY_LIMIT: usize = 48;
 
 impl Console {
-	pub(super) fn new(args: &crate::Args<'_>) -> Arc<Self> {
+	pub fn new(args: &crate::Args<'_>) -> Arc<Self> {
 		Arc::new(Self {
 			server: args.server.clone(),
 			services: args.services.clone(),
@@ -38,7 +38,7 @@ impl Console {
 		})
 	}
 
-	pub(super) async fn handle_signal(self: &Arc<Self>, sig: &'static str) {
+	pub async fn handle_signal(self: &Arc<Self>, sig: &'static str) {
 		if !self.server.running() {
 			self.interrupt();
 		} else if sig == "SIGINT" {

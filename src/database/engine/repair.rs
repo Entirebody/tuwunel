@@ -5,7 +5,7 @@ use tuwunel_core::{Err, Result, info, warn};
 
 use super::Db;
 
-pub(crate) fn repair(db_opts: &Options, path: &PathBuf) -> Result {
+pub fn repair(db_opts: &Options, path: &PathBuf) -> Result {
 	warn!("Starting database repair. This may take a long time...");
 	match Db::repair(db_opts, path) {
 		| Ok(()) => info!("Database repair successful."),

@@ -11,7 +11,7 @@ use crate::Ruma;
 ///
 /// - Only users joined to the room are allowed to call this, or if
 ///   `history_visibility` is world readable in the room
-pub(crate) async fn get_room_aliases_route(
+pub async fn get_room_aliases_route(
 	State(services): State<crate::State>,
 	body: Ruma<aliases::v3::Request>,
 ) -> Result<aliases::v3::Response> {

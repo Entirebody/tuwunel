@@ -21,7 +21,7 @@ use crate::Ruma;
 /// # `PUT /_matrix/federation/v1/send_knock/{roomId}/{eventId}`
 ///
 /// Submits a signed knock event.
-pub(crate) async fn create_knock_event_v1_route(
+pub async fn create_knock_event_v1_route(
 	State(services): State<crate::State>,
 	body: Ruma<create_knock_event::v1::Request>,
 ) -> Result<create_knock_event::v1::Response> {

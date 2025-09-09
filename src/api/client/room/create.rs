@@ -54,7 +54,7 @@ use crate::{Ruma, client::utils::invite_check};
 /// - Send events implied by `name` and `topic`
 /// - Send invite events
 #[allow(clippy::large_stack_frames)]
-pub(crate) async fn create_room_route(
+pub async fn create_room_route(
 	State(services): State<crate::State>,
 	body: Ruma<create_room::v3::Request>,
 ) -> Result<create_room::v3::Response> {

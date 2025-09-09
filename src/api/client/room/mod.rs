@@ -5,7 +5,7 @@ mod initial_sync;
 mod summary;
 mod upgrade;
 
-pub(crate) use self::{
+pub use self::{
 	aliases::get_room_aliases_route,
 	create::create_room_route,
 	event::get_room_event_route,

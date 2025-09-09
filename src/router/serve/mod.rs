@@ -13,7 +13,7 @@ use tuwunel_service::Services;
 use super::layers;
 
 /// Serve clients
-pub(super) async fn serve(
+pub async fn serve(
 	services: Arc<Services>,
 	handle: ServerHandle,
 	mut shutdown: broadcast::Receiver<()>,

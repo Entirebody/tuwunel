@@ -9,16 +9,16 @@ use ruma::EventId;
 use tuwunel_core::Result;
 use tuwunel_service::Services;
 
-pub(crate) struct Context<'a> {
-	pub(crate) services: &'a Services,
-	pub(crate) body: &'a [&'a str],
-	pub(crate) timer: SystemTime,
-	pub(crate) reply_id: Option<&'a EventId>,
-	pub(crate) output: Mutex<BufWriter<Vec<u8>>>,
+pub struct Context<'a> {
+	pub services: &'a Services,
+	pub body: &'a [&'a str],
+	pub timer: SystemTime,
+	pub reply_id: Option<&'a EventId>,
+	pub output: Mutex<BufWriter<Vec<u8>>>,
 }
 
 impl Context<'_> {
-	pub(crate) fn write_fmt(
+	pub fn write_fmt(
 		&self,
 		arguments: fmt::Arguments<'_>,
 	) -> impl Future<Output = Result> + Send + '_ + use<'_> {
@@ -31,7 +31,7 @@ impl Context<'_> {
 		})
 	}
 
-	pub(crate) fn write_str<'a>(
+	pub fn write_str<'a>(
 		&'a self,
 		s: &'a str,
 	) -> impl Future<Output = Result> + Send + 'a {

@@ -21,7 +21,7 @@ mod ser;
 mod stream;
 #[cfg(test)]
 mod tests;
-pub(crate) mod util;
+pub mod util;
 
 use std::{ops::Index, sync::Arc};
 
@@ -35,7 +35,7 @@ pub use self::{
 	map::{Get, Map, Qry, compact},
 	ser::{Cbor, Interfix, Json, SEP, Separator, serialize, serialize_to, serialize_to_vec},
 };
-pub(crate) use self::{
+pub use self::{
 	engine::{Engine, context::Context},
 	util::or_else,
 };
@@ -44,7 +44,7 @@ use crate::maps::{Maps, MapsKey, MapsVal};
 pub struct Database {
 	maps: Maps,
 	pub db: Arc<Engine>,
-	pub(crate) _ctx: Arc<Context>,
+	pub _ctx: Arc<Context>,
 }
 
 impl Database {

@@ -48,7 +48,7 @@ use crate::{
 		states = ?state.len(),
 	)
 )]
-pub(super) async fn iterative_auth_check<'b, SortedPowerEvents, Fetch, Fut, Pdu>(
+pub async fn iterative_auth_check<'b, SortedPowerEvents, Fetch, Fut, Pdu>(
 	rules: &RoomVersionRules,
 	events: SortedPowerEvents,
 	state: StateMap<OwnedEventId>,

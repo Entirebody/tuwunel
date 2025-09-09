@@ -2,11 +2,11 @@ use ruma::events::room::message::RoomMessageEventContent;
 use tokio::time::{Duration, sleep};
 use tuwunel_core::{Err, Result, debug, debug_info, error, implement, info};
 
-pub(super) const SIGNAL: &str = "SIGUSR2";
+pub const SIGNAL: &str = "SIGUSR2";
 
 /// Possibly spawn the terminal console at startup if configured.
 #[implement(super::Service)]
-pub(super) async fn console_auto_start(&self) {
+pub async fn console_auto_start(&self) {
 	#[cfg(feature = "console")]
 	if self
 		.services
@@ -22,14 +22,14 @@ pub(super) async fn console_auto_start(&self) {
 
 /// Shutdown the console when the admin worker terminates.
 #[implement(super::Service)]
-pub(super) async fn console_auto_stop(&self) {
+pub async fn console_auto_stop(&self) {
 	#[cfg(feature = "console")]
 	self.console.close().await;
 }
 
 /// Execute admin commands after startup
 #[implement(super::Service)]
-pub(super) async fn startup_execute(&self) -> Result {
+pub async fn startup_execute(&self) -> Result {
 	// List of commands to execute
 	let commands = &self.services.server.config.admin_execute;
 
@@ -73,7 +73,7 @@ pub(super) async fn startup_execute(&self) -> Result {
 
 /// Execute admin commands after signal
 #[implement(super::Service)]
-pub(super) async fn signal_execute(&self) -> Result {
+pub async fn signal_execute(&self) -> Result {
 	// List of commands to execute
 	let commands = self
 		.services

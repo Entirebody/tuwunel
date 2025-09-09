@@ -5,7 +5,7 @@ use ruma::{OwnedRoomId, OwnedServerName, RoomAliasId, ServerName, api::federatio
 use tuwunel_core::{Result, debug, debug_error, err, implement};
 
 #[implement(super::Service)]
-pub(super) async fn remote_resolve(
+pub async fn remote_resolve(
 	&self,
 	room_alias: &RoomAliasId,
 	servers: Vec<OwnedServerName>,

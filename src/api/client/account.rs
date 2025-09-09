@@ -32,7 +32,7 @@ use crate::Ruma;
 /// - Forgets to-device events
 /// - Triggers device list updates
 #[tracing::instrument(skip_all, fields(%client), name = "change_password")]
-pub(crate) async fn change_password_route(
+pub async fn change_password_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<change_password::v3::Request>,
@@ -109,7 +109,7 @@ pub(crate) async fn change_password_route(
 /// Get `user_id` of the sender user.
 ///
 /// Note: Also works for Application Services
-pub(crate) async fn whoami_route(
+pub async fn whoami_route(
 	State(services): State<crate::State>,
 	body: Ruma<whoami::v3::Request>,
 ) -> Result<whoami::v3::Response> {
@@ -135,7 +135,7 @@ pub(crate) async fn whoami_route(
 /// - Triggers device list updates
 /// - Removes ability to log in again
 #[tracing::instrument(skip_all, fields(%client), name = "deactivate")]
-pub(crate) async fn deactivate_route(
+pub async fn deactivate_route(
 	State(services): State<crate::State>,
 	InsecureClientIp(client): InsecureClientIp,
 	body: Ruma<deactivate::v3::Request>,
@@ -204,7 +204,7 @@ pub(crate) async fn deactivate_route(
 /// Get a list of third party identifiers associated with this account.
 ///
 /// - Currently always returns empty list
-pub(crate) async fn third_party_route(
+pub async fn third_party_route(
 	body: Ruma<get_3pids::v3::Request>,
 ) -> Result<get_3pids::v3::Response> {
 	let _sender_user = body
@@ -222,7 +222,7 @@ pub(crate) async fn third_party_route(
 ///
 /// - 403 signals that The homeserver does not allow the third party identifier
 ///   as a contact option.
-pub(crate) async fn request_3pid_management_token_via_email_route(
+pub async fn request_3pid_management_token_via_email_route(
 	_body: Ruma<request_3pid_management_token_via_email::v3::Request>,
 ) -> Result<request_3pid_management_token_via_email::v3::Response> {
 	Err!(Request(ThreepidDenied("Third party identifiers are not implemented")))
@@ -235,7 +235,7 @@ pub(crate) async fn request_3pid_management_token_via_email_route(
 ///
 /// - 403 signals that The homeserver does not allow the third party identifier
 ///   as a contact option.
-pub(crate) async fn request_3pid_management_token_via_msisdn_route(
+pub async fn request_3pid_management_token_via_msisdn_route(
 	_body: Ruma<request_3pid_management_token_via_msisdn::v3::Request>,
 ) -> Result<request_3pid_management_token_via_msisdn::v3::Response> {
 	Err!(Request(ThreepidDenied("Third party identifiers are not implemented")))

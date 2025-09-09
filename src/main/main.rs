@@ -1,6 +1,6 @@
 #![type_length_limit = "4096"] //TODO: reduce me
 
-pub(crate) mod clap;
+pub mod clap;
 mod logging;
 mod mods;
 mod restart;

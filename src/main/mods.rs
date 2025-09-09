@@ -38,7 +38,7 @@ tuwunel_core::mod_init! {{
 	tuwunel_core::debug::set_panic_trap();
 }}
 
-pub(crate) async fn run(server: &Arc<Server>, starts: bool) -> Result<(bool, bool), Error> {
+pub async fn run(server: &Arc<Server>, starts: bool) -> Result<(bool, bool), Error> {
 	let main_lock = server.mods.read().await;
 	let main_mod = (*main_lock).last().expect("main module loaded");
 	if starts {
@@ -97,7 +97,7 @@ pub(crate) async fn run(server: &Arc<Server>, starts: bool) -> Result<(bool, boo
 	Ok((starts, reloads))
 }
 
-pub(crate) async fn open(server: &Arc<Server>) -> Result<usize, Error> {
+pub async fn open(server: &Arc<Server>) -> Result<usize, Error> {
 	let mut mods_lock = server.mods.write().await;
 	let mods: &mut Vec<mods::Module> = &mut mods_lock;
 	debug!(
@@ -115,7 +115,7 @@ pub(crate) async fn open(server: &Arc<Server>) -> Result<usize, Error> {
 	Ok(mods.len())
 }
 
-pub(crate) async fn close(server: &Arc<Server>, force: bool) -> Result<usize, Error> {
+pub async fn close(server: &Arc<Server>, force: bool) -> Result<usize, Error> {
 	let stale = stale_count(server).await;
 	let mut mods_lock = server.mods.write().await;
 	let mods: &mut Vec<mods::Module> = &mut mods_lock;

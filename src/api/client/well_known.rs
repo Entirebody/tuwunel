@@ -10,7 +10,7 @@ use crate::Ruma;
 /// # `GET /.well-known/matrix/client`
 ///
 /// Returns the .well-known URL if it is configured, otherwise returns 404.
-pub(crate) async fn well_known_client(
+pub async fn well_known_client(
 	State(services): State<crate::State>,
 	_body: Ruma<discover_homeserver::Request>,
 ) -> Result<discover_homeserver::Response> {
@@ -29,7 +29,7 @@ pub(crate) async fn well_known_client(
 /// # `GET /.well-known/matrix/support`
 ///
 /// Server support contact and support page of a homeserver's domain.
-pub(crate) async fn well_known_support(
+pub async fn well_known_support(
 	State(services): State<crate::State>,
 	_body: Ruma<discover_support::Request>,
 ) -> Result<discover_support::Response> {
@@ -93,7 +93,7 @@ pub(crate) async fn well_known_support(
 ///
 /// Endpoint provided by sliding sync proxy used by some clients such as Element
 /// Web as a non-standard health check.
-pub(crate) async fn syncv3_client_server_json(
+pub async fn syncv3_client_server_json(
 	State(services): State<crate::State>,
 ) -> Result<impl IntoResponse> {
 	let server_url = match services.server.config.well_known.client.as_ref() {

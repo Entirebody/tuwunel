@@ -21,7 +21,7 @@ use super::Event;
 /// > redacts property to the content of m.room.redaction events in older
 /// > room versions when serving such events over the Client-Server API.
 #[must_use]
-pub(super) fn copy<E: Event>(event: &E) -> (Option<OwnedEventId>, Box<RawJsonValue>) {
+pub fn copy<E: Event>(event: &E) -> (Option<OwnedEventId>, Box<RawJsonValue>) {
 	if *event.event_type() != TimelineEventType::RoomRedaction {
 		return (event.redacts().map(ToOwned::to_owned), event.content().to_owned());
 	}
@@ -46,7 +46,7 @@ pub(super) fn copy<E: Event>(event: &E) -> (Option<OwnedEventId>, Box<RawJsonVal
 }
 
 #[must_use]
-pub(super) fn is_redacted<E: Event>(event: &E) -> bool {
+pub fn is_redacted<E: Event>(event: &E) -> bool {
 	let Some(unsigned) = event.unsigned() else {
 		return false;
 	};
@@ -59,7 +59,7 @@ pub(super) fn is_redacted<E: Event>(event: &E) -> bool {
 }
 
 #[must_use]
-pub(super) fn redacts_id<E: Event>(
+pub fn redacts_id<E: Event>(
 	event: &E,
 	room_version: &RoomVersionId,
 ) -> Option<OwnedEventId> {

@@ -1,8 +1,8 @@
 mod backup;
 mod cf_opts;
-pub(crate) mod context;
+pub mod context;
 mod db_opts;
-pub(crate) mod descriptor;
+pub mod descriptor;
 mod files;
 mod logger;
 mod memory_usage;
@@ -30,16 +30,16 @@ use crate::{
 };
 
 pub struct Engine {
-	pub(crate) db: Db,
-	pub(crate) pool: Arc<Pool>,
-	pub(crate) ctx: Arc<Context>,
-	pub(super) read_only: bool,
-	pub(super) secondary: bool,
-	pub(crate) checksums: bool,
+	pub db: Db,
+	pub pool: Arc<Pool>,
+	pub ctx: Arc<Context>,
+	pub read_only: bool,
+	pub secondary: bool,
+	pub checksums: bool,
 	corks: AtomicU32,
 }
 
-pub(crate) type Db = DBWithThreadMode<MultiThreaded>;
+pub type Db = DBWithThreadMode<MultiThreaded>;
 
 impl Engine {
 	#[tracing::instrument(
@@ -90,10 +90,10 @@ impl Engine {
 	pub fn flush(&self) -> Result { result(DBCommon::flush_wal(&self.db, false)) }
 
 	#[inline]
-	pub(crate) fn cork(&self) { self.corks.fetch_add(1, Ordering::Relaxed); }
+	pub fn cork(&self) { self.corks.fetch_add(1, Ordering::Relaxed); }
 
 	#[inline]
-	pub(crate) fn uncork(&self) { self.corks.fetch_sub(1, Ordering::Relaxed); }
+	pub fn uncork(&self) { self.corks.fetch_sub(1, Ordering::Relaxed); }
 
 	#[inline]
 	pub fn corked(&self) -> bool { self.corks.load(Ordering::Relaxed) > 0 }
@@ -101,7 +101,7 @@ impl Engine {
 	/// Query for database property by null-terminated name which is expected to
 	/// have a result with an integer representation. This is intended for
 	/// low-overhead programmatic use.
-	pub(crate) fn property_integer(
+	pub fn property_integer(
 		&self,
 		cf: &impl AsColumnFamilyRef,
 		name: &CStr,
@@ -111,12 +111,12 @@ impl Engine {
 	}
 
 	/// Query for database property by name receiving the result in a string.
-	pub(crate) fn property(&self, cf: &impl AsColumnFamilyRef, name: &str) -> Result<String> {
+	pub fn property(&self, cf: &impl AsColumnFamilyRef, name: &str) -> Result<String> {
 		result(self.db.property_value_cf(cf, name))
 			.and_then(|val| val.map_or_else(|| Err!("Property {name:?} not found."), Ok))
 	}
 
-	pub(crate) fn cf(&self, name: &str) -> Arc<BoundColumnFamily<'_>> {
+	pub fn cf(&self, name: &str) -> Arc<BoundColumnFamily<'_>> {
 		self.db
 			.cf_handle(name)
 			.expect("column must be described prior to database open")

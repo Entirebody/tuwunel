@@ -20,7 +20,7 @@ use crate::{admin_command, admin_command_dispatch};
 #[derive(Debug, Subcommand)]
 #[allow(clippy::enum_variant_names)]
 /// Query tables from database
-pub(crate) enum RawCommand {
+pub enum RawCommand {
 	/// - List database maps
 	RawMaps,
 
@@ -165,7 +165,7 @@ pub(crate) enum RawCommand {
 }
 
 #[admin_command]
-pub(super) async fn compact(
+pub async fn compact(
 	&self,
 	map: Option<Vec<String>>,
 	start: Option<String>,
@@ -234,7 +234,7 @@ pub(super) async fn compact(
 }
 
 #[admin_command]
-pub(super) async fn raw_count(&self, map: Option<String>, prefix: Option<String>) -> Result {
+pub async fn raw_count(&self, map: Option<String>, prefix: Option<String>) -> Result {
 	let prefix = prefix.as_deref().unwrap_or(EMPTY);
 
 	let timer = Instant::now();
@@ -249,7 +249,7 @@ pub(super) async fn raw_count(&self, map: Option<String>, prefix: Option<String>
 }
 
 #[admin_command]
-pub(super) async fn raw_keys(&self, map: String, prefix: Option<String>) -> Result {
+pub async fn raw_keys(&self, map: String, prefix: Option<String>) -> Result {
 	writeln!(self, "```").boxed().await?;
 
 	let map = self.services.db.get(map.as_str())?;
@@ -268,7 +268,7 @@ pub(super) async fn raw_keys(&self, map: String, prefix: Option<String>) -> Resu
 }
 
 #[admin_command]
-pub(super) async fn raw_keys_sizes(&self, map: Option<String>, prefix: Option<String>) -> Result {
+pub async fn raw_keys_sizes(&self, map: Option<String>, prefix: Option<String>) -> Result {
 	let prefix = prefix.as_deref().unwrap_or(EMPTY);
 
 	let timer = Instant::now();
@@ -290,7 +290,7 @@ pub(super) async fn raw_keys_sizes(&self, map: Option<String>, prefix: Option<St
 }
 
 #[admin_command]
-pub(super) async fn raw_keys_total(&self, map: Option<String>, prefix: Option<String>) -> Result {
+pub async fn raw_keys_total(&self, map: Option<String>, prefix: Option<String>) -> Result {
 	let prefix = prefix.as_deref().unwrap_or(EMPTY);
 
 	let timer = Instant::now();
@@ -308,7 +308,7 @@ pub(super) async fn raw_keys_total(&self, map: Option<String>, prefix: Option<St
 }
 
 #[admin_command]
-pub(super) async fn raw_vals_sizes(&self, map: Option<String>, prefix: Option<String>) -> Result {
+pub async fn raw_vals_sizes(&self, map: Option<String>, prefix: Option<String>) -> Result {
 	let prefix = prefix.as_deref().unwrap_or(EMPTY);
 
 	let timer = Instant::now();
@@ -331,7 +331,7 @@ pub(super) async fn raw_vals_sizes(&self, map: Option<String>, prefix: Option<St
 }
 
 #[admin_command]
-pub(super) async fn raw_vals_total(&self, map: Option<String>, prefix: Option<String>) -> Result {
+pub async fn raw_vals_total(&self, map: Option<String>, prefix: Option<String>) -> Result {
 	let prefix = prefix.as_deref().unwrap_or(EMPTY);
 
 	let timer = Instant::now();
@@ -350,7 +350,7 @@ pub(super) async fn raw_vals_total(&self, map: Option<String>, prefix: Option<St
 }
 
 #[admin_command]
-pub(super) async fn raw_iter(&self, map: String, prefix: Option<String>) -> Result {
+pub async fn raw_iter(&self, map: String, prefix: Option<String>) -> Result {
 	writeln!(self, "```").await?;
 
 	let map = self.services.db.get(&map)?;
@@ -370,7 +370,7 @@ pub(super) async fn raw_iter(&self, map: String, prefix: Option<String>) -> Resu
 }
 
 #[admin_command]
-pub(super) async fn raw_keys_from(
+pub async fn raw_keys_from(
 	&self,
 	map: String,
 	start: String,
@@ -393,7 +393,7 @@ pub(super) async fn raw_keys_from(
 }
 
 #[admin_command]
-pub(super) async fn raw_iter_from(
+pub async fn raw_iter_from(
 	&self,
 	map: String,
 	start: String,
@@ -415,7 +415,7 @@ pub(super) async fn raw_iter_from(
 }
 
 #[admin_command]
-pub(super) async fn raw_del(&self, map: String, key: String) -> Result {
+pub async fn raw_del(&self, map: String, key: String) -> Result {
 	let map = self.services.db.get(&map)?;
 	let timer = Instant::now();
 	map.remove(&key);
@@ -426,7 +426,7 @@ pub(super) async fn raw_del(&self, map: String, key: String) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn raw_get(&self, map: String, key: String, base64: bool) -> Result {
+pub async fn raw_get(&self, map: String, key: String, base64: bool) -> Result {
 	let map = self.services.db.get(&map)?;
 	let timer = Instant::now();
 	let handle = map.get(&key).await?;
@@ -444,7 +444,7 @@ pub(super) async fn raw_get(&self, map: String, key: String, base64: bool) -> Re
 }
 
 #[admin_command]
-pub(super) async fn raw_maps(&self) -> Result {
+pub async fn raw_maps(&self) -> Result {
 	let list: Vec<_> = self
 		.services
 		.db

@@ -18,7 +18,7 @@ use tuwunel_core::{
 	skip_all,
 	fields(%prev_id),
 )]
-pub(super) async fn handle_prev_pdu(
+pub async fn handle_prev_pdu(
 	&self,
 	origin: &ServerName,
 	room_id: &RoomId,

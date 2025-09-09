@@ -18,7 +18,7 @@ use crate::Ruma;
 /// # `GET /_matrix/federation/v1/query/directory`
 ///
 /// Resolve a room alias to a room id.
-pub(crate) async fn get_room_information_route(
+pub async fn get_room_information_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_room_information::v1::Request>,
 ) -> Result<get_room_information::v1::Response> {
@@ -56,7 +56,7 @@ pub(crate) async fn get_room_information_route(
 ///
 ///
 /// Gets information on a profile.
-pub(crate) async fn get_profile_information_route(
+pub async fn get_profile_information_route(
 	State(services): State<crate::State>,
 	body: Ruma<get_profile_information::v1::Request>,
 ) -> Result<get_profile_information::v1::Response> {

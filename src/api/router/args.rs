@@ -14,53 +14,53 @@ use crate::State;
 
 /// Extractor for Ruma request structs
 #[derive(Debug)]
-pub(crate) struct Args<T> {
+pub struct Args<T> {
 	/// Request struct body
-	pub(crate) body: T,
+	pub body: T,
 
 	/// Federation server authentication: X-Matrix origin
 	/// None when not a federation server.
-	pub(crate) origin: Option<OwnedServerName>,
+	pub origin: Option<OwnedServerName>,
 
 	/// Local user authentication: user_id.
 	/// None when not an authenticated local user.
-	pub(crate) sender_user: Option<OwnedUserId>,
+	pub sender_user: Option<OwnedUserId>,
 
 	/// Local user authentication: device_id.
 	/// None when not an authenticated local user or no device.
-	pub(crate) sender_device: Option<OwnedDeviceId>,
+	pub sender_device: Option<OwnedDeviceId>,
 
 	/// Appservice authentication; registration info.
 	/// None when not an appservice.
-	pub(crate) appservice_info: Option<RegistrationInfo>,
+	pub appservice_info: Option<RegistrationInfo>,
 
 	/// Parsed JSON content.
 	/// None when body is not a valid string
-	pub(crate) json_body: Option<CanonicalJsonValue>,
+	pub json_body: Option<CanonicalJsonValue>,
 }
 
 impl<T> Args<T> {
 	#[inline]
-	pub(crate) fn sender(&self) -> (&UserId, &DeviceId) {
+	pub fn sender(&self) -> (&UserId, &DeviceId) {
 		(self.sender_user(), self.sender_device())
 	}
 
 	#[inline]
-	pub(crate) fn sender_user(&self) -> &UserId {
+	pub fn sender_user(&self) -> &UserId {
 		self.sender_user
 			.as_deref()
 			.expect("user must be authenticated for this handler")
 	}
 
 	#[inline]
-	pub(crate) fn sender_device(&self) -> &DeviceId {
+	pub fn sender_device(&self) -> &DeviceId {
 		self.sender_device
 			.as_deref()
 			.expect("user must be authenticated and device identified")
 	}
 
 	#[inline]
-	pub(crate) fn origin(&self) -> &ServerName {
+	pub fn origin(&self) -> &ServerName {
 		self.origin
 			.as_deref()
 			.expect("server must be authenticated for this handler")

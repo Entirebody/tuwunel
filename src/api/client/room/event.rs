@@ -8,7 +8,7 @@ use crate::{Ruma, client::is_ignored_pdu};
 /// # `GET /_matrix/client/r0/rooms/{roomId}/event/{eventId}`
 ///
 /// Gets a single event.
-pub(crate) async fn get_room_event_route(
+pub async fn get_room_event_route(
 	State(ref services): State<crate::State>,
 	ref body: Ruma<get_room_event::v3::Request>,
 ) -> Result<get_room_event::v3::Response> {

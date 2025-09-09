@@ -10,7 +10,7 @@ use crate::{
 
 #[derive(Debug, Parser)]
 #[command(name = "tuwunel", version = tuwunel_core::version())]
-pub(super) enum AdminCommand {
+pub enum AdminCommand {
 	#[command(subcommand)]
 	/// - Commands for managing appservices
 	Appservices(AppserviceCommand),
@@ -49,7 +49,7 @@ pub(super) enum AdminCommand {
 }
 
 #[tracing::instrument(skip_all, name = "command")]
-pub(super) async fn process(command: AdminCommand, context: &Context<'_>) -> Result {
+pub async fn process(command: AdminCommand, context: &Context<'_>) -> Result {
 	use AdminCommand::*;
 
 	match command {

@@ -14,7 +14,7 @@ use tuwunel_core::{
 use super::check_room_id;
 
 #[implement(super::Service)]
-pub(super) async fn handle_outlier_pdu(
+pub async fn handle_outlier_pdu(
 	&self,
 	origin: &ServerName,
 	room_id: &RoomId,

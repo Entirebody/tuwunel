@@ -8,7 +8,7 @@ use crate::{admin_command, admin_command_dispatch};
 #[admin_command_dispatch]
 #[derive(Debug, Subcommand)]
 /// Query tables from database
-pub(crate) enum RoomTimelineCommand {
+pub enum RoomTimelineCommand {
 	Pdus {
 		room_id: OwnedRoomOrAliasId,
 
@@ -24,7 +24,7 @@ pub(crate) enum RoomTimelineCommand {
 }
 
 #[admin_command]
-pub(super) async fn last(&self, room_id: OwnedRoomOrAliasId) -> Result {
+pub async fn last(&self, room_id: OwnedRoomOrAliasId) -> Result {
 	let room_id = self.services.alias.resolve(&room_id).await?;
 
 	let result = self
@@ -37,7 +37,7 @@ pub(super) async fn last(&self, room_id: OwnedRoomOrAliasId) -> Result {
 }
 
 #[admin_command]
-pub(super) async fn pdus(
+pub async fn pdus(
 	&self,
 	room_id: OwnedRoomOrAliasId,
 	from: Option<String>,

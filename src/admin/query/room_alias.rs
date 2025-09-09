@@ -7,7 +7,7 @@ use crate::Context;
 
 #[derive(Debug, Subcommand)]
 /// All the getters and iterators from src/database/key_value/rooms/alias.rs
-pub(crate) enum RoomAliasCommand {
+pub enum RoomAliasCommand {
 	ResolveLocalAlias {
 		/// Full room alias
 		alias: OwnedRoomAliasId,
@@ -24,7 +24,7 @@ pub(crate) enum RoomAliasCommand {
 }
 
 /// All the getters and iterators in src/database/key_value/rooms/alias.rs
-pub(super) async fn process(subcommand: RoomAliasCommand, context: &Context<'_>) -> Result {
+pub async fn process(subcommand: RoomAliasCommand, context: &Context<'_>) -> Result {
 	let services = context.services;
 
 	match subcommand {

@@ -8,7 +8,7 @@ use crate::services::OnceServices;
 
 /// Abstract interface for a Service
 #[async_trait]
-pub(crate) trait Service: Any + Send + Sync {
+pub trait Service: Any + Send + Sync {
 	/// Implement the construction of the service instance. Services are
 	/// generally singletons so expect this to only be called once for a
 	/// service type. Note that it may be called again after a server reload,
@@ -44,12 +44,12 @@ pub(crate) trait Service: Any + Send + Sync {
 
 /// Args are passed to `Service::build` when a service is constructed. This
 /// allows for arguments to change with limited impact to the many services.
-pub(crate) struct Args<'a> {
-	pub(crate) server: &'a Arc<Server>,
-	pub(crate) db: &'a Arc<Database>,
-	pub(crate) services: &'a Arc<OnceServices>,
+pub struct Args<'a> {
+	pub server: &'a Arc<Server>,
+	pub db: &'a Arc<Database>,
+	pub services: &'a Arc<OnceServices>,
 }
 
 /// Utility for service implementations; see Service::name() in the trait.
 #[inline]
-pub(crate) fn make_name(module_path: &str) -> &str { module_path.split_once_infallible("::").1 }
+pub fn make_name(module_path: &str) -> &str { module_path.split_once_infallible("::").1 }

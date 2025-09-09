@@ -10,7 +10,7 @@ use tuwunel_core::Result;
 use super::{Cursor, State, slice_longevity};
 use crate::keyval::Key;
 
-pub(crate) struct Keys<'a> {
+pub struct Keys<'a> {
 	state: State<'a>,
 }
 

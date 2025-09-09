@@ -8,19 +8,19 @@ use tuwunel_core::{Result, err};
 use tuwunel_service::Services;
 
 #[derive(Deserialize)]
-pub(super) struct QueryParams {
-	pub(super) access_token: Option<String>,
-	pub(super) user_id: Option<String>,
+pub struct QueryParams {
+	pub access_token: Option<String>,
+	pub user_id: Option<String>,
 }
 
-pub(super) struct Request {
-	pub(super) path: Path<Vec<String>>,
-	pub(super) query: QueryParams,
-	pub(super) body: Bytes,
-	pub(super) parts: Parts,
+pub struct Request {
+	pub path: Path<Vec<String>>,
+	pub query: QueryParams,
+	pub body: Bytes,
+	pub parts: Parts,
 }
 
-pub(super) async fn from(
+pub async fn from(
 	services: &Services,
 	request: hyper::Request<axum::body::Body>,
 ) -> Result<Request> {
